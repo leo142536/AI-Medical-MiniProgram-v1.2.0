@@ -1,0 +1,307 @@
+/* pages/home/home.wxss */
+.container {
+  padding: 0;
+  background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%);
+  min-height: 100vh;
+}
+
+/* 用户信息区域 */
+.user-section {
+  padding: 40rpx 30rpx 30rpx;
+  color: white;
+}
+
+.greeting {
+  margin-bottom: 20rpx;
+}
+
+.time-greeting {
+  font-size: 28rpx;
+  opacity: 0.9;
+  display: block;
+  margin-bottom: 10rpx;
+}
+
+.user-name {
+  font-size: 36rpx;
+  font-weight: bold;
+}
+
+.weather-info {
+  opacity: 0.8;
+}
+
+.weather {
+  font-size: 24rpx;
+}
+
+/* 快捷操作区域 */
+.quick-actions {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20rpx;
+  padding: 30rpx;
+  background: white;
+  margin: 0 20rpx;
+  border-radius: 20rpx;
+  box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.1);
+  transform: translateY(-20rpx);
+}
+
+.action-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20rpx 10rpx;
+  border-radius: 16rpx;
+  transition: all 0.3s ease;
+}
+
+.action-item:active {
+  background: #f5f5f5;
+  transform: scale(0.95);
+}
+
+.action-icon {
+  font-size: 48rpx;
+  margin-bottom: 10rpx;
+}
+
+.action-title {
+  font-size: 24rpx;
+  color: #333;
+  text-align: center;
+}
+
+/* 通用区块样式 */
+.section {
+  margin: 30rpx 20rpx;
+  background: white;
+  border-radius: 20rpx;
+  overflow: hidden;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.08);
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.section-more {
+  font-size: 24rpx;
+  color: #4A90E2;
+}
+
+/* 家庭成员区域 */
+.member-scroll {
+  white-space: nowrap;
+}
+
+.member-list {
+  display: flex;
+  padding: 30rpx;
+  gap: 30rpx;
+}
+
+.member-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 120rpx;
+  padding: 20rpx;
+  border-radius: 16rpx;
+  transition: all 0.3s ease;
+}
+
+.member-item:active {
+  background: #f5f5f5;
+  transform: scale(0.95);
+}
+
+.member-avatar {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 15rpx;
+  border: 3rpx solid #e0e0e0;
+}
+
+.avatar-img {
+  width: 100%;
+  height: 100%;
+}
+
+.member-name {
+  font-size: 26rpx;
+  color: #333;
+  margin-bottom: 5rpx;
+  font-weight: 500;
+}
+
+.member-relation {
+  font-size: 22rpx;
+  color: #666;
+}
+
+/* 最近病历区域 */
+.record-list {
+  padding: 0 30rpx 30rpx;
+}
+
+.record-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+  transition: all 0.3s ease;
+}
+
+.record-item:last-child {
+  border-bottom: none;
+}
+
+.record-item:active {
+  background: #f8f9fa;
+  margin: 0 -30rpx;
+  padding-left: 30rpx;
+  padding-right: 30rpx;
+}
+
+.record-info {
+  flex: 1;
+}
+
+.record-title {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 500;
+  margin-bottom: 8rpx;
+  display: block;
+}
+
+.record-meta {
+  font-size: 24rpx;
+  color: #666;
+}
+
+.record-date {
+  font-size: 24rpx;
+  color: #999;
+}
+
+/* 提醒区域 */
+.reminder-list {
+  padding: 0 30rpx 30rpx;
+}
+
+.reminder-item {
+  display: flex;
+  align-items: center;
+  padding: 25rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+  transition: all 0.3s ease;
+}
+
+.reminder-item:last-child {
+  border-bottom: none;
+}
+
+.reminder-item:active {
+  background: #f8f9fa;
+  margin: 0 -30rpx;
+  padding-left: 30rpx;
+  padding-right: 30rpx;
+}
+
+.reminder-icon {
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20rpx;
+  font-size: 28rpx;
+}
+
+.reminder-icon.medical {
+  background: #e3f2fd;
+}
+
+.reminder-icon.medicine {
+  background: #f3e5f5;
+}
+
+.reminder-info {
+  flex: 1;
+}
+
+.reminder-title {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 500;
+  margin-bottom: 8rpx;
+  display: block;
+}
+
+.reminder-meta {
+  font-size: 24rpx;
+  color: #666;
+}
+
+/* 空状态 */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 100rpx 50rpx;
+  text-align: center;
+  background: white;
+  margin: 50rpx 20rpx;
+  border-radius: 20rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.08);
+}
+
+.empty-icon {
+  font-size: 100rpx;
+  margin-bottom: 30rpx;
+}
+
+.empty-title {
+  font-size: 32rpx;
+  color: #333;
+  font-weight: bold;
+  margin-bottom: 15rpx;
+  display: block;
+}
+
+.empty-desc {
+  font-size: 26rpx;
+  color: #666;
+  margin-bottom: 50rpx;
+  display: block;
+}
+
+.start-btn {
+  background: #4A90E2;
+  color: white;
+  border-radius: 50rpx;
+  padding: 20rpx 60rpx;
+  font-size: 28rpx;
+  border: none;
+}
+
+.start-btn:active {
+  background: #357ABD;
+} 

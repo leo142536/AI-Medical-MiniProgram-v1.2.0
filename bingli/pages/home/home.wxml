@@ -1,0 +1,112 @@
+<!-- pages/home/home.wxml -->
+<view class="container">
+  <!-- 用户信息区域 -->
+  <view class="user-section">
+    <view class="greeting">
+      <text class="time-greeting">{{timeGreeting}}</text>
+      <text class="user-name">{{userInfo.nickName || '用户'}}</text>
+    </view>
+    <view class="weather-info">
+      <text class="weather">{{weather || '获取天气中...'}}</text>
+    </view>
+  </view>
+
+  <!-- 快捷操作区域 -->
+  <view class="quick-actions">
+    <view 
+      class="action-item" 
+      wx:for="{{quickActions}}" 
+      wx:key="id"
+      data-path="{{item.path}}"
+      bindtap="onQuickActionTap"
+    >
+      <view class="action-icon">{{item.icon}}</view>
+      <text class="action-title">{{item.title}}</text>
+    </view>
+  </view>
+
+  <!-- 家庭成员概览 -->
+  <view class="section family-section" wx:if="{{familyMembers.length > 0}}">
+    <view class="section-header">
+      <text class="section-title">家庭成员</text>
+      <text class="section-more" bindtap="onViewMoreFamily">查看全部</text>
+    </view>
+    <scroll-view class="member-scroll" scroll-x="true">
+      <view class="member-list">
+        <view 
+          class="member-item" 
+          wx:for="{{familyMembers}}" 
+          wx:key="id"
+          data-id="{{item.id}}"
+          bindtap="onFamilyMemberTap"
+        >
+          <view class="member-avatar">
+            <image 
+              class="avatar-img" 
+              src="{{item.avatar || '/images/default-avatar.png'}}" 
+              mode="aspectFill"
+            />
+          </view>
+          <text class="member-name">{{item.name}}</text>
+          <text class="member-relation">{{item.relation}}</text>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 最近病历 -->
+  <view class="section records-section" wx:if="{{recentRecords.length > 0}}">
+    <view class="section-header">
+      <text class="section-title">最近病历</text>
+      <text class="section-more" bindtap="onViewMoreRecords">查看更多</text>
+    </view>
+    <view class="record-list">
+      <view 
+        class="record-item" 
+        wx:for="{{recentRecords}}" 
+        wx:key="id"
+        data-id="{{item.id}}"
+        bindtap="onRecordTap"
+      >
+        <view class="record-info">
+          <text class="record-title">{{item.title}}</text>
+          <text class="record-meta">{{item.member}} · {{item.hospital}}</text>
+        </view>
+        <text class="record-date">{{item.date}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 即将到来的提醒 -->
+  <view class="section reminders-section" wx:if="{{upcomingReminders.length > 0}}">
+    <view class="section-header">
+      <text class="section-title">即将到来的提醒</text>
+      <text class="section-more" bindtap="onViewMoreReminders">查看更多</text>
+    </view>
+    <view class="reminder-list">
+      <view 
+        class="reminder-item" 
+        wx:for="{{upcomingReminders}}" 
+        wx:key="id"
+        data-id="{{item.id}}"
+        bindtap="onReminderTap"
+      >
+        <view class="reminder-icon {{item.type}}">
+          <text>{{item.type === 'medical' ? '🏥' : '💊'}}</text>
+        </view>
+        <view class="reminder-info">
+          <text class="reminder-title">{{item.title}}</text>
+          <text class="reminder-meta">{{item.member}} · {{item.time}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{!hasUserInfo}}">
+    <view class="empty-icon">👋</view>
+    <text class="empty-title">欢迎使用AI病例管理</text>
+    <text class="empty-desc">开始管理您的家庭健康信息</text>
+    <button class="start-btn" bindtap="onStartUse">开始使用</button>
+  </view>
+</view> 
