@@ -1,0 +1,56 @@
+{
+  "timestamp": "2025-06-08T08:15:02.277Z",
+  "success": 12,
+  "total": 12,
+  "status": "success",
+  "files": [
+    {
+      "source": "1.总览与规范.md",
+      "target": "01_总览与规范.md",
+      "exists": true,
+      "synced": true
+    },
+    {
+      "source": "01_FR1_用户家庭管理.md",
+      "target": "02_FR1_用户家庭管理.md",
+      "exists": true,
+      "synced": true
+    },
+    {
+      "source": "02_FR2_病历管理.md",
+      "target": "03_FR2_病历管理.md",
+      "exists": true,
+      "synced": true
+    },
+    {
+      "source": "03_FR3_健康提醒.md",
+      "target": "04_FR3_健康提醒.md",
+      "exists": true,
+      "synced": true
+    },
+    {
+      "source": "04_FR4_安全设置.md",
+      "target": "05_FR4_安全设置.md",
+      "exists": true,
+      "synced": true
+    },
+    {
+      "source": "3.状态机.md",
+      "target": "06_状态机设计.md",
+      "exists": true,
+      "synced": true
+    },
+    {
+      "source": "5.验收要求.md",
+      "target": "07_验收要求.md",
+      "exists": true,
+      "synced": true
+    },
+    {
+      "source": "06_API集合.postman_collection.json",
+      "target": "postman-collection.json",
+      "exists": true,
+      "synced": true
+    }
+  ]
+}

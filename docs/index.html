@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>AI病例管理系统 - 项目文档</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="description" content="AI病例管理微信小程序项目文档，包含完整的需求分析、系统设计和开发指南">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📋</text></svg>">
+  <style>
+    :root {
+      --theme-color: #07C160;
+      --sidebar-width: 300px;
+    }
+    
+    .sidebar {
+      background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%);
+    }
+    
+    .sidebar-nav > ul > li > p {
+      font-weight: 600;
+      color: #2c3e50;
+      margin: 0;
+      padding: 10px 0 5px 0;
+    }
+    
+    .app-name-link {
+      color: #07C160 !important;
+      font-weight: bold;
+    }
+    
+    .markdown-section {
+      max-width: 1000px;
+    }
+    
+    .markdown-section h1 {
+      color: #2c3e50;
+      border-bottom: 2px solid #07C160;
+      padding-bottom: 10px;
+    }
+    
+    .markdown-section h2 {
+      color: #34495e;
+      border-left: 4px solid #07C160;
+      padding-left: 15px;
+    }
+    
+    .markdown-section blockquote {
+      border-left: 4px solid #07C160;
+      background: #f8f9fa;
+    }
+    
+    .markdown-section code {
+      background: #f1f2f6;
+      color: #e74c3c;
+      padding: 2px 4px;
+      border-radius: 3px;
+    }
+    
+    .markdown-section pre {
+      background: #2d3748;
+      border-radius: 8px;
+    }
+    
+    .markdown-section pre code {
+      background: transparent;
+      color: #e2e8f0;
+    }
+    
+    /* 自定义表格样式 */
+    .markdown-section table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 20px 0;
+    }
+    
+    .markdown-section table th,
+    .markdown-section table td {
+      border: 1px solid #ddd;
+      padding: 12px;
+      text-align: left;
+    }
+    
+    .markdown-section table th {
+      background-color: #07C160;
+      color: white;
+      font-weight: bold;
+    }
+    
+    .markdown-section table tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+    
+    /* 响应式设计 */
+    @media screen and (max-width: 768px) {
+      .sidebar {
+        transform: translateX(-300px);
+      }
+      
+      .sidebar.open {
+        transform: translateX(0);
+      }
+      
+      .content {
+        left: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="app">📋 加载中...</div>
+  <script>
+    window.$docsify = {
+      name: 'AI病例管理系统',
+      repo: 'https://github.com/your-username/ai-medical-records',
+      homepage: 'README.md',
+      loadSidebar: true,
+      loadNavbar: false,
+      subMaxLevel: 3,
+      auto2top: true,
+      maxLevel: 4,
+      search: {
+        maxAge: 86400000,
+        paths: 'auto',
+        placeholder: '🔍 搜索文档...',
+        noData: '😞 没有找到相关内容',
+        depth: 6,
+        hideOtherSidebarContent: false
+      },
+      count: {
+        countable: true,
+        fontsize: '0.9em',
+        color: 'rgb(90,90,90)',
+        language: 'chinese'
+      },
+      pagination: {
+        previousText: '上一页',
+        nextText: '下一页',
+        crossChapter: true,
+        crossChapterText: true
+      },
+      copyCode: {
+        buttonText: '📋 复制',
+        errorText: '❌ 复制失败',
+        successText: '✅ 已复制'
+      },
+      tabs: {
+        persist: true,
+        sync: true,
+        theme: 'classic',
+        tabComments: true,
+        tabHeadings: true
+      },
+      themeable: {
+        readyTransition: true,
+        responsiveTables: true
+      },
+      plugins: [
+        function(hook, vm) {
+          hook.beforeEach(function(html) {
+            // 添加编辑链接
+            var url = 'https://github.com/your-username/ai-medical-records/blob/main/docs/' + vm.route.file;
+            var editHtml = '[:memo: 编辑此页](' + url + ')\n';
+            return editHtml + html;
+          });
+          
+          hook.doneEach(function() {
+            // 添加最后更新时间
+            var footer = [
+              '<hr/>',
+              '<footer>',
+              '<span>📅 最后更新: ' + new Date().toLocaleString('zh-CN') + '</span>',
+              ' | ',
+              '<span>💡 使用 <a href="https://docsify.js.org" target="_blank">docsify</a> 构建</span>',
+              '</footer>'
+            ].join('');
+            
+            document.querySelector('.content').innerHTML += footer;
+          });
+        }
+      ]
+    }
+  </script>
+  
+  <!-- Docsify 核心 -->
+  <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
+  
+  <!-- 插件 -->
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify-copy-code@2"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify-pagination/dist/docsify-pagination.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/zoom-image.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify-tabs@1"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify-themeable@0"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify-count/dist/countable.min.js"></script>
+  
+  <!-- 代码高亮 -->
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-javascript.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-json.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-sql.min.js"></script>
+  
+  <!-- 数学公式支持 -->
+  <script src="//cdn.jsdelivr.net/npm/docsify-katex@latest/dist/docsify-katex.js"></script>
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css"/>
+  
+  <!-- Mermaid 图表支持 -->
+  <script src="//cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify-mermaid@latest/dist/docsify-mermaid.js"></script>
+  <script>mermaid.initialize({ startOnLoad: true });</script>
+</body>
+</html> 
