@@ -17,24 +17,35 @@
       class="action-item" 
       wx:for="{{quickActions}}" 
       wx:key="id"
+      data-id="{{item.id}}"
       data-path="{{item.path}}"
       bindtap="onQuickActionTap"
     >
-      <view class="action-icon">{{item.icon}}</view>
+      <view class="action-icon-container">
+        <view class="action-icon">{{item.icon}}</view>
+      </view>
       <text class="action-title">{{item.title}}</text>
     </view>
   </view>
 
   <!-- 家庭成员概览 -->
-  <view class="section family-section" wx:if="{{familyMembers.length > 0}}">
+  <view class="section family-section">
     <view class="section-header">
       <text class="section-title">家庭成员</text>
-      <text class="section-more" bindtap="onViewMoreFamily">查看全部</text>
+      <view class="header-actions">
+        <view class="add-member-header-btn" bindtap="onAddFamilyMember">
+          <text class="add-icon-header">+</text>
+        </view>
+        <view class="delete-member-header-btn" bindtap="onToggleDeleteMode">
+          <text class="delete-icon-header">{{isDeleteMode ? '完成' : '−'}}</text>
+        </view>
+        <text class="section-more" bindtap="onViewMoreFamily">查看全部</text>
+      </view>
     </view>
     <scroll-view class="member-scroll" scroll-x="true">
       <view class="member-list">
         <view 
-          class="member-item" 
+          class="member-item {{isDeleteMode ? 'delete-mode' : ''}}" 
           wx:for="{{familyMembers}}" 
           wx:key="id"
           data-id="{{item.id}}"
@@ -46,9 +57,28 @@
               src="{{item.avatar || '/images/default-avatar.png'}}" 
               mode="aspectFill"
             />
+            <!-- 删除按钮 -->
+            <view 
+              wx:if="{{isDeleteMode && item.relation !== '本人'}}" 
+              class="delete-member-btn"
+              data-id="{{item.id}}"
+              data-name="{{item.name}}"
+              bindtap="onDeleteMember"
+            >
+              <text class="delete-icon">×</text>
+            </view>
           </view>
-          <text class="member-name">{{item.name}}</text>
+          <text class="member-name">{{item.name}}{{item.relation !== '本人' ? '(' + item.relation + ')' : ''}}</text>
           <text class="member-relation">{{item.relation}}</text>
+        </view>
+        
+        <!-- 如果没有家庭成员，显示添加按钮 -->
+        <view class="member-item add-member" wx:if="{{familyMembers.length === 0}}" bindtap="onAddFamilyMember">
+          <view class="member-avatar add-avatar">
+            <text class="add-icon">+</text>
+          </view>
+          <text class="member-name">添加成员</text>
+          <text class="member-relation">家人</text>
         </view>
       </view>
     </scroll-view>
@@ -68,10 +98,10 @@
         data-id="{{item.id}}"
         bindtap="onRecordTap"
       >
-        <view class="record-info">
-          <text class="record-title">{{item.title}}</text>
-          <text class="record-meta">{{item.member}} · {{item.hospital}}</text>
-        </view>
+              <view class="record-info">
+        <text class="record-title">{{item.title}}</text>
+        <text class="record-meta">{{item.member}}{{item.relation ? '（' + item.relation + '）' : ''}} · {{item.hospital}}</text>
+      </view>
         <text class="record-date">{{item.date}}</text>
       </view>
     </view>
@@ -94,10 +124,10 @@
         <view class="reminder-icon {{item.type}}">
           <text>{{item.type === 'medical' ? '🏥' : '💊'}}</text>
         </view>
-        <view class="reminder-info">
-          <text class="reminder-title">{{item.title}}</text>
-          <text class="reminder-meta">{{item.member}} · {{item.time}}</text>
-        </view>
+              <view class="reminder-info">
+        <text class="reminder-title">{{item.title}}</text>
+        <text class="reminder-meta">{{item.member}}{{item.relation ? '（' + item.relation + '）' : ''}} · {{item.time}}</text>
+      </view>
       </view>
     </view>
   </view>
@@ -108,5 +138,141 @@
     <text class="empty-title">欢迎使用AI病例管理</text>
     <text class="empty-desc">开始管理您的家庭健康信息</text>
     <button class="start-btn" bindtap="onStartUse">开始使用</button>
+  </view>
+
+  <!-- 家庭成员详情弹窗 -->
+  <view class="family-modal" wx:if="{{showFamilyModal}}" bindtap="onCloseFamilyModal">
+    <view class="modal-content" catchtap="true">
+      <view class="modal-header">
+        <text class="modal-title">家庭成员管理</text>
+        <view class="modal-close" bindtap="onCloseFamilyModal">
+          <text class="close-icon">×</text>
+        </view>
+      </view>
+      
+      <scroll-view class="modal-body" scroll-y="true">
+        <view class="all-members-list">
+          <view 
+            class="member-card" 
+            wx:for="{{allFamilyMembers}}" 
+            wx:key="id"
+          >
+            <view class="member-card-avatar">
+              <image 
+                class="member-card-img" 
+                src="{{item.avatar || '/images/default-avatar.png'}}" 
+                mode="aspectFill"
+              />
+            </view>
+            <view class="member-card-info">
+              <text class="member-card-name">{{item.name}}</text>
+              <text class="member-card-relation">{{item.relation}}</text>
+              <text class="member-card-phone" wx:if="{{item.phone}}">📱 {{item.phone}}</text>
+              <text class="member-card-birthday" wx:if="{{item.birthday}}">🎂 {{item.birthday}}</text>
+            </view>
+            <view class="member-card-actions" wx:if="{{item.relation !== '本人'}}">
+              <view 
+                class="action-btn delete-btn"
+                data-id="{{item.id}}"
+                data-name="{{item.name}}"
+                bindtap="onDeleteMember"
+              >删除</view>
+            </view>
+          </view>
+        </view>
+      </scroll-view>
+      
+      <view class="modal-footer">
+        <view class="add-member-btn" bindtap="onAddFamilyMember">
+          <text class="add-btn-icon">+</text>
+          <text class="add-btn-text">添加成员</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- AI分析弹窗 -->
+  <view class="ai-modal" wx:if="{{showAIModal}}" bindtap="onCloseAIModal">
+    <view class="ai-modal-content" catchtap="true">
+      <view class="ai-modal-header">
+        <text class="ai-modal-title">🤖 AI智能病例分析</text>
+        <view class="ai-modal-close" bindtap="onCloseAIModal">
+          <text class="close-icon">×</text>
+        </view>
+      </view>
+      
+      <!-- 模型选择阶段 -->
+      <scroll-view class="ai-modal-body" scroll-y="true" wx:if="{{!analysisResult}}">
+        <view class="ai-description">
+          <text class="ai-desc-text">选择AI模型对您的病例进行智能分析</text>
+          <text class="ai-desc-note">⚠️ 数据仅在本地处理，不会上传到服务器</text>
+        </view>
+        
+        <view class="ai-models-list">
+          <view 
+            class="ai-model-card {{selectedModel === item.id ? 'selected' : ''}}" 
+            wx:for="{{aiModels}}" 
+            wx:key="id"
+            data-model="{{item.id}}"
+            bindtap="onSelectModel"
+          >
+            <view class="ai-model-header">
+              <text class="ai-model-icon">{{item.icon}}</text>
+              <view class="ai-model-info">
+                <text class="ai-model-name">{{item.name}}</text>
+                <text class="ai-model-accuracy">准确率: {{item.accuracy}}</text>
+              </view>
+              <view class="ai-model-select">
+                <text class="select-icon">{{selectedModel === item.id ? '✓' : '○'}}</text>
+              </view>
+            </view>
+            <text class="ai-model-desc">{{item.description}}</text>
+            <view class="ai-model-features">
+              <text 
+                class="feature-tag" 
+                wx:for="{{item.features}}" 
+                wx:key="*this"
+                wx:for-item="feature"
+              >{{feature}}</text>
+            </view>
+          </view>
+        </view>
+        
+        <view class="ai-analyze-btn-container">
+          <view 
+            class="ai-analyze-btn {{selectedModel ? 'active' : 'disabled'}}" 
+            bindtap="onStartAnalysis"
+          >
+            <text class="analyze-btn-text">{{isAnalyzing ? '分析中...' : '开始AI分析'}}</text>
+            <view class="analyze-loading" wx:if="{{isAnalyzing}}">
+              <view class="loading-dot"></view>
+              <view class="loading-dot"></view>
+              <view class="loading-dot"></view>
+            </view>
+          </view>
+        </view>
+      </scroll-view>
+      
+      <!-- 分析结果阶段 -->
+      <scroll-view class="ai-modal-body" scroll-y="true" wx:if="{{analysisResult}}">
+        <view class="analysis-result">
+          <view class="result-header">
+            <text class="result-model-name">{{analysisResult.name}}</text>
+            <text class="result-confidence">可信度: {{analysisResult.confidence}}</text>
+          </view>
+          <view class="result-content">
+            <text class="result-text">{{analysisResult.analysis}}</text>
+          </view>
+          <view class="result-actions">
+            <view class="action-btn secondary" bindtap="onCloseAIModal">
+              <text>关闭</text>
+            </view>
+            <view class="action-btn primary" bindtap="onSaveReport">
+              <text>保存报告</text>
+            </view>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
   </view>
 </view> 

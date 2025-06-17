@@ -1,0 +1,331 @@
+/* pages/record/prescription/prescription.wxss */
+.container {
+  padding: 20rpx;
+  padding-bottom: 120rpx;
+  background: #f8f9fa;
+  min-height: 100vh;
+}
+
+/* 头部样式 */
+.header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 30rpx;
+  border-radius: 16rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 4rpx 20rpx rgba(102, 126, 234, 0.3);
+}
+
+.title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 10rpx;
+}
+
+.subtitle {
+  font-size: 26rpx;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* 区块样式 */
+.section {
+  background: white;
+  border-radius: 16rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 30rpx;
+  background: #f8f9fa;
+  border-bottom: 1rpx solid #eee;
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.section-title .icon {
+  margin-right: 10rpx;
+  font-size: 32rpx;
+}
+
+.add-btn {
+  width: 60rpx;
+  height: 60rpx;
+  background: #07c160;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 36rpx;
+  font-weight: bold;
+}
+
+/* 表单样式 */
+.form-group {
+  padding: 20rpx 30rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.form-group:last-child {
+  border-bottom: none;
+}
+
+.form-group.full-width {
+  width: 100%;
+}
+
+.form-row {
+  display: flex;
+  gap: 20rpx;
+}
+
+.form-row .form-group {
+  flex: 1;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.form-row .form-group:first-child {
+  padding-left: 30rpx;
+}
+
+.form-row .form-group:last-child {
+  padding-right: 30rpx;
+}
+
+.label {
+  font-size: 28rpx;
+  color: #666;
+  margin-bottom: 10rpx;
+  font-weight: 500;
+}
+
+.input {
+  width: 100%;
+  padding: 20rpx 0;
+  font-size: 30rpx;
+  color: #333;
+  border: none;
+  outline: none;
+}
+
+.input:disabled {
+  color: #999;
+  background: #f5f5f5;
+}
+
+.textarea {
+  width: 100%;
+  min-height: 120rpx;
+  padding: 20rpx 0;
+  font-size: 30rpx;
+  color: #333;
+  border: none;
+  outline: none;
+  resize: none;
+}
+
+.textarea.large {
+  min-height: 200rpx;
+}
+
+.picker {
+  padding: 20rpx 0;
+  font-size: 30rpx;
+  color: #333;
+}
+
+/* 药品列表样式 */
+.medicine-list {
+  padding: 0 30rpx 30rpx;
+}
+
+.medicine-item {
+  background: #f8f9fa;
+  border-radius: 12rpx;
+  margin-bottom: 20rpx;
+  border: 2rpx solid #e9ecef;
+  overflow: hidden;
+}
+
+.medicine-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20rpx 25rpx;
+  background: #e9ecef;
+  border-bottom: 1rpx solid #dee2e6;
+}
+
+.medicine-name {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #495057;
+}
+
+.delete-btn {
+  width: 50rpx;
+  height: 50rpx;
+  background: #dc3545;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 32rpx;
+}
+
+.medicine-form {
+  padding: 20rpx 0;
+}
+
+.medicine-form .form-group {
+  border-bottom: 1rpx solid #e9ecef;
+  padding: 15rpx 25rpx;
+}
+
+.medicine-form .form-group:last-child {
+  border-bottom: none;
+}
+
+/* 空状态样式 */
+.empty-state {
+  text-align: center;
+  padding: 80rpx 20rpx;
+  color: #999;
+}
+
+.empty-state .icon {
+  font-size: 80rpx;
+  display: block;
+  margin-bottom: 20rpx;
+}
+
+.empty-state .message {
+  font-size: 32rpx;
+  display: block;
+  margin-bottom: 10rpx;
+}
+
+.empty-state .submessage {
+  font-size: 26rpx;
+  display: block;
+  color: #ccc;
+}
+
+/* 快速操作样式 */
+.quick-actions {
+  display: flex;
+  padding: 30rpx;
+  gap: 20rpx;
+}
+
+.quick-btn {
+  flex: 1;
+  padding: 30rpx 20rpx;
+  background: #f8f9fa;
+  border-radius: 12rpx;
+  text-align: center;
+  border: 2rpx solid #e9ecef;
+  transition: all 0.3s ease;
+}
+
+.quick-btn:active {
+  background: #e9ecef;
+  transform: scale(0.98);
+}
+
+.quick-btn .icon {
+  font-size: 32rpx;
+  display: block;
+  margin-bottom: 10rpx;
+}
+
+.quick-btn text:last-child {
+  font-size: 24rpx;
+  color: #666;
+}
+
+/* 底部操作栏 */
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  padding: 20rpx 30rpx;
+  border-top: 1rpx solid #eee;
+  display: flex;
+  gap: 20rpx;
+  z-index: 100;
+}
+
+.btn {
+  flex: 1;
+  height: 80rpx;
+  border-radius: 40rpx;
+  border: none;
+  font-size: 30rpx;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.btn.primary {
+  background: linear-gradient(135deg, #07c160 0%, #00a854 100%);
+  color: white;
+  box-shadow: 0 4rpx 15rpx rgba(7, 193, 96, 0.3);
+}
+
+.btn.primary:active {
+  background: linear-gradient(135deg, #00a854 0%, #009688 100%);
+  transform: translateY(1rpx);
+}
+
+.btn.secondary {
+  background: white;
+  color: #666;
+  border: 2rpx solid #e9ecef;
+}
+
+.btn.secondary:active {
+  background: #f8f9fa;
+  transform: translateY(1rpx);
+}
+
+/* 加载状态 */
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  color: white;
+  font-size: 30rpx;
+}
+
+.loading-spinner {
+  width: 60rpx;
+  height: 60rpx;
+  border: 4rpx solid rgba(255, 255, 255, 0.3);
+  border-top: 4rpx solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20rpx;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+} 

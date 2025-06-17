@@ -1,54 +1,15 @@
 {
-  "name": "ai-medical-records",
-  "version": "1.0.0",
-  "description": "AI病例管理微信小程序 - 智能家庭健康管理系统",
-  "main": "bingli/app.js",
+  "name": "miniprogram-ts-sass-quickstart",
+  "version": "1.2.0",
+  "description": "",
   "scripts": {
-    "sync-docs": "node scripts/sync-docs.js",
-    "docs:serve": "docsify serve docs",
-    "docs:build": "docsify build docs",
-    "docs:pdf": "pandoc docs/requirements/*.md -o docs/project-requirements.pdf",
-    "docs:clean": "rm -rf docs/backup/* docs/sync-report.json",
-    "dev": "echo '请使用微信开发者工具打开项目'",
-    "build": "echo '请使用微信开发者工具构建项目'",
-    "test": "echo '暂无测试脚本'",
-    "lint": "echo '暂无代码检查脚本'"
   },
-  "keywords": [
-    "微信小程序",
-    "病例管理",
-    "健康管理",
-    "AI",
-    "医疗",
-    "家庭健康"
-  ],
-  "author": "AI病例管理团队",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/your-username/ai-medical-records.git"
+  "keywords": [],
+  "author": "",
+  "license": "",
+  "dependencies": {
   },
-  "bugs": {
-    "url": "https://github.com/your-username/ai-medical-records/issues"
-  },
-  "homepage": "https://github.com/your-username/ai-medical-records#readme",
   "devDependencies": {
-    "docsify-cli": "^4.4.4"
-  },
-  "optionalDependencies": {
-    "pandoc": "^0.2.1"
-  },
-  "engines": {
-    "node": ">=14.0.0"
-  },
-  "directories": {
-    "doc": "docs",
-    "lib": "bingli"
-  },
-  "files": [
-    "bingli/",
-    "docs/",
-    "scripts/",
-    "README.md"
-  ]
-} 
+    "miniprogram-api-typings": "^2.8.3-1"
+  }
+}

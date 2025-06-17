@@ -7,6 +7,8 @@
     "pages/login/login",
     "pages/record/detail/detail",
     "pages/record/edit/edit",
+    "pages/reminder/add/add",
+    "pages/family/add/add",
     "pages/unlock/unlock",
     "pages/settings/settings"
   ],
@@ -30,27 +32,19 @@
     "list": [
       {
         "pagePath": "pages/home/home",
-        "text": "病历",
-        "iconPath": "images/tab/record.png",
-        "selectedIconPath": "images/tab/record-active.png"
+        "text": "📋 病历"
       },
       {
         "pagePath": "pages/family/family",
-        "text": "家人", 
-        "iconPath": "images/tab/family.png",
-        "selectedIconPath": "images/tab/family-active.png"
+        "text": "👨‍👩‍👧‍👦 家人"
       },
       {
         "pagePath": "pages/reminder/reminder",
-        "text": "提醒",
-        "iconPath": "images/tab/bell.png", 
-        "selectedIconPath": "images/tab/bell-active.png"
+        "text": "⏰ 提醒"
       },
       {
         "pagePath": "pages/profile/profile",
-        "text": "我的",
-        "iconPath": "images/tab/profile.png",
-        "selectedIconPath": "images/tab/profile-active.png"
+        "text": "👤 我的"
       }
     ]
   },
@@ -70,19 +64,15 @@
     },
     "scope.album": {
       "desc": "访问相册用于选择病历照片"
+    },
+    "scope.record": {
+      "desc": "访问麦克风用于语音输入"
     }
   },
   
   "requiredBackgroundModes": [
     "location"
   ],
-  
-  "plugins": {
-    "WechatSI": {
-      "version": "0.3.5",
-      "provider": "wx069ba97219f66d99"
-    }
-  },
   
   "cloud": true,
   

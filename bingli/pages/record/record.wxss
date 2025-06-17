@@ -1,0 +1,508 @@
+/* pages/record/record.wxss */
+.record-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #f7f7f7;
+}
+
+/* 搜索栏 */
+.search-bar {
+  background-color: #fff;
+  padding: 20rpx;
+  border-bottom: 2rpx solid #f0f0f0;
+}
+
+.search-input-wrapper {
+  display: flex;
+  align-items: center;
+  background-color: #f8f9fa;
+  border-radius: 24rpx;
+  padding: 0 20rpx;
+}
+
+.search-input {
+  flex: 1;
+  padding: 20rpx 0;
+  font-size: 28rpx;
+  border: none;
+  background: transparent;
+}
+
+.search-actions {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.clear-btn,
+.filter-btn {
+  font-size: 32rpx;
+  color: #666;
+  padding: 8rpx;
+}
+
+.clear-btn {
+  color: #999;
+}
+
+.filter-btn {
+  color: #1890ff;
+}
+
+/* 标签页 */
+.tabs-container {
+  background-color: #fff;
+  border-bottom: 2rpx solid #f0f0f0;
+}
+
+.tabs {
+  display: flex;
+  padding: 0 20rpx;
+}
+
+.tab {
+  flex: 1;
+  padding: 32rpx 0;
+  text-align: center;
+  font-size: 28rpx;
+  color: #666;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.tab.active {
+  color: #07C160;
+  font-weight: 600;
+}
+
+.tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60rpx;
+  height: 6rpx;
+  background-color: #07C160;
+  border-radius: 3rpx;
+}
+
+/* 病历列表 */
+.record-list {
+  flex: 1;
+  padding: 20rpx;
+}
+
+/* 加载状态 */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80rpx 20rpx;
+}
+
+.loading-spinner {
+  width: 60rpx;
+  height: 60rpx;
+  border: 4rpx solid #f0f0f0;
+  border-top: 4rpx solid #07C160;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20rpx;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-text {
+  font-size: 28rpx;
+  color: #666;
+}
+
+/* 空状态 */
+.empty-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 120rpx 40rpx;
+}
+
+.empty-icon {
+  font-size: 120rpx;
+  margin-bottom: 32rpx;
+  opacity: 0.6;
+}
+
+.empty-title {
+  font-size: 32rpx;
+  color: #333;
+  font-weight: 600;
+  margin-bottom: 16rpx;
+}
+
+.empty-desc {
+  font-size: 28rpx;
+  color: #666;
+  text-align: center;
+  line-height: 1.5;
+  margin-bottom: 40rpx;
+}
+
+.empty-action-btn {
+  background-color: #07C160;
+  color: #fff;
+  border: none;
+  padding: 24rpx 48rpx;
+  border-radius: 32rpx;
+  font-size: 28rpx;
+}
+
+/* 病历卡片 */
+.record-card-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.record-card {
+  background-color: #fff;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease;
+}
+
+.record-card:active {
+  transform: scale(0.98);
+}
+
+/* 卡片头部 */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20rpx;
+}
+
+.header-left {
+  flex: 1;
+}
+
+.record-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 12rpx;
+  display: block;
+}
+
+.record-meta {
+  display: flex;
+  gap: 20rpx;
+  align-items: center;
+}
+
+.record-date {
+  font-size: 24rpx;
+  color: #666;
+}
+
+.record-member {
+  font-size: 22rpx;
+  color: #07C160;
+  background-color: #f0fff4;
+  padding: 4rpx 12rpx;
+  border-radius: 12rpx;
+}
+
+.header-right {
+  margin-left: 16rpx;
+}
+
+.more-btn {
+  font-size: 32rpx;
+  color: #999;
+  padding: 8rpx;
+}
+
+/* 医院信息 */
+.hospital-info {
+  margin-bottom: 16rpx;
+  padding-bottom: 16rpx;
+  border-bottom: 2rpx solid #f5f5f5;
+}
+
+.hospital-name {
+  font-size: 28rpx;
+  color: #1890ff;
+  margin-bottom: 8rpx;
+  display: block;
+}
+
+.diagnosis {
+  font-size: 26rpx;
+  color: #333;
+  background-color: #fff5f5;
+  padding: 8rpx 16rpx;
+  border-radius: 16rpx;
+  border-left: 4rpx solid #ff4757;
+  display: inline-block;
+}
+
+/* 医疗信息 */
+.medical-info {
+  margin-bottom: 16rpx;
+}
+
+.symptoms,
+.treatment {
+  display: flex;
+  margin-bottom: 8rpx;
+  font-size: 26rpx;
+  line-height: 1.5;
+}
+
+.symptoms:last-child,
+.treatment:last-child {
+  margin-bottom: 0;
+}
+
+.medical-info .label {
+  color: #666;
+  min-width: 80rpx;
+}
+
+.medical-info .content {
+  color: #333;
+  flex: 1;
+}
+
+/* 卡片底部 */
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16rpx;
+}
+
+.footer-left {
+  display: flex;
+  gap: 20rpx;
+  align-items: center;
+}
+
+.cost {
+  font-size: 24rpx;
+  color: #ff4757;
+  font-weight: 600;
+}
+
+.image-count {
+  font-size: 22rpx;
+  color: #666;
+}
+
+.footer-right {
+  display: flex;
+  gap: 12rpx;
+}
+
+.action-btn {
+  padding: 12rpx 24rpx;
+  border-radius: 20rpx;
+  font-size: 22rpx;
+  border: none;
+  min-width: 80rpx;
+}
+
+.edit-btn {
+  background-color: #f0f9ff;
+  color: #1890ff;
+}
+
+.share-btn {
+  background-color: #f0fff4;
+  color: #07C160;
+}
+
+/* 加载更多 */
+.load-more {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40rpx 20rpx;
+}
+
+.load-more-spinner {
+  width: 32rpx;
+  height: 32rpx;
+  border: 3rpx solid #f0f0f0;
+  border-top: 3rpx solid #07C160;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-right: 12rpx;
+}
+
+.load-more-text {
+  font-size: 24rpx;
+  color: #666;
+}
+
+.no-more {
+  text-align: center;
+  padding: 40rpx 20rpx;
+  font-size: 24rpx;
+  color: #999;
+}
+
+/* 添加按钮 */
+.add-button {
+  position: fixed;
+  bottom: 120rpx;
+  right: 40rpx;
+  width: 112rpx;
+  height: 112rpx;
+  background: linear-gradient(135deg, #07C160, #05a752);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8rpx 24rpx rgba(7, 193, 96, 0.3);
+  transition: transform 0.2s ease;
+  z-index: 100;
+}
+
+.add-button:active {
+  transform: scale(0.9);
+}
+
+.add-icon {
+  font-size: 48rpx;
+  color: #fff;
+  font-weight: 300;
+}
+
+/* 筛选弹窗 */
+.filter-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.modal-mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  background-color: #fff;
+  border-radius: 24rpx 24rpx 0 0;
+  padding: 40rpx;
+  width: 100%;
+  position: relative;
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32rpx;
+}
+
+.modal-title {
+  font-size: 36rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+.modal-close {
+  font-size: 48rpx;
+  color: #999;
+  width: 48rpx;
+  height: 48rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.filter-content {
+  margin-bottom: 40rpx;
+}
+
+.filter-item {
+  margin-bottom: 32rpx;
+}
+
+.filter-item:last-child {
+  margin-bottom: 0;
+}
+
+.filter-label {
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 16rpx;
+  display: block;
+}
+
+.picker-input {
+  background-color: #f8f9fa;
+  padding: 24rpx 20rpx;
+  border-radius: 12rpx;
+  font-size: 28rpx;
+  color: #333;
+  border: 2rpx solid transparent;
+  transition: all 0.3s ease;
+}
+
+.picker-input .placeholder {
+  color: #999;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 20rpx;
+}
+
+.reset-btn,
+.apply-btn {
+  flex: 1;
+  padding: 24rpx;
+  border-radius: 12rpx;
+  font-size: 28rpx;
+  border: none;
+}
+
+.reset-btn {
+  background-color: #f5f5f5;
+  color: #666;
+}
+
+.apply-btn {
+  background-color: #07C160;
+  color: #fff;
+} 

@@ -1,0 +1,168 @@
+<!-- pages/reminder/add/add.wxml -->
+<view class="container">
+  <!-- 导航栏 -->
+  <view class="nav-bar">
+    <view class="nav-left" bindtap="onCancel">
+      <text class="nav-btn">取消</text>
+    </view>
+    <view class="nav-title">添加提醒</view>
+    <view class="nav-right" bindtap="onSave">
+      <text class="nav-btn save">保存</text>
+    </view>
+  </view>
+
+  <!-- 表单内容 -->
+  <scroll-view class="form-container" scroll-y="true">
+    <!-- 基本信息 -->
+    <view class="form-section">
+      <view class="section-title">基本信息</view>
+      
+      <!-- 提醒标题 -->
+      <view class="form-item">
+        <text class="label">提醒标题</text>
+        <input 
+          class="input"
+          placeholder="请输入提醒标题"
+          value="{{formData.title}}"
+          data-field="title"
+          bindinput="onInputChange"
+          maxlength="50"
+        />
+      </view>
+
+      <!-- 提醒类型 -->
+      <view class="form-item" data-type="type" bindtap="onShowPicker">
+        <text class="label">提醒类型</text>
+        <view class="picker-value">
+          <text class="value">{{formData.type ? getTypeName(formData.type) : '请选择提醒类型'}}</text>
+          <text class="arrow">></text>
+        </view>
+      </view>
+
+      <!-- 提醒对象 -->
+      <view class="form-item" data-type="member" bindtap="onShowPicker">
+        <text class="label">提醒对象</text>
+        <view class="picker-value">
+          <text class="value">{{formData.member || '请选择家庭成员'}}</text>
+          <text class="arrow">></text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 时间设置 -->
+    <view class="form-section">
+      <view class="section-title">时间设置</view>
+      
+      <!-- 日期 -->
+      <view class="form-item" data-type="date" bindtap="onShowPicker">
+        <text class="label">提醒日期</text>
+        <view class="picker-value">
+          <text class="value">{{formData.date || '请选择日期'}}</text>
+          <text class="arrow">></text>
+        </view>
+      </view>
+
+      <!-- 时间 -->
+      <view class="form-item" data-type="time" bindtap="onShowPicker">
+        <text class="label">提醒时间</text>
+        <view class="picker-value">
+          <text class="value">{{formData.time || '请选择时间'}}</text>
+          <text class="arrow">></text>
+        </view>
+      </view>
+
+      <!-- 重复设置 -->
+      <view class="form-item" data-type="repeat" bindtap="onShowPicker">
+        <text class="label">重复</text>
+        <view class="picker-value">
+          <text class="value">{{getRepeatName(formData.repeat)}}</text>
+          <text class="arrow">></text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 详细内容 -->
+    <view class="form-section">
+      <view class="section-title">详细内容</view>
+      
+      <view class="form-item textarea">
+        <text class="label">提醒内容</text>
+        <textarea 
+          class="textarea-input"
+          placeholder="请输入详细的提醒内容"
+          value="{{formData.content}}"
+          data-field="content"
+          bindinput="onInputChange"
+          maxlength="200"
+        />
+      </view>
+    </view>
+
+    <!-- 日历集成提示 -->
+    <view class="form-section" wx:if="{{calendarSupported}}">
+      <view class="calendar-tip">
+        <view class="tip-icon">📅</view>
+        <view class="tip-content">
+          <text class="tip-title">日历集成</text>
+          <text class="tip-desc">保存后可选择同步到手机日历</text>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 选择器 -->
+  <!-- 日期选择器 -->
+  <picker
+    wx:if="{{showDatePicker}}"
+    mode="date"
+    value="{{formData.date}}"
+    bindchange="onDateChange"
+    bindcancel="onDateCancel"
+  >
+    <view></view>
+  </picker>
+
+  <!-- 时间选择器 -->
+  <picker
+    wx:if="{{showTimePicker}}"
+    mode="time"
+    value="{{formData.time}}"
+    bindchange="onTimeChange"
+    bindcancel="onTimeCancel"
+  >
+    <view></view>
+  </picker>
+
+  <!-- 成员选择器 -->
+  <picker
+    wx:if="{{showMemberPicker}}"
+    range="{{familyMembers}}"
+    range-key="name"
+    bindchange="onMemberChange"
+    bindcancel="onMemberCancel"
+  >
+    <view></view>
+  </picker>
+
+  <!-- 类型选择器 -->
+  <picker
+    wx:if="{{showTypePicker}}"
+    range="{{reminderTypes}}"
+    range-key="name"
+    bindchange="onTypeChange"
+    bindcancel="onTypeCancel"
+  >
+    <view></view>
+  </picker>
+
+  <!-- 重复选择器 -->
+  <picker
+    wx:if="{{showRepeatPicker}}"
+    range="{{repeatOptions}}"
+    range-key="name"
+    bindchange="onRepeatChange"
+    bindcancel="onRepeatCancel"
+  >
+    <view></view>
+  </picker>
+</view> 

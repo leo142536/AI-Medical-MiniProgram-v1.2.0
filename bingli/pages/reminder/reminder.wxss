@@ -1,0 +1,210 @@
+/* pages/reminder/reminder.wxss */
+.reminder-container {
+  padding: 20rpx;
+  background-color: #f7f7f7;
+  min-height: 100vh;
+}
+
+/* 标签栏 */
+.tab-bar {
+  display: flex;
+  background-color: #fff;
+  border-radius: 12rpx;
+  padding: 8rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+}
+
+.tab-item {
+  flex: 1;
+  text-align: center;
+  padding: 16rpx 24rpx;
+  border-radius: 8rpx;
+  font-size: 28rpx;
+  color: #666;
+  transition: all 0.3s ease;
+}
+
+.tab-item.active {
+  background-color: #07C160;
+  color: #fff;
+  font-weight: 500;
+}
+
+/* 添加按钮 */
+.add-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #07C160, #06B050);
+  color: #fff;
+  padding: 24rpx;
+  border-radius: 12rpx;
+  margin-bottom: 24rpx;
+  box-shadow: 0 4rpx 12rpx rgba(7, 193, 96, 0.3);
+  font-size: 32rpx;
+  font-weight: 500;
+}
+
+.add-icon {
+  font-size: 36rpx;
+  margin-right: 12rpx;
+}
+
+/* 提醒列表 */
+.reminder-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.reminder-item {
+  background-color: #fff;
+  border-radius: 12rpx;
+  padding: 24rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  transition: transform 0.2s ease;
+}
+
+.reminder-item:active {
+  transform: scale(0.98);
+}
+
+.reminder-item.today {
+  border-left: 6rpx solid #ff6b6b;
+}
+
+.reminder-item.upcoming {
+  border-left: 6rpx solid #4ecdc4;
+}
+
+.reminder-item.all {
+  border-left: 6rpx solid #07C160;
+}
+
+.reminder-content {
+  flex: 1;
+}
+
+.reminder-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12rpx;
+}
+
+.reminder-title {
+  font-size: 32rpx;
+  font-weight: 500;
+  color: #333;
+}
+
+.reminder-type {
+  font-size: 28rpx;
+  padding: 4rpx 12rpx;
+  border-radius: 20rpx;
+  background-color: #f0f9ff;
+}
+
+.reminder-type.medicine {
+  background-color: #fff5f5;
+  color: #e53e3e;
+}
+
+.reminder-type.medical {
+  background-color: #f0fff4;
+  color: #38a169;
+}
+
+.reminder-info {
+  display: flex;
+  align-items: center;
+  gap: 24rpx;
+  margin-bottom: 8rpx;
+}
+
+.reminder-time,
+.reminder-datetime {
+  font-size: 28rpx;
+  color: #666;
+  font-weight: 500;
+}
+
+.reminder-member {
+  font-size: 24rpx;
+  color: #999;
+  padding: 4rpx 12rpx;
+  background-color: #f5f5f5;
+  border-radius: 12rpx;
+}
+
+.reminder-desc {
+  font-size: 26rpx;
+  color: #666;
+  line-height: 1.5;
+  margin-top: 8rpx;
+}
+
+.reminder-status {
+  font-size: 24rpx;
+  padding: 4rpx 12rpx;
+  border-radius: 12rpx;
+  margin-top: 8rpx;
+  display: inline-block;
+}
+
+.reminder-status.completed {
+  background-color: #f0fff4;
+  color: #38a169;
+}
+
+.reminder-status.pending {
+  background-color: #fff5f5;
+  color: #e53e3e;
+}
+
+/* 操作按钮 */
+.reminder-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+
+.complete-btn {
+  background-color: #07C160;
+  color: #fff;
+  border: none;
+  border-radius: 8rpx;
+  padding: 12rpx 20rpx;
+  font-size: 24rpx;
+  min-width: 120rpx;
+}
+
+.complete-btn:active {
+  background-color: #06B050;
+}
+
+/* 空状态 */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 120rpx 40rpx;
+  text-align: center;
+}
+
+.empty-icon {
+  font-size: 120rpx;
+  margin-bottom: 24rpx;
+  opacity: 0.6;
+}
+
+.empty-text {
+  font-size: 28rpx;
+  color: #999;
+  line-height: 1.5;
+} 

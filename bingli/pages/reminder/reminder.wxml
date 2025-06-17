@@ -1,0 +1,127 @@
+<!--pages/reminder/reminder.wxml-->
+<view class="reminder-container">
+  <!-- 顶部标签栏 -->
+  <view class="tab-bar">
+    <view 
+      wx:for="{{tabs}}" 
+      wx:key="index"
+      class="tab-item {{activeTab === index ? 'active' : ''}}"
+      data-index="{{index}}"
+      bindtap="onTabChange"
+    >
+      {{item}}
+    </view>
+  </view>
+
+  <!-- 添加按钮 -->
+  <view class="add-btn" bindtap="onAddReminder">
+    <text class="add-icon">+</text>
+    <text>添加提醒</text>
+  </view>
+
+  <!-- 今日提醒 -->
+  <view wx:if="{{activeTab === 0}}" class="reminder-list">
+    <view wx:if="{{todayReminders.length === 0}}" class="empty-state">
+      <text class="empty-icon">📅</text>
+      <text class="empty-text">今日暂无提醒</text>
+    </view>
+    <view 
+      wx:for="{{todayReminders}}" 
+      wx:key="id"
+      class="reminder-item today"
+      data-id="{{item.id}}"
+      bindtap="onReminderTap"
+    >
+      <view class="reminder-content">
+        <view class="reminder-header">
+          <text class="reminder-title">{{item.title}}</text>
+          <text class="reminder-type {{item.type}}">
+            {{item.type === 'medicine' ? '💊' : '🏥'}}
+          </text>
+        </view>
+        <view class="reminder-info">
+          <text class="reminder-time">{{item.time}}</text>
+          <text class="reminder-member">{{item.member}}</text>
+        </view>
+        <view wx:if="{{item.description}}" class="reminder-desc">
+          {{item.description}}
+        </view>
+      </view>
+      <view class="reminder-actions">
+        <button 
+          class="complete-btn"
+          data-id="{{item.id}}"
+          bindtap="onCompleteReminder"
+          catchtap
+        >
+          完成
+        </button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 即将到来的提醒 -->
+  <view wx:if="{{activeTab === 1}}" class="reminder-list">
+    <view wx:if="{{upcomingReminders.length === 0}}" class="empty-state">
+      <text class="empty-icon">⏰</text>
+      <text class="empty-text">暂无即将到来的提醒</text>
+    </view>
+    <view 
+      wx:for="{{upcomingReminders}}" 
+      wx:key="id"
+      class="reminder-item upcoming"
+      data-id="{{item.id}}"
+      bindtap="onReminderTap"
+    >
+      <view class="reminder-content">
+        <view class="reminder-header">
+          <text class="reminder-title">{{item.title}}</text>
+          <text class="reminder-type {{item.type}}">
+            {{item.type === 'medicine' ? '💊' : '🏥'}}
+          </text>
+        </view>
+        <view class="reminder-info">
+          <text class="reminder-datetime">{{item.date}} {{item.time}}</text>
+          <text class="reminder-member">{{item.member}}</text>
+        </view>
+        <view wx:if="{{item.description}}" class="reminder-desc">
+          {{item.description}}
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 全部提醒 -->
+  <view wx:if="{{activeTab === 2}}" class="reminder-list">
+    <view wx:if="{{reminders.length === 0}}" class="empty-state">
+      <text class="empty-icon">📋</text>
+      <text class="empty-text">暂无提醒记录</text>
+    </view>
+    <view 
+      wx:for="{{reminders}}" 
+      wx:key="id"
+      class="reminder-item all"
+      data-id="{{item.id}}"
+      bindtap="onReminderTap"
+    >
+      <view class="reminder-content">
+        <view class="reminder-header">
+          <text class="reminder-title">{{item.title}}</text>
+          <text class="reminder-type {{item.type}}">
+            {{item.type === 'medicine' ? '💊' : '🏥'}}
+          </text>
+        </view>
+        <view class="reminder-info">
+          <text class="reminder-datetime">{{item.date}} {{item.time}}</text>
+          <text class="reminder-member">{{item.member}}</text>
+        </view>
+        <view wx:if="{{item.description}}" class="reminder-desc">
+          {{item.description}}
+        </view>
+        <view class="reminder-status {{item.status}}">
+          {{item.status === 'completed' ? '已完成' : '待完成'}}
+        </view>
+      </view>
+    </view>
+  </view>
+</view> 

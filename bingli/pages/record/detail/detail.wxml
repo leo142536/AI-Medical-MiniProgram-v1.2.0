@@ -1,0 +1,177 @@
+<!--pages/record/detail/detail.wxml-->
+<view class="record-detail-container">
+  <!-- 顶部操作栏 -->
+  <view class="top-actions">
+    <button class="action-btn edit-btn" bindtap="onEdit">
+      <text class="btn-icon">✏️</text>
+      <text>编辑</text>
+    </button>
+    <button class="action-btn share-btn" bindtap="onShare">
+      <text class="btn-icon">📤</text>
+      <text>分享</text>
+    </button>
+    <button class="action-btn delete-btn" bindtap="onDelete">
+      <text class="btn-icon">🗑️</text>
+      <text>删除</text>
+    </button>
+  </view>
+
+  <!-- 病历基本信息 -->
+  <view class="record-info-card">
+    <view class="record-header">
+      <text class="record-title">{{recordDetail.title}}</text>
+      <view class="record-meta">
+        <text class="record-date">{{recordDetail.date}} {{recordDetail.time}}</text>
+        <text class="record-member">{{recordDetail.member}}</text>
+      </view>
+    </view>
+    
+    <view class="hospital-info">
+      <view class="hospital-item">
+        <text class="label">医院：</text>
+        <text class="value hospital-name" bindtap="onNavigateToHospital">{{recordDetail.hospital}}</text>
+        <text class="hospital-phone" bindtap="onCallHospital">📞</text>
+      </view>
+      <view class="hospital-item" wx:if="{{recordDetail.department}}">
+        <text class="label">科室：</text>
+        <text class="value">{{recordDetail.department}}</text>
+      </view>
+      <view class="hospital-item" wx:if="{{recordDetail.doctor}}">
+        <text class="label">医生：</text>
+        <text class="value">{{recordDetail.doctor}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 诊断信息 -->
+  <view class="diagnosis-card" wx:if="{{recordDetail.diagnosis}}">
+    <view class="card-header">
+      <text class="card-title">诊断结果</text>
+      <text class="card-icon">🏥</text>
+    </view>
+    <view class="diagnosis-content">
+      <text class="diagnosis-text">{{recordDetail.diagnosis}}</text>
+    </view>
+  </view>
+
+  <!-- 症状描述 -->
+  <view class="symptoms-card" wx:if="{{recordDetail.symptoms}}">
+    <view class="card-header">
+      <text class="card-title">症状描述</text>
+      <text class="card-icon">🤒</text>
+    </view>
+    <view class="symptoms-content">
+      <text class="symptoms-text">{{recordDetail.symptoms}}</text>
+    </view>
+  </view>
+
+  <!-- 治疗方案 -->
+  <view class="treatment-card" wx:if="{{recordDetail.treatment}}">
+    <view class="card-header">
+      <text class="card-title">治疗方案</text>
+      <text class="card-icon">💊</text>
+    </view>
+    <view class="treatment-content">
+      <text class="treatment-text">{{recordDetail.treatment}}</text>
+    </view>
+  </view>
+
+  <!-- 处方药物 -->
+  <view class="prescriptions-card" wx:if="{{recordDetail.prescriptions && recordDetail.prescriptions.length > 0}}">
+    <view class="card-header">
+      <text class="card-title">处方药物</text>
+      <text class="card-icon">💉</text>
+    </view>
+    <view class="prescriptions-list">
+      <view 
+        wx:for="{{recordDetail.prescriptions}}" 
+        wx:key="name"
+        class="prescription-item"
+      >
+        <view class="prescription-header">
+          <text class="medicine-name">{{item.name}}</text>
+          <text class="medicine-dosage">{{item.dosage}}</text>
+        </view>
+        <view class="prescription-details">
+          <text class="medicine-frequency">{{item.frequency}}</text>
+          <text class="medicine-duration">持续{{item.duration}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 病历图片 -->
+  <view class="images-card" wx:if="{{recordDetail.images && recordDetail.images.length > 0}}">
+    <view class="card-header">
+      <text class="card-title">病历图片</text>
+      <text class="card-icon">📷</text>
+    </view>
+    <view class="images-grid">
+      <view 
+        wx:for="{{recordDetail.images}}" 
+        wx:key="*this"
+        class="image-item"
+        data-url="{{item}}"
+        data-urls="{{recordDetail.images}}"
+        bindtap="onPreviewImage"
+      >
+        <image src="{{item}}" class="record-image" mode="aspectFill" />
+      </view>
+    </view>
+  </view>
+
+  <!-- 备注信息 -->
+  <view class="notes-card" wx:if="{{recordDetail.notes}}">
+    <view class="card-header">
+      <text class="card-title">备注信息</text>
+      <text class="card-icon">📝</text>
+    </view>
+    <view class="notes-content">
+      <text class="notes-text">{{recordDetail.notes}}</text>
+    </view>
+  </view>
+
+  <!-- 费用信息 -->
+  <view class="cost-card" wx:if="{{recordDetail.cost}}">
+    <view class="card-header">
+      <text class="card-title">费用信息</text>
+      <text class="card-icon">💰</text>
+    </view>
+    <view class="cost-content">
+      <text class="cost-amount">¥{{recordDetail.cost}}</text>
+    </view>
+  </view>
+
+  <!-- 复诊信息 -->
+  <view class="follow-up-card" wx:if="{{recordDetail.nextVisit}}">
+    <view class="card-header">
+      <text class="card-title">复诊安排</text>
+      <text class="card-icon">📅</text>
+    </view>
+    <view class="follow-up-content">
+      <text class="follow-up-date">{{recordDetail.nextVisit}}</text>
+      <button class="reminder-btn" bindtap="onSetReminder">设置提醒</button>
+    </view>
+  </view>
+
+  <!-- 分享弹窗 -->
+  <view class="share-modal" wx:if="{{showShareModal}}">
+    <view class="modal-mask" bindtap="onCloseShareModal"></view>
+    <view class="modal-content">
+      <view class="modal-header">
+        <text class="modal-title">分享病历</text>
+        <text class="modal-close" bindtap="onCloseShareModal">×</text>
+      </view>
+      <view class="share-options">
+        <button class="share-option" bindtap="onShareToFamily">
+          <text class="option-icon">👨‍👩‍👧‍👦</text>
+          <text class="option-text">分享给家人</text>
+        </button>
+        <button class="share-option" bindtap="onExportPDF">
+          <text class="option-icon">📄</text>
+          <text class="option-text">导出PDF</text>
+        </button>
+      </view>
+    </view>
+  </view>
+</view> 

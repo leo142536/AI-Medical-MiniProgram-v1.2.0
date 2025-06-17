@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "健康提醒",
+  "backgroundColor": "#f7f7f7",
+  "enablePullDownRefresh": true,
+  "onReachBottomDistance": 50,
+  "backgroundTextStyle": "dark"
+} 

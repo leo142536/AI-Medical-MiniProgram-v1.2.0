@@ -1,0 +1,276 @@
+<!--pages/record/edit/edit.wxml-->
+<view class="edit-container">
+  <!-- 顶部操作栏 -->
+  <view class="top-actions">
+    <button class="action-btn cancel-btn" bindtap="onCancel">取消</button>
+    <text class="page-title">{{isEdit ? '编辑病历' : '新建病历'}}</text>
+    <button class="action-btn save-btn" bindtap="onSave">保存</button>
+  </view>
+
+  <!-- 表单内容 -->
+  <scroll-view class="form-container" scroll-y>
+    <!-- 基本信息 -->
+    <view class="form-section">
+      <view class="section-title">基本信息</view>
+      
+      <!-- 病历标题 -->
+      <view class="form-item">
+        <text class="label required">病历标题</text>
+        <input 
+          class="input"
+          placeholder="请输入病历标题"
+          value="{{formData.title}}"
+          data-field="title"
+          bindinput="onInputChange"
+        />
+      </view>
+
+      <!-- 就诊日期 -->
+      <view class="form-item" data-type="date" bindtap="onShowPicker">
+        <text class="label required">就诊日期</text>
+        <view class="picker-input {{!formData.date ? 'placeholder' : ''}}">
+          <text>{{formData.date || '请选择就诊日期'}}</text>
+          <text class="arrow">></text>
+        </view>
+      </view>
+
+      <!-- 就诊时间 -->
+      <view class="form-item" data-type="time" bindtap="onShowPicker">
+        <text class="label">就诊时间</text>
+        <view class="picker-input {{!formData.time ? 'placeholder' : ''}}">
+          <text>{{formData.time || '请选择就诊时间'}}</text>
+          <text class="arrow">></text>
+        </view>
+      </view>
+
+      <!-- 就诊人员 -->
+      <view class="form-item" data-type="member" bindtap="onShowPicker">
+        <text class="label required">就诊人员</text>
+        <view class="picker-input {{!formData.member ? 'placeholder' : ''}}">
+          <text>{{formData.member || '请选择就诊人员'}}</text>
+          <text class="arrow">></text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 医院信息 -->
+    <view class="form-section">
+      <view class="section-title">医院信息</view>
+      
+      <!-- 医院名称 -->
+      <view class="form-item">
+        <text class="label required">医院名称</text>
+        <input 
+          class="input"
+          placeholder="请输入医院名称"
+          value="{{formData.hospital}}"
+          data-field="hospital"
+          bindinput="onInputChange"
+        />
+      </view>
+
+      <!-- 科室 -->
+      <view class="form-item">
+        <text class="label">科室</text>
+        <input 
+          class="input"
+          placeholder="请输入科室名称"
+          value="{{formData.department}}"
+          data-field="department"
+          bindinput="onInputChange"
+        />
+      </view>
+
+      <!-- 医生 -->
+      <view class="form-item">
+        <text class="label">医生</text>
+        <input 
+          class="input"
+          placeholder="请输入医生姓名"
+          value="{{formData.doctor}}"
+          data-field="doctor"
+          bindinput="onInputChange"
+        />
+      </view>
+    </view>
+
+    <!-- 诊断信息 -->
+    <view class="form-section">
+      <view class="section-title">诊断信息</view>
+      
+      <!-- 诊断结果 -->
+      <view class="form-item textarea">
+        <text class="label">诊断结果</text>
+        <textarea 
+          class="textarea-input"
+          placeholder="请输入诊断结果"
+          value="{{formData.diagnosis}}"
+          data-field="diagnosis"
+          bindinput="onInputChange"
+          maxlength="500"
+        />
+      </view>
+
+      <!-- 症状描述 -->
+      <view class="form-item textarea">
+        <text class="label">症状描述</text>
+        <textarea 
+          class="textarea-input"
+          placeholder="请输入症状描述"
+          value="{{formData.symptoms}}"
+          data-field="symptoms"
+          bindinput="onInputChange"
+          maxlength="500"
+        />
+      </view>
+
+      <!-- 治疗方案 -->
+      <view class="form-item textarea">
+        <text class="label">治疗方案</text>
+        <textarea 
+          class="textarea-input"
+          placeholder="请输入治疗方案"
+          value="{{formData.treatment}}"
+          data-field="treatment"
+          bindinput="onInputChange"
+          maxlength="500"
+        />
+      </view>
+    </view>
+
+    <!-- 处方药物 -->
+    <view class="form-section">
+      <view class="section-header">
+        <text class="section-title">处方药物</text>
+        <button class="add-btn" bindtap="onAddPrescription">+ 添加药物</button>
+      </view>
+      
+      <view class="prescription-list" wx:if="{{prescriptions.length > 0}}">
+        <view 
+          wx:for="{{prescriptions}}" 
+          wx:key="index"
+          class="prescription-item"
+        >
+          <view class="prescription-info" data-index="{{index}}" bindtap="onEditPrescription">
+            <view class="prescription-name">{{item.name}}</view>
+            <view class="prescription-details">
+              <text>{{item.dosage}} • {{item.frequency}} • {{item.duration}}</text>
+            </view>
+          </view>
+          <view class="prescription-actions">
+            <text class="delete-btn" data-index="{{index}}" bindtap="onDeletePrescription">删除</text>
+          </view>
+        </view>
+      </view>
+      
+      <view class="empty-prescription" wx:else>
+        <text>暂无药物信息</text>
+      </view>
+    </view>
+
+    <!-- 病历图片 -->
+    <view class="form-section">
+      <view class="section-header">
+        <text class="section-title">病历图片</text>
+        <button class="add-btn" bindtap="onChooseImage" wx:if="{{images.length < 9}}">+ 添加图片</button>
+      </view>
+      
+      <view class="images-grid" wx:if="{{images.length > 0}}">
+        <view 
+          wx:for="{{images}}" 
+          wx:key="*this"
+          class="image-item"
+        >
+          <image 
+            src="{{item}}" 
+            class="image"
+            mode="aspectFill"
+            data-index="{{index}}"
+            bindtap="onPreviewImage"
+          />
+          <view class="image-delete" data-index="{{index}}" bindtap="onDeleteImage">×</view>
+        </view>
+      </view>
+      
+      <view class="empty-images" wx:else>
+        <text>暂无图片</text>
+      </view>
+    </view>
+
+    <!-- 其他信息 -->
+    <view class="form-section">
+      <view class="section-title">其他信息</view>
+      
+      <!-- 费用 -->
+      <view class="form-item">
+        <text class="label">费用</text>
+        <input 
+          class="input"
+          placeholder="请输入费用金额"
+          value="{{formData.cost}}"
+          data-field="cost"
+          bindinput="onInputChange"
+          type="digit"
+        />
+      </view>
+
+      <!-- 复诊时间 -->
+      <view class="form-item">
+        <text class="label">复诊时间</text>
+        <input 
+          class="input"
+          placeholder="请输入复诊时间"
+          value="{{formData.nextVisit}}"
+          data-field="nextVisit"
+          bindinput="onInputChange"
+        />
+      </view>
+
+      <!-- 备注 -->
+      <view class="form-item textarea">
+        <text class="label">备注</text>
+        <textarea 
+          class="textarea-input"
+          placeholder="请输入备注信息"
+          value="{{formData.notes}}"
+          data-field="notes"
+          bindinput="onInputChange"
+          maxlength="300"
+        />
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 日期选择器 -->
+  <picker
+    wx:if="{{showDatePicker}}"
+    mode="date"
+    value="{{formData.date}}"
+    bindchange="onDateChange"
+    bindcancel="onDateCancel"
+  >
+    <view></view>
+  </picker>
+
+  <!-- 时间选择器 -->
+  <picker
+    wx:if="{{showTimePicker}}"
+    mode="time"
+    value="{{formData.time}}"
+    bindchange="onTimeChange"
+    bindcancel="onTimeCancel"
+  >
+    <view></view>
+  </picker>
+
+  <!-- 成员选择器 -->
+  <picker
+    wx:if="{{showMemberPicker}}"
+    range="{{familyMembers}}"
+    range-key="name"
+    bindchange="onMemberChange"
+    bindcancel="onMemberCancel"
+  >
+    <view></view>
+  </picker>
+</view> 

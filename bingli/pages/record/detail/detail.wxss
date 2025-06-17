@@ -1,0 +1,407 @@
+/* pages/record/detail/detail.wxss */
+.record-detail-container {
+  padding: 20rpx;
+  background-color: #f7f7f7;
+  min-height: 100vh;
+}
+
+/* 顶部操作栏 */
+.top-actions {
+  display: flex;
+  gap: 16rpx;
+  margin-bottom: 20rpx;
+}
+
+.action-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8rpx;
+  padding: 20rpx;
+  border-radius: 12rpx;
+  font-size: 28rpx;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.edit-btn {
+  background-color: #07C160;
+  color: #fff;
+}
+
+.share-btn {
+  background-color: #1890ff;
+  color: #fff;
+}
+
+.delete-btn {
+  background-color: #ff4757;
+  color: #fff;
+}
+
+.action-btn:active {
+  transform: scale(0.95);
+}
+
+.btn-icon {
+  font-size: 32rpx;
+}
+
+/* 卡片通用样式 */
+.record-info-card,
+.diagnosis-card,
+.symptoms-card,
+.treatment-card,
+.prescriptions-card,
+.images-card,
+.notes-card,
+.cost-card,
+.follow-up-card {
+  background-color: #fff;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.08);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20rpx;
+  padding-bottom: 16rpx;
+  border-bottom: 2rpx solid #f0f0f0;
+}
+
+.card-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+.card-icon {
+  font-size: 36rpx;
+}
+
+/* 病历信息卡片 */
+.record-header {
+  margin-bottom: 24rpx;
+}
+
+.record-title {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 12rpx;
+  display: block;
+}
+
+.record-meta {
+  display: flex;
+  gap: 20rpx;
+  align-items: center;
+}
+
+.record-date {
+  font-size: 28rpx;
+  color: #666;
+  font-weight: 500;
+}
+
+.record-member {
+  font-size: 24rpx;
+  color: #07C160;
+  background-color: #f0fff4;
+  padding: 6rpx 12rpx;
+  border-radius: 12rpx;
+}
+
+/* 医院信息 */
+.hospital-info {
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+}
+
+.hospital-item {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.label {
+  font-size: 28rpx;
+  color: #666;
+  min-width: 80rpx;
+}
+
+.value {
+  font-size: 28rpx;
+  color: #333;
+  flex: 1;
+}
+
+.hospital-name {
+  color: #1890ff;
+  text-decoration: underline;
+}
+
+.hospital-phone {
+  font-size: 32rpx;
+  color: #07C160;
+  padding: 8rpx;
+}
+
+/* 诊断信息 */
+.diagnosis-content {
+  background: linear-gradient(135deg, #fff5f5, #ffeaea);
+  padding: 20rpx;
+  border-radius: 12rpx;
+  border-left: 6rpx solid #ff4757;
+}
+
+.diagnosis-text {
+  font-size: 30rpx;
+  color: #333;
+  line-height: 1.6;
+  font-weight: 500;
+}
+
+/* 症状描述 */
+.symptoms-content {
+  background: linear-gradient(135deg, #fff9e6, #fff3d3);
+  padding: 20rpx;
+  border-radius: 12rpx;
+  border-left: 6rpx solid #ffa502;
+}
+
+.symptoms-text {
+  font-size: 28rpx;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* 治疗方案 */
+.treatment-content {
+  background: linear-gradient(135deg, #f0fff4, #e6ffed);
+  padding: 20rpx;
+  border-radius: 12rpx;
+  border-left: 6rpx solid #07C160;
+}
+
+.treatment-text {
+  font-size: 28rpx;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* 处方药物 */
+.prescriptions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.prescription-item {
+  background-color: #f8f9fa;
+  padding: 20rpx;
+  border-radius: 12rpx;
+  border-left: 4rpx solid #6c5ce7;
+}
+
+.prescription-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8rpx;
+}
+
+.medicine-name {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+.medicine-dosage {
+  font-size: 24rpx;
+  color: #6c5ce7;
+  background-color: #f1f0ff;
+  padding: 4rpx 12rpx;
+  border-radius: 12rpx;
+}
+
+.prescription-details {
+  display: flex;
+  gap: 20rpx;
+  align-items: center;
+}
+
+.medicine-frequency,
+.medicine-duration {
+  font-size: 24rpx;
+  color: #666;
+}
+
+/* 病历图片 */
+.images-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16rpx;
+}
+
+.image-item {
+  aspect-ratio: 1;
+  border-radius: 12rpx;
+  overflow: hidden;
+  background-color: #f5f5f5;
+}
+
+.record-image {
+  width: 100%;
+  height: 100%;
+  border-radius: 12rpx;
+}
+
+/* 备注信息 */
+.notes-content {
+  background: linear-gradient(135deg, #f6f9ff, #eef4ff);
+  padding: 20rpx;
+  border-radius: 12rpx;
+  border-left: 6rpx solid #1890ff;
+}
+
+.notes-text {
+  font-size: 28rpx;
+  color: #333;
+  line-height: 1.6;
+  font-style: italic;
+}
+
+/* 费用信息 */
+.cost-content {
+  text-align: center;
+  padding: 20rpx;
+}
+
+.cost-amount {
+  font-size: 48rpx;
+  font-weight: 700;
+  color: #ff4757;
+}
+
+/* 复诊信息 */
+.follow-up-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.follow-up-date {
+  font-size: 32rpx;
+  color: #333;
+  font-weight: 600;
+}
+
+.reminder-btn {
+  background-color: #07C160;
+  color: #fff;
+  border: none;
+  padding: 16rpx 32rpx;
+  border-radius: 24rpx;
+  font-size: 24rpx;
+}
+
+/* 分享弹窗 */
+.share-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.modal-mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  background-color: #fff;
+  border-radius: 24rpx 24rpx 0 0;
+  padding: 40rpx;
+  width: 100%;
+  position: relative;
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32rpx;
+}
+
+.modal-title {
+  font-size: 36rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+.modal-close {
+  font-size: 48rpx;
+  color: #999;
+  width: 48rpx;
+  height: 48rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.share-options {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.share-option {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  padding: 24rpx;
+  background-color: #f8f9fa;
+  border: none;
+  border-radius: 16rpx;
+  text-align: left;
+}
+
+.share-option:active {
+  background-color: #e9ecef;
+}
+
+.option-icon {
+  font-size: 40rpx;
+}
+
+.option-text {
+  font-size: 32rpx;
+  color: #333;
+  font-weight: 500;
+} 

@@ -55,7 +55,12 @@ App({
   // 获取系统信息
   getSystemInfo() {
     try {
-      const systemInfo = wx.getSystemInfoSync();
+      // 使用新的API获取系统信息
+      const systemInfo = {
+        ...wx.getWindowInfo(),
+        ...wx.getDeviceInfo(),
+        ...wx.getAppBaseInfo()
+      };
       this.globalData.systemInfo = systemInfo;
       
       // 设置状态栏样式

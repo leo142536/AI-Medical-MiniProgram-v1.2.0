@@ -1,0 +1,422 @@
+/* pages/login/login.wxss */
+.container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%);
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.login-step {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 40rpx 30rpx;
+}
+
+/* 步骤1：微信授权样式 */
+.logo-section {
+  text-align: center;
+  margin-top: 80rpx;
+  margin-bottom: 60rpx;
+}
+
+.app-logo {
+  font-size: 120rpx;
+  margin-bottom: 20rpx;
+  display: block;
+}
+
+.app-name {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: white;
+  display: block;
+  margin-bottom: 10rpx;
+}
+
+.app-desc {
+  font-size: 28rpx;
+  color: rgba(255, 255, 255, 0.8);
+  display: block;
+}
+
+.login-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.welcome-text {
+  text-align: center;
+  margin-bottom: 80rpx;
+}
+
+.welcome-text .title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: white;
+  display: block;
+  margin-bottom: 15rpx;
+}
+
+.welcome-text .subtitle {
+  font-size: 28rpx;
+  color: rgba(255, 255, 255, 0.8);
+  display: block;
+}
+
+.login-actions {
+  padding: 0 20rpx;
+}
+
+.login-btn {
+  width: 100%;
+  height: 88rpx;
+  border-radius: 44rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30rpx;
+  font-size: 32rpx;
+  border: none;
+  box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.login-btn.primary {
+  background: white;
+  color: #4A90E2;
+}
+
+.login-btn.primary:active {
+  background: #f5f5f5;
+  transform: scale(0.98);
+}
+
+.btn-icon {
+  font-size: 36rpx;
+  margin-right: 15rpx;
+}
+
+.btn-text {
+  font-weight: 500;
+}
+
+.help-btn {
+  background: transparent;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 26rpx;
+  border: none;
+  text-align: center;
+  padding: 20rpx;
+}
+
+.features {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 60rpx;
+  padding: 0 40rpx;
+}
+
+.feature-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.feature-icon {
+  font-size: 40rpx;
+  margin-bottom: 10rpx;
+}
+
+.feature-text {
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* 步骤指示器 */
+.step-header {
+  background: white;
+  border-radius: 20rpx;
+  padding: 30rpx;
+  margin-bottom: 30rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.1);
+}
+
+.step-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20rpx;
+}
+
+.step-item {
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24rpx;
+  font-weight: bold;
+  background: #e0e0e0;
+  color: #999;
+}
+
+.step-item.active {
+  background: #4A90E2;
+  color: white;
+}
+
+.step-item.completed {
+  background: #52c41a;
+  color: white;
+}
+
+.step-line {
+  width: 80rpx;
+  height: 4rpx;
+  background: #e0e0e0;
+  margin: 0 10rpx;
+}
+
+.step-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  display: block;
+  margin-bottom: 10rpx;
+}
+
+.step-desc {
+  font-size: 26rpx;
+  color: #666;
+  text-align: center;
+  display: block;
+}
+
+/* 表单样式 */
+.form-container {
+  flex: 1;
+  background: white;
+  border-radius: 20rpx;
+  margin-bottom: 30rpx;
+  max-height: 600rpx;
+}
+
+.form-section {
+  padding: 30rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.form-section:last-child {
+  border-bottom: none;
+}
+
+.section-title {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 30rpx;
+  padding-bottom: 15rpx;
+  border-bottom: 2rpx solid #4A90E2;
+  display: inline-block;
+}
+
+.form-item {
+  margin-bottom: 30rpx;
+  position: relative;
+}
+
+.form-item.required .label::after {
+  content: '*';
+  color: #ff4d4f;
+  margin-left: 5rpx;
+}
+
+.label {
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 15rpx;
+  display: block;
+  font-weight: 500;
+}
+
+.input {
+  width: 100%;
+  height: 80rpx;
+  background: #f8f9fa;
+  border: 2rpx solid #e0e0e0;
+  border-radius: 12rpx;
+  padding: 0 20rpx;
+  font-size: 28rpx;
+  color: #333;
+  box-sizing: border-box;
+}
+
+.input:focus {
+  border-color: #4A90E2;
+  background: #fff;
+}
+
+.picker-view {
+  width: 100%;
+  height: 80rpx;
+  background: #f8f9fa;
+  border: 2rpx solid #e0e0e0;
+  border-radius: 12rpx;
+  padding: 0 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.picker-text {
+  font-size: 28rpx;
+  color: #333;
+}
+
+.picker-text:empty::before {
+  content: attr(placeholder);
+  color: #999;
+}
+
+.picker-arrow {
+  font-size: 24rpx;
+  color: #999;
+  transform: rotate(90deg);
+}
+
+/* 操作按钮 */
+.form-actions,
+.create-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 10rpx;
+}
+
+.action-btn {
+  flex: 1;
+  height: 80rpx;
+  border-radius: 40rpx;
+  font-size: 28rpx;
+  font-weight: 500;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.action-btn.primary {
+  background: #4A90E2;
+  color: white;
+  box-shadow: 0 4rpx 16rpx rgba(74, 144, 226, 0.3);
+}
+
+.action-btn.primary:active {
+  background: #357ABD;
+  transform: scale(0.98);
+}
+
+.action-btn.secondary {
+  background: #f8f9fa;
+  color: #666;
+  border: 2rpx solid #e0e0e0;
+}
+
+.action-btn.secondary:active {
+  background: #e0e0e0;
+  transform: scale(0.98);
+}
+
+/* 家庭预览 */
+.family-preview {
+  background: white;
+  border-radius: 20rpx;
+  padding: 40rpx;
+  text-align: center;
+  margin-bottom: 30rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.1);
+}
+
+.preview-avatar {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 auto 20rpx;
+  border: 4rpx solid #4A90E2;
+}
+
+.avatar-img {
+  width: 100%;
+  height: 100%;
+}
+
+.preview-name {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  display: block;
+  margin-bottom: 10rpx;
+}
+
+.preview-role {
+  font-size: 26rpx;
+  color: #4A90E2;
+  display: block;
+  background: #e3f2fd;
+  padding: 8rpx 20rpx;
+  border-radius: 20rpx;
+  display: inline-block;
+}
+
+.family-info {
+  background: white;
+  border-radius: 20rpx;
+  padding: 30rpx;
+  margin-bottom: 30rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.1);
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.info-item:last-child {
+  border-bottom: none;
+}
+
+.info-label {
+  font-size: 28rpx;
+  color: #666;
+}
+
+.info-value {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 500;
+}
+
+.tips {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 16rpx;
+  padding: 20rpx;
+  margin-top: 20rpx;
+}
+
+.tip-text {
+  font-size: 24rpx;
+  color: #666;
+  line-height: 1.6;
+} 

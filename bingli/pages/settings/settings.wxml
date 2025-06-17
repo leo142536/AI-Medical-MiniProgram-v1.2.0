@@ -1,0 +1,305 @@
+<!--pages/settings/settings.wxml-->
+<view class="container">
+  <!-- 顶部导航 -->
+  <view class="header">
+    <view class="title">应用设置</view>
+    <view class="subtitle">个性化您的使用体验</view>
+  </view>
+
+  <!-- 安全设置 -->
+  <view class="section">
+    <view class="section-title">
+      <text class="icon">🔒</text>
+      <text>安全设置</text>
+    </view>
+    
+    <view class="setting-item" bindtap="toggleAppLock">
+      <view class="item-content">
+        <view class="item-icon">🔐</view>
+        <view class="item-info">
+          <view class="item-title">应用锁</view>
+          <view class="item-desc">启用后需要密码才能打开应用</view>
+        </view>
+      </view>
+      <switch checked="{{settings.appLock}}" bindchange="onAppLockChange" />
+    </view>
+
+    <view class="setting-item" bindtap="toggleBiometric" wx:if="{{settings.appLock}}">
+      <view class="item-content">
+        <view class="item-icon">👆</view>
+        <view class="item-info">
+          <view class="item-title">生物识别</view>
+          <view class="item-desc">使用指纹或面容解锁</view>
+        </view>
+      </view>
+      <switch checked="{{settings.biometric}}" bindchange="onBiometricChange" />
+    </view>
+
+    <view class="setting-item" bindtap="changePassword" wx:if="{{settings.appLock}}">
+      <view class="item-content">
+        <view class="item-icon">🔑</view>
+        <view class="item-info">
+          <view class="item-title">修改密码</view>
+          <view class="item-desc">更改应用解锁密码</view>
+        </view>
+      </view>
+      <view class="arrow">></view>
+    </view>
+
+    <view class="setting-item" bindtap="setLockTime" wx:if="{{settings.appLock}}">
+      <view class="item-content">
+        <view class="item-icon">⏱️</view>
+        <view class="item-info">
+          <view class="item-title">自动锁定</view>
+          <view class="item-desc">{{lockTimeText}}</view>
+        </view>
+      </view>
+      <view class="arrow">></view>
+    </view>
+  </view>
+
+  <!-- 数据管理 -->
+  <view class="section">
+    <view class="section-title">
+      <text class="icon">💾</text>
+      <text>数据管理</text>
+    </view>
+    
+    <view class="setting-item" bindtap="toggleAutoBackup">
+      <view class="item-content">
+        <view class="item-icon">☁️</view>
+        <view class="item-info">
+          <view class="item-title">自动备份</view>
+          <view class="item-desc">定期备份数据到云端</view>
+        </view>
+      </view>
+      <switch checked="{{settings.autoBackup}}" bindchange="onAutoBackupChange" />
+    </view>
+
+    <view class="setting-item" bindtap="manualBackup">
+      <view class="item-content">
+        <view class="item-icon">📤</view>
+        <view class="item-info">
+          <view class="item-title">立即备份</view>
+          <view class="item-desc">手动备份当前数据</view>
+        </view>
+      </view>
+      <view class="arrow">></view>
+    </view>
+
+    <view class="setting-item" bindtap="restoreData">
+      <view class="item-content">
+        <view class="item-icon">📥</view>
+        <view class="item-info">
+          <view class="item-title">恢复数据</view>
+          <view class="item-desc">从云端恢复备份数据</view>
+        </view>
+      </view>
+      <view class="arrow">></view>
+    </view>
+
+    <view class="setting-item" bindtap="exportData">
+      <view class="item-content">
+        <view class="item-icon">📋</view>
+        <view class="item-info">
+          <view class="item-title">导出数据</view>
+          <view class="item-desc">导出为Excel或PDF格式</view>
+        </view>
+      </view>
+      <view class="arrow">></view>
+    </view>
+  </view>
+
+  <!-- 通知设置 -->
+  <view class="section">
+    <view class="section-title">
+      <text class="icon">🔔</text>
+      <text>通知设置</text>
+    </view>
+    
+    <view class="setting-item" bindtap="toggleNotification">
+      <view class="item-content">
+        <view class="item-icon">📢</view>
+        <view class="item-info">
+          <view class="item-title">推送通知</view>
+          <view class="item-desc">接收健康提醒和更新通知</view>
+        </view>
+      </view>
+      <switch checked="{{settings.notification}}" bindchange="onNotificationChange" />
+    </view>
+
+    <view class="setting-item" bindtap="toggleReminderSound" wx:if="{{settings.notification}}">
+      <view class="item-content">
+        <view class="item-icon">🔊</view>
+        <view class="item-info">
+          <view class="item-title">提醒声音</view>
+          <view class="item-desc">提醒时播放声音</view>
+        </view>
+      </view>
+      <switch checked="{{settings.reminderSound}}" bindchange="onReminderSoundChange" />
+    </view>
+
+    <view class="setting-item" bindtap="toggleVibration" wx:if="{{settings.notification}}">
+      <view class="item-content">
+        <view class="item-icon">📳</view>
+        <view class="item-info">
+          <view class="item-title">震动提醒</view>
+          <view class="item-desc">提醒时震动设备</view>
+        </view>
+      </view>
+      <switch checked="{{settings.vibration}}" bindchange="onVibrationChange" />
+    </view>
+  </view>
+
+  <!-- 显示设置 -->
+  <view class="section">
+    <view class="section-title">
+      <text class="icon">🎨</text>
+      <text>显示设置</text>
+    </view>
+    
+    <view class="setting-item" bindtap="toggleDarkMode">
+      <view class="item-content">
+        <view class="item-icon">🌙</view>
+        <view class="item-info">
+          <view class="item-title">深色模式</view>
+          <view class="item-desc">护眼深色主题</view>
+        </view>
+      </view>
+      <switch checked="{{settings.darkMode}}" bindchange="onDarkModeChange" />
+    </view>
+
+    <view class="setting-item" bindtap="setFontSize">
+      <view class="item-content">
+        <view class="item-icon">🔤</view>
+        <view class="item-info">
+          <view class="item-title">字体大小</view>
+          <view class="item-desc">{{fontSizeText}}</view>
+        </view>
+      </view>
+      <view class="arrow">></view>
+    </view>
+
+    <view class="setting-item" bindtap="toggleAnimation">
+      <view class="item-content">
+        <view class="item-icon">✨</view>
+        <view class="item-info">
+          <view class="item-title">动画效果</view>
+          <view class="item-desc">界面过渡动画</view>
+        </view>
+      </view>
+      <switch checked="{{settings.animation}}" bindchange="onAnimationChange" />
+    </view>
+  </view>
+
+  <!-- 隐私设置 -->
+  <view class="section">
+    <view class="section-title">
+      <text class="icon">👤</text>
+      <text>隐私设置</text>
+    </view>
+    
+    <view class="setting-item" bindtap="toggleDataSharing">
+      <view class="item-content">
+        <view class="item-icon">📊</view>
+        <view class="item-info">
+          <view class="item-title">数据共享</view>
+          <view class="item-desc">允许匿名数据用于改进服务</view>
+        </view>
+      </view>
+      <switch checked="{{settings.dataSharing}}" bindchange="onDataSharingChange" />
+    </view>
+
+    <view class="setting-item" bindtap="viewPrivacyPolicy">
+      <view class="item-content">
+        <view class="item-icon">📜</view>
+        <view class="item-info">
+          <view class="item-title">隐私政策</view>
+          <view class="item-desc">查看隐私保护条款</view>
+        </view>
+      </view>
+      <view class="arrow">></view>
+    </view>
+
+    <view class="setting-item" bindtap="clearCache">
+      <view class="item-content">
+        <view class="item-icon">🗑️</view>
+        <view class="item-info">
+          <view class="item-title">清除缓存</view>
+          <view class="item-desc">清理临时文件和缓存数据</view>
+        </view>
+      </view>
+      <view class="arrow">></view>
+    </view>
+  </view>
+
+  <!-- 关于应用 -->
+  <view class="section">
+    <view class="section-title">
+      <text class="icon">ℹ️</text>
+      <text>关于应用</text>
+    </view>
+    
+    <view class="setting-item" bindtap="checkUpdate">
+      <view class="item-content">
+        <view class="item-icon">🔄</view>
+        <view class="item-info">
+          <view class="item-title">检查更新</view>
+          <view class="item-desc">当前版本 v{{appVersion}}</view>
+        </view>
+      </view>
+      <view class="arrow">></view>
+    </view>
+
+    <view class="setting-item" bindtap="viewHelp">
+      <view class="item-content">
+        <view class="item-icon">❓</view>
+        <view class="item-info">
+          <view class="item-title">使用帮助</view>
+          <view class="item-desc">查看使用说明和常见问题</view>
+        </view>
+      </view>
+      <view class="arrow">></view>
+    </view>
+
+    <view class="setting-item" bindtap="contactSupport">
+      <view class="item-content">
+        <view class="item-icon">📞</view>
+        <view class="item-info">
+          <view class="item-title">联系客服</view>
+          <view class="item-desc">反馈问题或建议</view>
+        </view>
+      </view>
+      <view class="arrow">></view>
+    </view>
+  </view>
+
+  <!-- 重置应用 -->
+  <view class="section danger-section">
+    <view class="setting-item danger-item" bindtap="resetApp">
+      <view class="item-content">
+        <view class="item-icon">⚠️</view>
+        <view class="item-info">
+          <view class="item-title">重置应用</view>
+          <view class="item-desc">清除所有数据并重置设置</view>
+        </view>
+      </view>
+      <view class="arrow">></view>
+    </view>
+  </view>
+
+  <!-- 存储信息 -->
+  <view class="storage-info">
+    <view class="storage-title">存储使用情况</view>
+    <view class="storage-bar">
+      <view class="storage-used" style="width: {{storagePercent}}%"></view>
+    </view>
+    <view class="storage-text">已使用 {{usedStorage}}MB / 总计 {{totalStorage}}MB</view>
+  </view>
+</view>
+
+<!-- 加载状态 -->
+<view wx:if="{{loading}}" class="loading-overlay">
+  <view class="loading-spinner"></view>
+  <text>{{loadingText}}</text>
+</view> 

@@ -1,0 +1,220 @@
+<!--pages/record/record.wxml-->
+<view class="record-container">
+  <!-- 搜索栏 -->
+  <view class="search-bar">
+    <view class="search-input-wrapper">
+      <input 
+        class="search-input"
+        placeholder="搜索病历记录..."
+        value="{{searchKeyword}}"
+        bindinput="onSearchInput"
+      />
+      <view class="search-actions">
+        <text class="clear-btn" wx:if="{{searchKeyword}}" bindtap="onClearSearch">×</text>
+        <text class="filter-btn" bindtap="onShowFilter">🔍</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 标签页 -->
+  <view class="tabs-container">
+    <view class="tabs">
+      <view 
+        class="tab {{activeTab === 0 ? 'active' : ''}}"
+        data-index="0"
+        bindtap="onTabChange"
+      >
+        <text>全部</text>
+      </view>
+      <view 
+        class="tab {{activeTab === 1 ? 'active' : ''}}"
+        data-index="1"
+        bindtap="onTabChange"
+      >
+        <text>最近</text>
+      </view>
+      <view 
+        class="tab {{activeTab === 2 ? 'active' : ''}}"
+        data-index="2"
+        bindtap="onTabChange"
+      >
+        <text>重要</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 病历列表 -->
+  <scroll-view 
+    class="record-list"
+    scroll-y
+    enable-flex
+    refresher-enabled
+    refresher-triggered="{{loading && page === 0}}"
+    bindrefresherrefresh="refreshData"
+    bindscrolltolower="loadMoreRecords"
+  >
+    <!-- 加载中状态 -->
+    <view class="loading-container" wx:if="{{loading && filteredRecords.length === 0}}">
+      <view class="loading-spinner"></view>
+      <text class="loading-text">加载中...</text>
+    </view>
+
+    <!-- 空状态 -->
+    <view class="empty-container" wx:elif="{{!loading && filteredRecords.length === 0}}">
+      <view class="empty-icon">📋</view>
+      <text class="empty-title">暂无病历记录</text>
+      <text class="empty-desc">点击右下角按钮添加第一条病历</text>
+      <button class="empty-action-btn" bindtap="onAddRecord">立即添加</button>
+    </view>
+
+    <!-- 病历卡片列表 -->
+    <view class="record-card-list" wx:else>
+      <view 
+        wx:for="{{filteredRecords}}" 
+        wx:key="_id"
+        class="record-card"
+        data-id="{{item._id}}"
+        bindtap="onViewRecord"
+      >
+        <!-- 卡片头部 -->
+        <view class="card-header">
+          <view class="header-left">
+            <text class="record-title">{{item.title}}</text>
+            <view class="record-meta">
+              <text class="record-date">{{item.date}} {{item.time}}</text>
+              <text class="record-member">{{item.member}}</text>
+            </view>
+          </view>
+          <view class="header-right">
+            <text class="more-btn" catchtap="onMoreActions" data-id="{{item._id}}">⋯</text>
+          </view>
+        </view>
+
+        <!-- 医院信息 -->
+        <view class="hospital-info">
+          <text class="hospital-name">🏥 {{item.hospital}}</text>
+          <text class="diagnosis" wx:if="{{item.diagnosis}}">{{item.diagnosis}}</text>
+        </view>
+
+        <!-- 症状和治疗 -->
+        <view class="medical-info" wx:if="{{item.symptoms || item.treatment}}">
+          <view class="symptoms" wx:if="{{item.symptoms}}">
+            <text class="label">症状：</text>
+            <text class="content">{{item.symptoms}}</text>
+          </view>
+          <view class="treatment" wx:if="{{item.treatment}}">
+            <text class="label">治疗：</text>
+            <text class="content">{{item.treatment}}</text>
+          </view>
+        </view>
+
+        <!-- 卡片底部 -->
+        <view class="card-footer">
+          <view class="footer-left">
+            <text class="cost" wx:if="{{item.cost}}">💰 ¥{{item.cost}}</text>
+            <text class="image-count" wx:if="{{item.images && item.images.length > 0}}">
+              📷 {{item.images.length}}张图片
+            </text>
+          </view>
+          <view class="footer-right">
+            <button 
+              class="action-btn edit-btn"
+              catchtap="onEditRecord"
+              data-id="{{item._id}}"
+            >编辑</button>
+            <button 
+              class="action-btn share-btn"
+              catchtap="onShareRecord"
+              data-id="{{item._id}}"
+            >分享</button>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 加载更多 -->
+    <view class="load-more" wx:if="{{hasMore && filteredRecords.length > 0}}">
+      <view class="load-more-spinner" wx:if="{{loading}}"></view>
+      <text class="load-more-text">{{loading ? '加载中...' : '上拉加载更多'}}</text>
+    </view>
+
+    <!-- 没有更多 -->
+    <view class="no-more" wx:if="{{!hasMore && filteredRecords.length > 0}}">
+      <text>已显示全部记录</text>
+    </view>
+  </scroll-view>
+
+  <!-- 添加按钮 -->
+  <view class="add-button" bindtap="onAddRecord">
+    <text class="add-icon">+</text>
+  </view>
+
+  <!-- 筛选弹窗 -->
+  <view class="filter-modal" wx:if="{{showFilterModal}}">
+    <view class="modal-mask" bindtap="onCloseFilter"></view>
+    <view class="modal-content">
+      <view class="modal-header">
+        <text class="modal-title">筛选条件</text>
+        <text class="modal-close" bindtap="onCloseFilter">×</text>
+      </view>
+      
+      <view class="filter-content">
+        <!-- 日期范围 -->
+        <view class="filter-item">
+          <text class="filter-label">开始日期</text>
+          <picker
+            mode="date"
+            value="{{filterOptions.startDate}}"
+            data-field="startDate"
+            bindchange="onFilterChange"
+          >
+            <view class="picker-input">
+              <text class="{{!filterOptions.startDate ? 'placeholder' : ''}}">
+                {{filterOptions.startDate || '请选择开始日期'}}
+              </text>
+            </view>
+          </picker>
+        </view>
+
+        <view class="filter-item">
+          <text class="filter-label">结束日期</text>
+          <picker
+            mode="date"
+            value="{{filterOptions.endDate}}"
+            data-field="endDate"
+            bindchange="onFilterChange"
+          >
+            <view class="picker-input">
+              <text class="{{!filterOptions.endDate ? 'placeholder' : ''}}">
+                {{filterOptions.endDate || '请选择结束日期'}}
+              </text>
+            </view>
+          </picker>
+        </view>
+
+        <!-- 家庭成员 -->
+        <view class="filter-item">
+          <text class="filter-label">家庭成员</text>
+          <picker
+            range="{{familyMembers}}"
+            range-key="name"
+            value="{{filterOptions.memberIndex}}"
+            data-field="member"
+            bindchange="onFilterChange"
+          >
+            <view class="picker-input">
+              <text class="{{!filterOptions.member ? 'placeholder' : ''}}">
+                {{filterOptions.member || '全部成员'}}
+              </text>
+            </view>
+          </picker>
+        </view>
+      </view>
+
+      <view class="modal-actions">
+        <button class="reset-btn" bindtap="onResetFilter">重置</button>
+        <button class="apply-btn" bindtap="onApplyFilter">应用</button>
+      </view>
+    </view>
+  </view>
+</view> 

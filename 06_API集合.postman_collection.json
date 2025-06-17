@@ -1,0 +1,56 @@
+{
+    "info": {
+      "_postman_id": "a1b2c3d4-e5f6-7890-xxxx-yyyy",
+      "name": "家庭病历小程序 V1.0 API",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+      {
+        "name": "login",
+        "request": {
+          "method": "POST",
+          "header": [{ "key": "Content-Type", "value": "application/json" }],
+          "body": {
+            "mode": "raw",
+            "raw": "{ \"code\": \"${wx_code}\" }"
+          },
+          "url": { "raw": "{{baseUrl}}/login" }
+        },
+        "response": []
+      },
+      {
+        "name": "addMember",
+        "request": {
+          "method": "POST",
+          "url": { "raw": "{{baseUrl}}/member" },
+          "header": [{ "key": "Authorization", "value": "{{token}}" }],
+          "body": {
+            "mode": "raw",
+            "raw": "{ \"name\": \"妈妈\", \"relation\": \"parent\" }"
+          }
+        }
+      },
+      {
+        "name": "addRecord",
+        "request": {
+          "method": "POST",
+          "url": { "raw": "{{baseUrl}}/record" },
+          "header": [{ "key": "Authorization", "value": "{{token}}" }],
+          "body": {
+            "mode": "formdata",
+            "formdata": [
+              { "key": "ownerMemberId", "value": "xxx", "type": "text" },
+              { "key": "date", "value": "2025-06-08", "type": "text" },
+              { "key": "hospital", "value": "协和医院", "type": "text" },
+              { "key": "imgs", "type": "file", "src": "/path/to/img1.jpg" }
+            ]
+          }
+        }
+      }
+    ],
+    "variable": [
+      { "key": "baseUrl", "value": "https://api.family-medical.cn" },
+      { "key": "token", "value": "" }
+    ]
+  }
+  

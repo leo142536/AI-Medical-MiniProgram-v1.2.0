@@ -1,0 +1,235 @@
+<!-- pages/login/login.wxml -->
+<view class="container">
+  
+  <!-- 步骤1：微信授权登录 -->
+  <view class="login-step" wx:if="{{loginStep === 1}}">
+    <view class="logo-section">
+      <view class="app-logo">🏥</view>
+      <text class="app-name">AI病例管理</text>
+      <text class="app-desc">智能健康管理助手</text>
+    </view>
+
+    <view class="login-content">
+      <view class="welcome-text">
+        <text class="title">欢迎使用</text>
+        <text class="subtitle">让我们开始管理您的健康信息</text>
+      </view>
+
+      <view class="login-actions">
+        <!-- 新版本微信授权 -->
+        <button 
+          class="login-btn primary" 
+          wx:if="{{canIUseGetUserProfile}}"
+          bindtap="getUserProfile"
+          loading="{{isLogging}}"
+        >
+          <text class="btn-icon">🔐</text>
+          <text class="btn-text">微信快速登录</text>
+        </button>
+
+        <!-- 旧版本微信授权 -->
+        <button 
+          class="login-btn primary" 
+          wx:else
+          open-type="getUserInfo"
+          bindgetuserinfo="getUserInfo"
+          loading="{{isLogging}}"
+        >
+          <text class="btn-icon">🔐</text>
+          <text class="btn-text">微信快速登录</text>
+        </button>
+
+        <button class="help-btn" bindtap="goToHelp">
+          <text>登录遇到问题？</text>
+        </button>
+      </view>
+    </view>
+
+    <view class="features">
+      <view class="feature-item">
+        <text class="feature-icon">🔒</text>
+        <text class="feature-text">安全加密</text>
+      </view>
+      <view class="feature-item">
+        <text class="feature-icon">☁️</text>
+        <text class="feature-text">云端同步</text>
+      </view>
+      <view class="feature-item">
+        <text class="feature-icon">👨‍👩‍👧‍👦</text>
+        <text class="feature-text">家庭共享</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 步骤2：完善个人信息 -->
+  <view class="login-step" wx:if="{{loginStep === 2}}">
+    <view class="step-header">
+      <view class="step-indicator">
+        <view class="step-item completed">1</view>
+        <view class="step-line"></view>
+        <view class="step-item active">2</view>
+        <view class="step-line"></view>
+        <view class="step-item">3</view>
+      </view>
+      <text class="step-title">完善个人信息</text>
+      <text class="step-desc">为了更好地服务您，请完善以下信息</text>
+    </view>
+
+    <scroll-view class="form-container" scroll-y="true">
+      <view class="form-section">
+        <view class="section-title">基本信息</view>
+        
+        <view class="form-item required">
+          <text class="label">姓名</text>
+          <input 
+            class="input" 
+            placeholder="请输入真实姓名"
+            value="{{formData.name}}"
+            data-field="name"
+            bindinput="onInputChange"
+          />
+        </view>
+
+        <view class="form-item required">
+          <text class="label">性别</text>
+          <picker 
+            mode="selector" 
+            range="{{genderOptions}}"
+            range-key="label"
+            bindchange="onGenderChange"
+          >
+            <view class="picker-view">
+              <text class="picker-text">{{formData.gender ? (formData.gender === 'male' ? '男' : '女') : '请选择性别'}}</text>
+              <text class="picker-arrow">></text>
+            </view>
+          </picker>
+        </view>
+
+        <view class="form-item required">
+          <text class="label">生日</text>
+          <picker 
+            mode="date" 
+            end="{{today}}"
+            bindchange="onDateChange"
+          >
+            <view class="picker-view">
+              <text class="picker-text">{{formData.birthday || '请选择生日'}}</text>
+              <text class="picker-arrow">></text>
+            </view>
+          </picker>
+        </view>
+      </view>
+
+      <view class="form-section">
+        <view class="section-title">联系方式</view>
+        
+        <view class="form-item">
+          <text class="label">手机号</text>
+          <input 
+            class="input" 
+            placeholder="请输入手机号"
+            type="number"
+            value="{{formData.phone}}"
+            data-field="phone"
+            bindinput="onInputChange"
+          />
+        </view>
+
+        <view class="form-item">
+          <text class="label">身份证号</text>
+          <input 
+            class="input" 
+            placeholder="请输入身份证号"
+            value="{{formData.idCard}}"
+            data-field="idCard"
+            bindinput="onInputChange"
+          />
+        </view>
+      </view>
+
+      <view class="form-section">
+        <view class="section-title">紧急联系人</view>
+        
+        <view class="form-item">
+          <text class="label">联系人姓名</text>
+          <input 
+            class="input" 
+            placeholder="请输入紧急联系人姓名"
+            value="{{formData.emergencyContact}}"
+            data-field="emergencyContact"
+            bindinput="onInputChange"
+          />
+        </view>
+
+        <view class="form-item">
+          <text class="label">联系人电话</text>
+          <input 
+            class="input" 
+            placeholder="请输入紧急联系人电话"
+            type="number"
+            value="{{formData.emergencyPhone}}"
+            data-field="emergencyPhone"
+            bindinput="onInputChange"
+          />
+        </view>
+      </view>
+    </scroll-view>
+
+    <view class="form-actions">
+      <button class="action-btn secondary" bindtap="goBack">上一步</button>
+      <button class="action-btn secondary" bindtap="skipUserInfo">跳过</button>
+      <button class="action-btn primary" bindtap="submitUserInfo">下一步</button>
+    </view>
+  </view>
+
+  <!-- 步骤3：创建家庭 -->
+  <view class="login-step" wx:if="{{loginStep === 3}}">
+    <view class="step-header">
+      <view class="step-indicator">
+        <view class="step-item completed">1</view>
+        <view class="step-line"></view>
+        <view class="step-item completed">2</view>
+        <view class="step-line"></view>
+        <view class="step-item active">3</view>
+      </view>
+      <text class="step-title">创建家庭</text>
+      <text class="step-desc">创建您的家庭群组，开始管理家人健康</text>
+    </view>
+
+    <view class="family-preview">
+      <view class="preview-avatar">
+        <image 
+          class="avatar-img" 
+          src="{{userInfo.avatarUrl}}" 
+          mode="aspectFill"
+        />
+      </view>
+      <text class="preview-name">{{userInfo.name || userInfo.nickName}}</text>
+      <text class="preview-role">家庭管理员</text>
+    </view>
+
+    <view class="family-info">
+      <view class="info-item">
+        <text class="info-label">家庭名称：</text>
+        <text class="info-value">{{userInfo.name || userInfo.nickName}}的家庭</text>
+      </view>
+      <view class="info-item">
+        <text class="info-label">创建时间：</text>
+        <text class="info-value">{{today}}</text>
+      </view>
+      <view class="info-item">
+        <text class="info-label">初始成员：</text>
+        <text class="info-value">1人（您）</text>
+      </view>
+    </view>
+
+    <view class="create-actions">
+      <button class="action-btn secondary" bindtap="goBack">上一步</button>
+      <button class="action-btn primary" bindtap="createFamily">创建家庭</button>
+    </view>
+
+    <view class="tips">
+      <text class="tip-text">💡 提示：创建家庭后，您可以邀请家人加入并管理他们的健康信息</text>
+    </view>
+  </view>
+</view> 

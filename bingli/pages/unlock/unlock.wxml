@@ -1,0 +1,118 @@
+<!--pages/unlock/unlock.wxml-->
+<view class="container">
+  <!-- 应用图标和名称 -->
+  <view class="app-info">
+    <view class="app-icon">🏥</view>
+    <view class="app-name">AI病例管理</view>
+    <view class="app-desc">请输入密码解锁应用</view>
+  </view>
+
+  <!-- 用户头像和姓名 -->
+  <view class="user-info" wx:if="{{userInfo}}">
+    <image class="avatar" src="{{userInfo.avatar || '/images/default-avatar.png'}}" />
+    <view class="username">{{userInfo.nickname || '用户'}}</view>
+  </view>
+
+  <!-- 密码输入区域 -->
+  <view class="password-section">
+    <!-- 密码显示点 -->
+    <view class="password-dots">
+      <view wx:for="{{[1,2,3,4,5,6]}}" wx:key="index" 
+            class="dot {{password.length >= index ? 'filled' : ''}}">
+      </view>
+    </view>
+
+    <!-- 错误提示 -->
+    <view wx:if="{{errorMessage}}" class="error-message">
+      <text class="icon">⚠️</text>
+      <text>{{errorMessage}}</text>
+    </view>
+
+    <!-- 尝试次数提示 -->
+    <view wx:if="{{remainingAttempts < 5}}" class="attempts-warning">
+      还可尝试 {{remainingAttempts}} 次，超过次数将清除数据
+    </view>
+  </view>
+
+  <!-- 数字键盘 -->
+  <view class="keypad">
+    <view class="keypad-row">
+      <view class="key" bindtap="inputNumber" data-num="1">1</view>
+      <view class="key" bindtap="inputNumber" data-num="2">2</view>
+      <view class="key" bindtap="inputNumber" data-num="3">3</view>
+    </view>
+    <view class="keypad-row">
+      <view class="key" bindtap="inputNumber" data-num="4">4</view>
+      <view class="key" bindtap="inputNumber" data-num="5">5</view>
+      <view class="key" bindtap="inputNumber" data-num="6">6</view>
+    </view>
+    <view class="keypad-row">
+      <view class="key" bindtap="inputNumber" data-num="7">7</view>
+      <view class="key" bindtap="inputNumber" data-num="8">8</view>
+      <view class="key" bindtap="inputNumber" data-num="9">9</view>
+    </view>
+    <view class="keypad-row">
+      <view class="key empty"></view>
+      <view class="key" bindtap="inputNumber" data-num="0">0</view>
+      <view class="key delete" bindtap="deleteNumber">
+        <text class="icon">⌫</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 生物识别解锁 -->
+  <view wx:if="{{biometricEnabled}}" class="biometric-section">
+    <view class="biometric-btn" bindtap="useBiometric">
+      <text class="icon">{{biometricIcon}}</text>
+      <text class="text">{{biometricText}}</text>
+    </view>
+  </view>
+
+  <!-- 忘记密码 -->
+  <view class="forgot-section">
+    <view class="forgot-btn" bindtap="forgotPassword">
+      <text>忘记密码？</text>
+    </view>
+  </view>
+
+  <!-- 紧急联系 -->
+  <view class="emergency-section" wx:if="{{emergencyMode}}">
+    <view class="emergency-title">紧急情况</view>
+    <view class="emergency-desc">如果这是紧急情况，您可以：</view>
+    <view class="emergency-actions">
+      <button class="emergency-btn" bindtap="callEmergency">
+        <text class="icon">📞</text>
+        <text>拨打急救电话</text>
+      </button>
+      <button class="emergency-btn" bindtap="contactFamily">
+        <text class="icon">👨‍👩‍👧‍👦</text>
+        <text>联系家人</text>
+      </button>
+    </view>
+  </view>
+
+  <!-- 应用锁定状态 -->
+  <view wx:if="{{isLocked}}" class="locked-overlay">
+    <view class="locked-content">
+      <text class="icon">🔒</text>
+      <view class="locked-title">应用已锁定</view>
+      <view class="locked-desc">
+        由于多次输入错误密码，应用已被锁定
+      </view>
+      <view class="locked-time">
+        请等待 {{lockTimeRemaining}} 秒后重试
+      </view>
+      <view class="progress-bar">
+        <view class="progress" style="width: {{lockProgress}}%"></view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- 加载状态 -->
+<view wx:if="{{loading}}" class="loading-overlay">
+  <view class="loading-content">
+    <view class="loading-spinner"></view>
+    <text>{{loadingText}}</text>
+  </view>
+</view> 

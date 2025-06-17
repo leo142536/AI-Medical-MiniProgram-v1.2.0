@@ -1,0 +1,98 @@
+<!-- pages/family/family.wxml -->
+<view class="container">
+  <!-- 家庭信息卡片 -->
+  <view class="family-card" wx:if="{{familyInfo}}">
+    <view class="family-header">
+      <view class="family-info">
+        <text class="family-name">{{familyInfo.name}}</text>
+        <text class="family-desc">{{members.length}}位成员</text>
+      </view>
+      <view class="family-actions">
+        <button 
+          class="action-btn edit" 
+          wx:if="{{isAdmin}}"
+          bindtap="onEditFamily"
+        >
+          <text class="btn-icon">✏️</text>
+        </button>
+        <button class="action-btn share" bindtap="onShareFamily">
+          <text class="btn-icon">📤</text>
+        </button>
+      </view>
+    </view>
+    
+    <view class="family-stats">
+      <view class="stat-item">
+        <text class="stat-number">{{members.length}}</text>
+        <text class="stat-label">家庭成员</text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-number">0</text>
+        <text class="stat-label">本月病历</text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-number">0</text>
+        <text class="stat-label">待办提醒</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 成员列表 -->
+  <view class="members-section">
+    <view class="section-header">
+      <text class="section-title">家庭成员</text>
+      <button 
+        class="add-btn" 
+        wx:if="{{isAdmin}}"
+        bindtap="onAddMember"
+      >
+        <text class="add-icon">+</text>
+        <text class="add-text">添加成员</text>
+      </button>
+    </view>
+
+    <view class="members-list">
+      <view 
+        class="member-card" 
+        wx:for="{{members}}" 
+        wx:key="id"
+        data-id="{{item.id}}"
+        bindtap="onMemberTap"
+      >
+        <view class="member-avatar">
+          <image 
+            class="avatar-img" 
+            src="{{item.avatar || '/images/default-avatar.png'}}" 
+            mode="aspectFill"
+          />
+          <view class="role-badge" wx:if="{{item.role === 'admin'}}">
+            <text class="badge-text">管理员</text>
+          </view>
+        </view>
+        
+        <view class="member-info">
+          <text class="member-name">{{item.name}}</text>
+          <text class="member-relation">{{item.relation}}</text>
+          <view class="member-meta">
+            <text class="meta-item">{{item.gender === 'male' ? '男' : '女'}}</text>
+            <text class="meta-item" wx:if="{{item.birthday}}">{{item.birthday}}</text>
+          </view>
+        </view>
+
+        <view class="member-actions">
+          <view class="action-dot"></view>
+          <view class="action-dot"></view>
+          <view class="action-dot"></view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{!familyInfo}}">
+    <view class="empty-icon">👨‍👩‍👧‍👦</view>
+    <text class="empty-title">暂无家庭信息</text>
+    <text class="empty-desc">请先完成登录注册</text>
+    <button class="start-btn" bindtap="goToLogin">去登录</button>
+  </view>
+</view> 

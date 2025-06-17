@@ -1,0 +1,105 @@
+<!--pages/profile/profile.wxml-->
+<view class="profile-container">
+  <!-- 用户信息卡片 -->
+  <view class="user-card">
+    <view class="user-avatar">
+      <image 
+        src="{{userInfo.avatarUrl || '/images/default-avatar.png'}}" 
+        class="avatar-image"
+        mode="aspectFill"
+      />
+    </view>
+    <view class="user-info">
+      <text class="user-name">{{userInfo.name || '未登录'}}</text>
+      <text class="user-role">{{familyInfo.adminName === userInfo.name ? '家庭管理员' : '家庭成员'}}</text>
+      <text class="family-name">{{familyInfo.name || '未加入家庭'}}</text>
+    </view>
+    <view class="edit-btn" bindtap="onEditProfile">
+      <text class="edit-icon">✏️</text>
+    </view>
+  </view>
+
+  <!-- 快速统计 -->
+  <view class="stats-section">
+    <text class="section-title">我的数据</text>
+    <view class="stats-grid">
+      <view class="stat-item" data-type="record" bindtap="onStatTap">
+        <text class="stat-number">{{quickStats.recordCount}}</text>
+        <text class="stat-label">病历记录</text>
+      </view>
+      <view class="stat-item" data-type="reminder" bindtap="onStatTap">
+        <text class="stat-number">{{quickStats.reminderCount}}</text>
+        <text class="stat-label">活跃提醒</text>
+      </view>
+      <view class="stat-item" data-type="family" bindtap="onStatTap">
+        <text class="stat-number">{{quickStats.familyMemberCount}}</text>
+        <text class="stat-label">家庭成员</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 功能菜单 -->
+  <view class="settings-section">
+    <text class="section-title">功能菜单</text>
+    <view class="settings-list">
+      <view 
+        wx:for="{{menuItems}}" 
+        wx:key="action"
+        class="setting-item"
+        data-action="{{item.action}}"
+        bindtap="onMenuTap"
+      >
+        <view class="setting-left">
+          <text class="setting-icon">{{item.icon}}</text>
+          <view class="setting-content">
+            <text class="setting-title">{{item.title}}</text>
+            <text class="setting-desc">{{item.desc}}</text>
+          </view>
+        </view>
+        <text class="setting-arrow" wx:if="{{item.arrow}}">></text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 设置列表 -->
+  <view class="settings-section">
+    <text class="section-title">设置</text>
+    <view class="settings-list">
+      <view 
+        wx:for="{{settings}}" 
+        wx:key="id"
+        class="setting-item"
+        data-path="{{item.path}}"
+        bindtap="onSettingTap"
+      >
+        <view class="setting-left">
+          <text class="setting-icon">{{item.icon}}</text>
+          <view class="setting-content">
+            <text class="setting-title">{{item.title}}</text>
+            <text class="setting-desc">{{item.description}}</text>
+          </view>
+        </view>
+        <text class="setting-arrow">></text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 操作按钮 -->
+  <view class="action-section">
+    <button class="contact-btn" bindtap="onContactService">
+      <text class="btn-icon">📞</text>
+      <text>联系客服</text>
+    </button>
+    
+    <button class="logout-btn" bindtap="onLogout">
+      <text class="btn-icon">🚪</text>
+      <text>退出登录</text>
+    </button>
+  </view>
+
+  <!-- 版本信息 -->
+  <view class="version-info">
+    <text class="version-text">家庭病历管理 v1.2.0</text>
+    <text class="copyright">© 2024 AI病例管理团队</text>
+  </view>
+</view> 
