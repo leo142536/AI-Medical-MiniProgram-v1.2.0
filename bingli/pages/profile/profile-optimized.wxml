@@ -1,0 +1,123 @@
+<!-- 现代化个人中心 -->
+<view class="profile-container-modern">
+  <!-- 用户头部区域 -->
+  <view class="profile-hero">
+    <view class="hero-bg"></view>
+    <view class="profile-main">
+      <image class="profile-avatar" src="{{userInfo.avatar}}" bindtap="onChangeAvatar"/>
+      <text class="profile-name">{{userInfo.name}}</text>
+      <text class="profile-title">{{userInfo.title || '健康管理者'}}</text>
+      <view class="profile-stats">
+        <view class="stat-item">
+          <text class="stat-num">{{stats.healthDays}}</text>
+          <text class="stat-label">健康天数</text>
+        </view>
+        <view class="stat-item">
+          <text class="stat-num">{{stats.familySize}}</text>
+          <text class="stat-label">家庭成员</text>
+        </view>
+        <view class="stat-item">
+          <text class="stat-num">{{stats.achievements}}</text>
+          <text class="stat-label">获得成就</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 快速功能 -->
+  <view class="quick-features">
+    <view class="feature-item" bindtap="onHealthReport">
+      <text class="feature-icon">📊</text>
+      <text class="feature-text">健康报告</text>
+    </view>
+    <view class="feature-item" bindtap="onDataExport">
+      <text class="feature-icon">📤</text>
+      <text class="feature-text">数据导出</text>
+    </view>
+    <view class="feature-item" bindtap="onAIAnalysis">
+      <text class="feature-icon">🤖</text>
+      <text class="feature-text">AI分析</text>
+    </view>
+    <view class="feature-item" bindtap="onEmergency">
+      <text class="feature-icon">🚨</text>
+      <text class="feature-text">紧急联系</text>
+    </view>
+  </view>
+
+  <!-- 功能菜单 -->
+  <view class="menu-sections">
+    <view class="menu-section">
+      <view class="section-header">
+        <text class="section-title">账户管理</text>
+      </view>
+      <view class="menu-items">
+        <view class="menu-item" bindtap="onEditProfile">
+          <text class="item-icon">👤</text>
+          <text class="item-title">个人资料</text>
+          <text class="item-arrow">></text>
+        </view>
+        <view class="menu-item" bindtap="onSecurity">
+          <text class="item-icon">🔒</text>
+          <text class="item-title">安全设置</text>
+          <text class="item-arrow">></text>
+        </view>
+        <view class="menu-item" bindtap="onPrivacy">
+          <text class="item-icon">🔐</text>
+          <text class="item-title">隐私设置</text>
+          <text class="item-arrow">></text>
+        </view>
+      </view>
+    </view>
+
+    <view class="menu-section">
+      <view class="section-header">
+        <text class="section-title">应用设置</text>
+      </view>
+      <view class="menu-items">
+        <view class="menu-item" bindtap="onNotifications">
+          <text class="item-icon">🔔</text>
+          <text class="item-title">通知设置</text>
+          <text class="item-arrow">></text>
+        </view>
+        <view class="menu-item" bindtap="onTheme">
+          <text class="item-icon">🎨</text>
+          <text class="item-title">主题设置</text>
+          <text class="item-arrow">></text>
+        </view>
+        <view class="menu-item" bindtap="onLanguage">
+          <text class="item-icon">🌐</text>
+          <text class="item-title">语言设置</text>
+          <text class="item-arrow">></text>
+        </view>
+      </view>
+    </view>
+
+    <view class="menu-section">
+      <view class="section-header">
+        <text class="section-title">帮助支持</text>
+      </view>
+      <view class="menu-items">
+        <view class="menu-item" bindtap="onHelp">
+          <text class="item-icon">❓</text>
+          <text class="item-title">帮助中心</text>
+          <text class="item-arrow">></text>
+        </view>
+        <view class="menu-item" bindtap="onFeedback">
+          <text class="item-icon">💬</text>
+          <text class="item-title">意见反馈</text>
+          <text class="item-arrow">></text>
+        </view>
+        <view class="menu-item" bindtap="onAbout">
+          <text class="item-icon">ℹ️</text>
+          <text class="item-title">关于应用</text>
+          <text class="item-arrow">></text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 退出按钮 -->
+  <view class="logout-section">
+    <button class="logout-btn" bindtap="onLogout">退出登录</button>
+  </view>
+</view> 

@@ -1,0 +1,212 @@
+/* pages/family/add/add.wxss */
+.container {
+  height: 100vh;
+  background-color: #f7f7f7;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 导航栏 */
+.nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 44px 32rpx 20rpx;
+  background-color: #fff;
+  border-bottom: 1px solid #eee;
+}
+
+.nav-btn {
+  font-size: 32rpx;
+  color: #666;
+}
+
+.nav-btn.save {
+  color: #07C160;
+  font-weight: 500;
+}
+
+.nav-title {
+  font-size: 36rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+/* 表单容器 */
+.form-container {
+  flex: 1;
+  padding: 32rpx;
+}
+
+/* 头像区域 */
+.avatar-section {
+  display: flex;
+  justify-content: center;
+  padding: 40rpx 0;
+}
+
+.avatar-container {
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4rpx solid #e0e0e0;
+  background: #f8f9fa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.avatar-img {
+  width: 100%;
+  height: 100%;
+}
+
+.avatar-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #999;
+}
+
+.avatar-icon {
+  font-size: 48rpx;
+  margin-bottom: 8rpx;
+}
+
+.avatar-text {
+  font-size: 24rpx;
+}
+
+/* 表单区块 */
+.form-section {
+  background-color: #fff;
+  border-radius: 16rpx;
+  margin-bottom: 32rpx;
+  overflow: hidden;
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #333;
+  padding: 32rpx 32rpx 16rpx;
+}
+
+/* 表单项 */
+.form-item {
+  display: flex;
+  align-items: center;
+  padding: 32rpx;
+  border-bottom: 1px solid #f5f5f5;
+  min-height: 88rpx;
+}
+
+.form-item:last-child {
+  border-bottom: none;
+}
+
+.form-item.textarea {
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.label {
+  font-size: 30rpx;
+  color: #333;
+  margin-bottom: 16rpx;
+  flex-shrink: 0;
+}
+
+.form-item:not(.textarea) .label {
+  width: 160rpx;
+  margin-bottom: 0;
+}
+
+.input {
+  flex: 1;
+  font-size: 30rpx;
+  color: #333;
+  text-align: right;
+}
+
+.input::placeholder {
+  color: #999;
+}
+
+.textarea-input {
+  width: 100%;
+  min-height: 120rpx;
+  font-size: 30rpx;
+  color: #333;
+  line-height: 1.6;
+}
+
+.textarea-input::placeholder {
+  color: #999;
+}
+
+/* 选择器容器 */
+.picker-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+/* 选择器值 */
+.picker-value {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0;
+}
+
+.picker-value .value {
+  font-size: 30rpx;
+  color: #333;
+  margin-right: 16rpx;
+  text-align: right;
+}
+
+.picker-value .value:empty::before {
+  content: attr(placeholder);
+  color: #999;
+}
+
+.arrow {
+  font-size: 24rpx;
+  color: #999;
+}
+
+/* 响应式调整 */
+@media (max-width: 375px) {
+  .nav-bar {
+    padding: 44px 24rpx 16rpx;
+  }
+  
+  .form-container {
+    padding: 24rpx;
+  }
+  
+  .form-item {
+    padding: 24rpx;
+    min-height: 80rpx;
+  }
+  
+  .label {
+    width: 140rpx;
+    font-size: 28rpx;
+  }
+  
+  .input, .textarea-input {
+    font-size: 28rpx;
+  }
+  
+  .avatar-container {
+    width: 140rpx;
+    height: 140rpx;
+  }
+} 

@@ -1,0 +1,421 @@
+<!-- pages/login/login-optimized.wxml -->
+<view class="login-container">
+  
+  <!-- 步骤1：微信授权登录 -->
+  <view class="login-step {{loginStep === 1 ? 'active' : ''}}" wx:if="{{loginStep === 1}}">
+    <!-- 背景装饰 -->
+    <view class="bg-decoration">
+      <view class="circle circle-1"></view>
+      <view class="circle circle-2"></view>
+      <view class="circle circle-3"></view>
+    </view>
+
+    <!-- Logo区域 -->
+    <view class="logo-section">
+      <view class="app-logo-container">
+        <view class="app-logo-bg"></view>
+        <text class="app-logo">🏥</text>
+        <view class="logo-ring"></view>
+      </view>
+      <view class="app-info">
+        <text class="app-name">AI病例管理</text>
+        <text class="app-desc">智能健康管理助手</text>
+        <text class="app-version">v2.0</text>
+      </view>
+    </view>
+
+    <!-- 欢迎内容 -->
+    <view class="welcome-section">
+      <view class="welcome-text">
+        <text class="title">欢迎回来</text>
+        <text class="subtitle">让AI帮您守护家人健康</text>
+      </view>
+
+      <!-- 特色功能展示 -->
+      <view class="features-showcase">
+        <view class="feature-card">
+          <view class="feature-icon-bg">🤖</view>
+          <text class="feature-title">AI智能分析</text>
+          <text class="feature-desc">健康数据智能解读</text>
+        </view>
+        <view class="feature-card">
+          <view class="feature-icon-bg">📱</view>
+          <text class="feature-title">便捷记录</text>
+          <text class="feature-desc">随时随地记录病历</text>
+        </view>
+        <view class="feature-card">
+          <view class="feature-icon-bg">👨‍👩‍👧‍👦</view>
+          <text class="feature-title">家庭共享</text>
+          <text class="feature-desc">全家健康一目了然</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 登录按钮区域 -->
+    <view class="login-actions">
+      <!-- 主要登录按钮 -->
+      <button 
+        class="login-btn-modern primary {{isLogging ? 'loading' : ''}}" 
+        wx:if="{{canIUseGetUserProfile}}"
+        bindtap="getUserProfile"
+        disabled="{{isLogging}}"
+      >
+        <view class="btn-content">
+          <view class="btn-icon" wx:if="{{!isLogging}}">
+            <text class="wechat-icon">💬</text>
+          </view>
+          <view class="btn-loading" wx:if="{{isLogging}}">
+            <view class="loading-dot"></view>
+            <view class="loading-dot"></view>
+            <view class="loading-dot"></view>
+          </view>
+          <text class="btn-text">{{isLogging ? '登录中...' : '微信一键登录'}}</text>
+        </view>
+        <view class="btn-shimmer"></view>
+      </button>
+
+      <!-- 旧版本兼容 -->
+      <button 
+        class="login-btn-modern primary {{isLogging ? 'loading' : ''}}" 
+        wx:else
+        open-type="getUserInfo"
+        bindgetuserinfo="getUserInfo"
+        disabled="{{isLogging}}"
+      >
+        <view class="btn-content">
+          <view class="btn-icon" wx:if="{{!isLogging}}">
+            <text class="wechat-icon">💬</text>
+          </view>
+          <view class="btn-loading" wx:if="{{isLogging}}">
+            <view class="loading-dot"></view>
+            <view class="loading-dot"></view>
+            <view class="loading-dot"></view>
+          </view>
+          <text class="btn-text">{{isLogging ? '登录中...' : '微信一键登录'}}</text>
+        </view>
+        <view class="btn-shimmer"></view>
+      </button>
+
+      <!-- 辅助按钮 -->
+      <view class="secondary-actions">
+        <button class="help-btn-modern" bindtap="goToHelp">
+          <text class="help-icon">❓</text>
+          <text class="help-text">遇到问题？</text>
+        </button>
+        <button class="demo-btn-modern" bindtap="showDemo">
+          <text class="demo-icon">👁️</text>
+          <text class="demo-text">查看演示</text>
+        </button>
+      </view>
+    </view>
+
+    <!-- 安全保障说明 -->
+    <view class="security-section">
+      <view class="security-items">
+        <view class="security-item">
+          <text class="security-icon">🔐</text>
+          <text class="security-text">端到端加密</text>
+        </view>
+        <view class="security-item">
+          <text class="security-icon">☁️</text>
+          <text class="security-text">云端备份</text>
+        </view>
+        <view class="security-item">
+          <text class="security-icon">🛡️</text>
+          <text class="security-text">隐私保护</text>
+        </view>
+      </view>
+      <text class="privacy-text">您的隐私和数据安全是我们的首要关切</text>
+    </view>
+  </view>
+
+  <!-- 步骤2：完善个人信息 -->
+  <view class="login-step {{loginStep === 2 ? 'active' : ''}}" wx:if="{{loginStep === 2}}">
+    <!-- 进度指示器 -->
+    <view class="progress-header">
+      <view class="progress-bar">
+        <view class="progress-fill" style="width: 66%;"></view>
+      </view>
+      <view class="progress-steps">
+        <view class="progress-step completed">
+          <view class="step-circle">✓</view>
+          <text class="step-label">授权</text>
+        </view>
+        <view class="progress-step active">
+          <view class="step-circle">2</view>
+          <text class="step-label">信息</text>
+        </view>
+        <view class="progress-step">
+          <view class="step-circle">3</view>
+          <text class="step-label">完成</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 表单标题 -->
+    <view class="form-header">
+      <text class="form-title">完善个人信息</text>
+      <text class="form-subtitle">帮助我们为您提供更好的服务</text>
+    </view>
+
+    <!-- 表单内容 -->
+    <scroll-view class="form-scroll" scroll-y="true">
+      <view class="form-sections">
+        
+        <!-- 基本信息 -->
+        <view class="form-section">
+          <view class="section-header">
+            <text class="section-icon">👤</text>
+            <text class="section-title">基本信息</text>
+            <text class="section-required">必填</text>
+          </view>
+          
+          <view class="form-fields">
+            <view class="field-group required">
+              <text class="field-label">姓名</text>
+              <view class="input-wrapper">
+                <input 
+                  class="input-modern" 
+                  placeholder="请输入真实姓名"
+                  placeholder-class="input-placeholder"
+                  value="{{formData.name}}"
+                  data-field="name"
+                  bindinput="onInputChange"
+                  bindfocus="onInputFocus"
+                  bindblur="onInputBlur"
+                />
+                <view class="input-border"></view>
+              </view>
+            </view>
+
+            <view class="field-group required">
+              <text class="field-label">性别</text>
+              <picker 
+                class="picker-modern" 
+                mode="selector" 
+                range="{{genderOptions}}"
+                range-key="label"
+                bindchange="onGenderChange"
+              >
+                <view class="picker-content">
+                  <text class="picker-value">{{formData.gender ? (formData.gender === 'male' ? '男' : '女') : '请选择性别'}}</text>
+                  <text class="picker-arrow">›</text>
+                </view>
+              </picker>
+            </view>
+
+            <view class="field-group required">
+              <text class="field-label">生日</text>
+              <picker 
+                class="picker-modern" 
+                mode="date" 
+                end="{{today}}"
+                bindchange="onDateChange"
+              >
+                <view class="picker-content">
+                  <text class="picker-value">{{formData.birthday || '请选择生日'}}</text>
+                  <text class="picker-arrow">›</text>
+                </view>
+              </picker>
+            </view>
+          </view>
+        </view>
+
+        <!-- 联系方式 -->
+        <view class="form-section">
+          <view class="section-header">
+            <text class="section-icon">📞</text>
+            <text class="section-title">联系方式</text>
+            <text class="section-optional">选填</text>
+          </view>
+          
+          <view class="form-fields">
+            <view class="field-group">
+              <text class="field-label">手机号</text>
+              <view class="input-wrapper">
+                <input 
+                  class="input-modern" 
+                  placeholder="请输入手机号"
+                  placeholder-class="input-placeholder"
+                  type="number"
+                  value="{{formData.phone}}"
+                  data-field="phone"
+                  bindinput="onInputChange"
+                  bindfocus="onInputFocus"
+                  bindblur="onInputBlur"
+                />
+                <view class="input-border"></view>
+              </view>
+            </view>
+
+            <view class="field-group">
+              <text class="field-label">身份证号</text>
+              <view class="input-wrapper">
+                <input 
+                  class="input-modern" 
+                  placeholder="请输入身份证号"
+                  placeholder-class="input-placeholder"
+                  value="{{formData.idCard}}"
+                  data-field="idCard"
+                  bindinput="onInputChange"
+                  bindfocus="onInputFocus"
+                  bindblur="onInputBlur"
+                />
+                <view class="input-border"></view>
+              </view>
+            </view>
+          </view>
+        </view>
+
+        <!-- 紧急联系人 -->
+        <view class="form-section">
+          <view class="section-header">
+            <text class="section-icon">🚨</text>
+            <text class="section-title">紧急联系人</text>
+            <text class="section-optional">选填</text>
+          </view>
+          
+          <view class="form-fields">
+            <view class="field-group">
+              <text class="field-label">联系人姓名</text>
+              <view class="input-wrapper">
+                <input 
+                  class="input-modern" 
+                  placeholder="请输入紧急联系人姓名"
+                  placeholder-class="input-placeholder"
+                  value="{{formData.emergencyContact}}"
+                  data-field="emergencyContact"
+                  bindinput="onInputChange"
+                  bindfocus="onInputFocus"
+                  bindblur="onInputBlur"
+                />
+                <view class="input-border"></view>
+              </view>
+            </view>
+
+            <view class="field-group">
+              <text class="field-label">联系人电话</text>
+              <view class="input-wrapper">
+                <input 
+                  class="input-modern" 
+                  placeholder="请输入紧急联系人电话"
+                  placeholder-class="input-placeholder"
+                  type="number"
+                  value="{{formData.emergencyPhone}}"
+                  data-field="emergencyPhone"
+                  bindinput="onInputChange"
+                  bindfocus="onInputFocus"
+                  bindblur="onInputBlur"
+                />
+                <view class="input-border"></view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+
+    <!-- 表单操作按钮 -->
+    <view class="form-actions-modern">
+      <button class="action-btn-modern secondary" bindtap="goBack">
+        <text class="btn-icon">‹</text>
+        <text class="btn-text">上一步</text>
+      </button>
+      <button class="action-btn-modern outline" bindtap="skipUserInfo">
+        <text class="btn-text">跳过</text>
+      </button>
+      <button class="action-btn-modern primary" bindtap="submitUserInfo">
+        <text class="btn-text">下一步</text>
+        <text class="btn-icon">›</text>
+      </button>
+    </view>
+  </view>
+
+  <!-- 步骤3：创建家庭 -->
+  <view class="login-step {{loginStep === 3 ? 'active' : ''}}" wx:if="{{loginStep === 3}}">
+    <!-- 进度指示器 -->
+    <view class="progress-header">
+      <view class="progress-bar">
+        <view class="progress-fill" style="width: 100%;"></view>
+      </view>
+      <view class="progress-steps">
+        <view class="progress-step completed">
+          <view class="step-circle">✓</view>
+          <text class="step-label">授权</text>
+        </view>
+        <view class="progress-step completed">
+          <view class="step-circle">✓</view>
+          <text class="step-label">信息</text>
+        </view>
+        <view class="progress-step active">
+          <view class="step-circle">3</view>
+          <text class="step-label">完成</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 完成页面内容 -->
+    <view class="completion-section">
+      <view class="success-animation">
+        <view class="success-circle">
+          <text class="success-icon">✓</text>
+        </view>
+        <view class="celebration-particles">
+          <view class="particle particle-1">🎉</view>
+          <view class="particle particle-2">✨</view>
+          <view class="particle particle-3">🎊</view>
+          <view class="particle particle-4">💫</view>
+        </view>
+      </view>
+
+      <view class="completion-content">
+        <text class="completion-title">欢迎加入！</text>
+        <text class="completion-subtitle">您的健康管理之旅即将开始</text>
+        
+        <view class="next-steps">
+          <view class="step-preview">
+            <view class="preview-icon">📱</view>
+            <view class="preview-content">
+              <text class="preview-title">开始记录</text>
+              <text class="preview-desc">记录您的第一条健康信息</text>
+            </view>
+          </view>
+          <view class="step-preview">
+            <view class="preview-icon">👥</view>
+            <view class="preview-content">
+              <text class="preview-title">邀请家人</text>
+              <text class="preview-desc">邀请家人加入健康管理</text>
+            </view>
+          </view>
+          <view class="step-preview">
+            <view class="preview-icon">🤖</view>
+            <view class="preview-content">
+              <text class="preview-title">AI分析</text>
+              <text class="preview-desc">获得智能健康建议</text>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <button class="complete-btn-modern" bindtap="completeLogin">
+        <view class="btn-content">
+          <text class="btn-text">开始使用</text>
+          <text class="btn-icon">🚀</text>
+        </view>
+        <view class="btn-glow"></view>
+      </button>
+    </view>
+  </view>
+
+  <!-- 加载遮罩 -->
+  <view class="loading-overlay {{showLoading ? 'active' : ''}}" wx:if="{{showLoading}}">
+    <view class="loading-content">
+      <view class="loading-spinner">
+        <view class="spinner-ring"></view>
+        <view class="spinner-ring"></view>
+        <view class="spinner-ring"></view>
+      </view>
+      <text class="loading-text">{{loadingText}}</text>
+    </view>
+  </view>
+</view> 

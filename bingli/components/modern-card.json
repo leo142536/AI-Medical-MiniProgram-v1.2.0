@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "loading-indicator": "/components/loading-indicator"
+  }
+} 

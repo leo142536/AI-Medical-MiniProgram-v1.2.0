@@ -1,0 +1,511 @@
+<!-- pages/family/family-optimized.wxml - 全面优化的家庭成员管理页面 -->
+<view class="family-container-modern">
+  <!-- 顶部导航区域 -->
+  <view class="top-header-modern">
+    <view class="header-content">
+      <view class="header-left">
+        <text class="page-title-modern text-2xl">我的家庭</text>
+        <text class="page-subtitle text-sm" wx:if="{{familyInfo}}">{{familyInfo.name}}</text>
+      </view>
+      <view class="header-actions">
+        <view class="action-btn-modern" bindtap="onFamilySettings">
+          <text class="action-icon">⚙️</text>
+        </view>
+        <view class="action-btn-modern" bindtap="onFamilyShare">
+          <text class="action-icon">📤</text>
+        </view>
+        <view class="action-btn-modern" bindtap="onFamilyStats">
+          <text class="action-icon">📊</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 智能家庭概览卡片 -->
+  <view class="family-overview-card" wx:if="{{familyInfo}}">
+    <view class="overview-header">
+      <view class="family-avatar-group">
+        <view 
+          class="family-member-avatar"
+          wx:for="{{recentMembers}}"
+          wx:key="id"
+          style="z-index: {{recentMembers.length - index}}"
+        >
+          <image class="avatar-image" src="{{item.avatar}}" mode="aspectFill" />
+          <view class="online-indicator" wx:if="{{item.isOnline}}"></view>
+        </view>
+        <view class="more-members" wx:if="{{members.length > 4}}">
+          <text class="more-count">+{{members.length - 4}}</text>
+        </view>
+      </view>
+      
+      <view class="family-main-info">
+        <text class="family-name-modern">{{familyInfo.name}}</text>
+        <text class="family-description">{{familyInfo.description || '温馨的家庭'}}</text>
+        <view class="family-tags">
+          <text class="family-tag">{{members.length}}位成员</text>
+          <text class="family-tag" wx:if="{{familyInfo.createdDays}}">创建{{familyInfo.createdDays}}天</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 家庭健康仪表板 -->
+    <view class="health-dashboard">
+      <view class="dashboard-header">
+        <text class="dashboard-title">🏥 家庭健康概览</text>
+        <text class="dashboard-period">本月</text>
+      </view>
+      
+      <view class="health-stats-grid">
+        <view class="health-stat-item">
+          <view class="stat-icon-wrapper stat-medical">
+            <text class="stat-icon">📋</text>
+          </view>
+          <view class="stat-content">
+            <text class="stat-value">{{healthStats.totalRecords}}</text>
+            <text class="stat-label">病历记录</text>
+            <text class="stat-change positive" wx:if="{{healthStats.recordsChange > 0}}">
+              +{{healthStats.recordsChange}}
+            </text>
+          </view>
+        </view>
+        
+        <view class="health-stat-item">
+          <view class="stat-icon-wrapper stat-reminder">
+            <text class="stat-icon">⏰</text>
+          </view>
+          <view class="stat-content">
+            <text class="stat-value">{{healthStats.activeReminders}}</text>
+            <text class="stat-label">活跃提醒</text>
+            <text class="stat-change" class="{{healthStats.remindersChange > 0 ? 'positive' : 'negative'}}">
+              {{healthStats.remindersChange > 0 ? '+' : ''}}{{healthStats.remindersChange}}
+            </text>
+          </view>
+        </view>
+        
+        <view class="health-stat-item">
+          <view class="stat-icon-wrapper stat-checkup">
+            <text class="stat-icon">🔍</text>
+          </view>
+          <view class="stat-content">
+            <text class="stat-value">{{healthStats.checkups}}</text>
+            <text class="stat-label">体检次数</text>
+            <text class="stat-note">距下次{{healthStats.nextCheckup}}天</text>
+          </view>
+        </view>
+        
+        <view class="health-stat-item">
+          <view class="stat-icon-wrapper stat-medicine">
+            <text class="stat-icon">💊</text>
+          </view>
+          <view class="stat-content">
+            <text class="stat-value">{{healthStats.medicationCompliance}}%</text>
+            <text class="stat-label">用药依从</text>
+            <text class="stat-note">{{healthStats.medicationStatus}}</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- AI健康评分 -->
+      <view class="ai-health-score" wx:if="{{aiHealthScore}}">
+        <view class="score-header">
+          <text class="score-title">🤖 AI家庭健康评分</text>
+          <text class="score-period">基于近30天数据分析</text>
+        </view>
+        <view class="score-content">
+          <view class="score-circle">
+            <view class="score-progress" style="--progress: {{aiHealthScore.percentage}}%">
+              <text class="score-number">{{aiHealthScore.score}}</text>
+              <text class="score-total">/100</text>
+            </view>
+          </view>
+          <view class="score-details">
+            <text class="score-level score-{{aiHealthScore.level}}">{{aiHealthScore.levelText}}</text>
+            <text class="score-description">{{aiHealthScore.description}}</text>
+            <view class="score-suggestions">
+              <text 
+                class="suggestion-item"
+                wx:for="{{aiHealthScore.suggestions}}"
+                wx:key="*this"
+              >• {{item}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 智能成员管理区域 -->
+  <view class="members-management-section">
+    <view class="section-header-modern">
+      <view class="header-left">
+        <text class="section-title-modern">👥 家庭成员</text>
+        <text class="section-subtitle">{{members.length}}位成员</text>
+      </view>
+      <view class="header-actions">
+        <view class="quick-action-btn" bindtap="onBulkManage">
+          <text class="action-icon">📝</text>
+          <text class="action-text">批量管理</text>
+        </view>
+        <view class="add-member-btn btn-modern btn-modern-primary" bindtap="onAddMember">
+          <text class="btn-icon">+</text>
+          <text class="btn-text">添加成员</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 成员搜索和筛选 -->
+    <view class="members-filter-bar">
+      <view class="search-input-container">
+        <view class="search-icon">🔍</view>
+        <input 
+          class="search-input-modern"
+          placeholder="搜索家庭成员..."
+          value="{{searchKeyword}}"
+          bindinput="onSearchMembers"
+        />
+        <view class="search-actions" wx:if="{{searchKeyword}}">
+          <text class="clear-search-btn" bindtap="onClearSearch">×</text>
+        </view>
+      </view>
+      
+      <view class="filter-options">
+        <view 
+          class="filter-chip {{activeFilter === 'all' ? 'active' : ''}}"
+          data-filter="all"
+          bindtap="onFilterMembers"
+        >
+          <text class="chip-text">全部</text>
+        </view>
+        <view 
+          class="filter-chip {{activeFilter === 'adults' ? 'active' : ''}}"
+          data-filter="adults"
+          bindtap="onFilterMembers"
+        >
+          <text class="chip-text">成人</text>
+        </view>
+        <view 
+          class="filter-chip {{activeFilter === 'children' ? 'active' : ''}}"
+          data-filter="children"
+          bindtap="onFilterMembers"
+        >
+          <text class="chip-text">儿童</text>
+        </view>
+        <view 
+          class="filter-chip {{activeFilter === 'elderly' ? 'active' : ''}}"
+          data-filter="elderly"
+          bindtap="onFilterMembers"
+        >
+          <text class="chip-text">老人</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 现代化成员卡片列表 -->
+    <view class="members-grid-modern">
+      <view 
+        class="member-card-modern card-modern touchable-card"
+        wx:for="{{filteredMembers}}"
+        wx:key="id"
+        data-id="{{item.id}}"
+        bindtap="onMemberDetail"
+        bindlongpress="onMemberLongPress"
+      >
+        <!-- 成员状态指示器 -->
+        <view class="member-status-indicator status-{{item.healthStatus || 'normal'}}"></view>
+        
+        <!-- 成员头像区域 -->
+        <view class="member-avatar-section">
+          <view class="avatar-container">
+            <image 
+              class="member-avatar-image" 
+              src="{{item.avatar || '/images/default-avatar.png'}}" 
+              mode="aspectFill"
+              lazy-load
+            />
+            <view class="avatar-overlay">
+              <text class="quick-action-icon">📋</text>
+            </view>
+            
+            <!-- 角色徽章 -->
+            <view class="role-badge role-{{item.role || 'member'}}" wx:if="{{item.role}}">
+              <text class="role-text">{{getRoleText(item.role)}}</text>
+            </view>
+            
+            <!-- 在线状态 -->
+            <view class="online-status" wx:if="{{item.isOnline}}">
+              <view class="online-dot"></view>
+            </view>
+          </view>
+        </view>
+
+        <!-- 成员基本信息 -->
+        <view class="member-info-section">
+          <view class="member-main-info">
+            <text class="member-name-modern">{{item.name}}</text>
+            <text class="member-relation-modern">{{item.relation}}</text>
+          </view>
+          
+          <view class="member-details">
+            <view class="detail-item">
+              <text class="detail-icon">{{item.gender === 'male' ? '👨' : '👩'}}</text>
+              <text class="detail-text">{{getAge(item.birthday)}}岁</text>
+            </view>
+            <view class="detail-item" wx:if="{{item.bloodType}}">
+              <text class="detail-icon">🩸</text>
+              <text class="detail-text">{{item.bloodType}}型</text>
+            </view>
+            <view class="detail-item" wx:if="{{item.phone}}">
+              <text class="detail-icon">📱</text>
+              <text class="detail-text">{{item.phone.slice(-4)}}</text>
+            </view>
+          </view>
+        </view>
+
+        <!-- 健康状态信息 -->
+        <view class="member-health-section" wx:if="{{item.healthSummary}}">
+          <view class="health-header">
+            <text class="health-title">健康状态</text>
+            <view class="health-score-mini">
+              <text class="score-value-mini">{{item.healthSummary.score}}</text>
+            </view>
+          </view>
+          
+          <view class="health-indicators">
+            <view class="health-indicator" wx:if="{{item.healthSummary.lastCheckup}}">
+              <text class="indicator-icon">🏥</text>
+              <text class="indicator-text">上次体检{{item.healthSummary.lastCheckup}}</text>
+            </view>
+            <view class="health-indicator" wx:if="{{item.healthSummary.medications}}">
+              <text class="indicator-icon">💊</text>
+              <text class="indicator-text">{{item.healthSummary.medications}}种常用药</text>
+            </view>
+            <view class="health-indicator" wx:if="{{item.healthSummary.conditions}}">
+              <text class="indicator-icon">⚠️</text>
+              <text class="indicator-text">{{item.healthSummary.conditions}}个关注项</text>
+            </view>
+          </view>
+
+          <!-- AI健康提醒 -->
+          <view class="ai-health-alerts" wx:if="{{item.aiAlerts && item.aiAlerts.length > 0}}">
+            <view 
+              class="ai-alert-item alert-{{alert.level}}"
+              wx:for="{{item.aiAlerts}}"
+              wx:for-item="alert"
+              wx:key="id"
+            >
+              <text class="alert-icon">{{alert.icon}}</text>
+              <text class="alert-text">{{alert.message}}</text>
+            </view>
+          </view>
+        </view>
+
+        <!-- 快速操作区域 -->
+        <view class="member-actions-section">
+          <view class="quick-actions">
+            <view class="quick-action-item" catchtap="onQuickAddRecord" data-member="{{item}}">
+              <text class="quick-action-icon">📝</text>
+              <text class="quick-action-text">记录</text>
+            </view>
+            <view class="quick-action-item" catchtap="onQuickReminder" data-member="{{item}}">
+              <text class="quick-action-icon">⏰</text>
+              <text class="quick-action-text">提醒</text>
+            </view>
+            <view class="quick-action-item" catchtap="onMemberCall" data-member="{{item}}" wx:if="{{item.phone}}">
+              <text class="quick-action-icon">📞</text>
+              <text class="quick-action-text">呼叫</text>
+            </view>
+            <view class="quick-action-item more-actions" catchtap="onMoreMemberActions" data-member="{{item}}">
+              <text class="quick-action-icon">⋯</text>
+            </view>
+          </view>
+        </view>
+
+        <!-- 最近活动时间线 -->
+        <view class="member-activity-timeline" wx:if="{{item.recentActivities && item.recentActivities.length > 0}}">
+          <view class="timeline-header">
+            <text class="timeline-title">最近活动</text>
+            <text class="timeline-more" catchtap="onViewMemberHistory" data-id="{{item.id}}">查看更多</text>
+          </view>
+          <view class="timeline-items">
+            <view 
+              class="timeline-item-mini"
+              wx:for="{{item.recentActivities}}"
+              wx:for-item="activity"
+              wx:key="id"
+            >
+              <view class="timeline-dot timeline-{{activity.type}}"></view>
+              <view class="timeline-content-mini">
+                <text class="timeline-text">{{activity.description}}</text>
+                <text class="timeline-time">{{activity.timeAgo}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 加载更多 -->
+    <view class="load-more-members" wx:if="{{hasMoreMembers}}">
+      <view class="load-more-content">
+        <view class="loading-spinner" wx:if="{{loadingMembers}}"></view>
+        <text class="load-more-text">{{loadingMembers ? '加载中...' : '加载更多成员'}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 智能家庭建议 -->
+  <view class="family-suggestions-section" wx:if="{{familySuggestions && familySuggestions.length > 0}}">
+    <view class="suggestions-header">
+      <text class="suggestions-title">🤖 AI智能建议</text>
+      <text class="suggestions-subtitle">基于家庭健康数据分析</text>
+    </view>
+    
+    <scroll-view class="suggestions-scroll" scroll-x>
+      <view class="suggestions-list">
+        <view 
+          class="suggestion-card"
+          wx:for="{{familySuggestions}}"
+          wx:key="id"
+          data-suggestion="{{item}}"
+          bindtap="onApplySuggestion"
+        >
+          <view class="suggestion-icon-wrapper">
+            <text class="suggestion-icon">{{item.icon}}</text>
+          </view>
+          <view class="suggestion-content">
+            <text class="suggestion-title">{{item.title}}</text>
+            <text class="suggestion-description">{{item.description}}</text>
+          </view>
+          <view class="suggestion-action">
+            <text class="action-text">{{item.actionText}}</text>
+            <text class="action-arrow">→</text>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 家庭成就和里程碑 -->
+  <view class="family-achievements-section" wx:if="{{familyAchievements && familyAchievements.length > 0}}">
+    <view class="achievements-header">
+      <text class="achievements-title">🏆 家庭成就</text>
+      <text class="achievements-count">已解锁 {{unlockedAchievements}}/{{totalAchievements}}</text>
+    </view>
+    
+    <view class="achievements-grid">
+      <view 
+        class="achievement-item {{achievement.unlocked ? 'unlocked' : 'locked'}}"
+        wx:for="{{familyAchievements}}"
+        wx:for-item="achievement"
+        wx:key="id"
+        data-achievement="{{achievement}}"
+        bindtap="onViewAchievement"
+      >
+        <view class="achievement-icon-wrapper">
+          <text class="achievement-icon">{{achievement.icon}}</text>
+          <view class="achievement-progress" wx:if="{{!achievement.unlocked}}">
+            <text class="progress-text">{{achievement.progress}}/{{achievement.target}}</text>
+          </view>
+        </view>
+        <view class="achievement-info">
+          <text class="achievement-title">{{achievement.title}}</text>
+          <text class="achievement-description">{{achievement.description}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state-family" wx:if="{{!familyInfo}}">
+    <view class="empty-animation-container">
+      <text class="empty-icon-animated">👨‍👩‍👧‍👦</text>
+      <view class="empty-particles">
+        <view class="particle" wx:for="{{[1,2,3,4,5]}}" wx:key="*this"></view>
+      </view>
+    </view>
+    <text class="empty-title-modern">欢迎创建您的家庭</text>
+    <text class="empty-description-modern">
+      开始管理家庭成员的健康信息，让AI为您提供智能分析和建议
+    </text>
+    
+    <view class="empty-actions">
+      <button class="create-family-btn btn-modern btn-modern-primary" bindtap="onCreateFamily">
+        <text class="btn-icon">👨‍👩‍👧‍👦</text>
+        <text class="btn-text">创建家庭</text>
+      </button>
+      <button class="join-family-btn btn-modern btn-modern-outline" bindtap="onJoinFamily">
+        <text class="btn-icon">🔗</text>
+        <text class="btn-text">加入家庭</text>
+      </button>
+    </view>
+    
+    <view class="empty-features">
+      <view class="feature-item">
+        <text class="feature-icon">🏥</text>
+        <text class="feature-text">健康记录管理</text>
+      </view>
+      <view class="feature-item">
+        <text class="feature-icon">🤖</text>
+        <text class="feature-text">AI智能分析</text>
+      </view>
+      <view class="feature-item">
+        <text class="feature-icon">⏰</text>
+        <text class="feature-text">智能健康提醒</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 浮动快速操作菜单 -->
+  <view class="floating-quick-menu" wx:if="{{showQuickMenu}}">
+    <view class="quick-menu-overlay" bindtap="onCloseQuickMenu"></view>
+    <view class="quick-menu-content">
+      <view class="quick-menu-header">
+        <text class="menu-title">快速操作</text>
+        <text class="menu-close" bindtap="onCloseQuickMenu">×</text>
+      </view>
+      
+      <view class="quick-menu-items">
+        <view class="quick-menu-item" bindtap="onQuickAddMember">
+          <view class="menu-item-icon">👤</view>
+          <view class="menu-item-content">
+            <text class="menu-item-title">添加成员</text>
+            <text class="menu-item-desc">邀请家庭成员加入</text>
+          </view>
+        </view>
+        
+        <view class="quick-menu-item" bindtap="onQuickFamilyRecord">
+          <view class="menu-item-icon">📋</view>
+          <view class="menu-item-content">
+            <text class="menu-item-title">家庭记录</text>
+            <text class="menu-item-desc">查看家庭健康记录</text>
+          </view>
+        </view>
+        
+        <view class="quick-menu-item" bindtap="onQuickFamilyReport">
+          <view class="menu-item-icon">📊</view>
+          <view class="menu-item-content">
+            <text class="menu-item-title">健康报告</text>
+            <text class="menu-item-desc">生成家庭健康报告</text>
+          </view>
+        </view>
+        
+        <view class="quick-menu-item" bindtap="onQuickEmergencyContacts">
+          <view class="menu-item-icon">🚨</view>
+          <view class="menu-item-content">
+            <text class="menu-item-title">紧急联系</text>
+            <text class="menu-item-desc">设置紧急联系人</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 全局加载遮罩 -->
+  <view class="global-loading-overlay" wx:if="{{globalLoading}}">
+    <view class="global-loading-content">
+      <view class="loading-spinner-large"></view>
+      <text class="global-loading-text">{{loadingText || '处理中...'}}</text>
+    </view>
+  </view>
+</view> 

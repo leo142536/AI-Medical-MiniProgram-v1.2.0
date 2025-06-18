@@ -1,0 +1,678 @@
+<!--pages/record/record-optimized.wxml - 全面优化的病历管理页面-->
+<view class="record-container-modern">
+  <!-- 顶部导航栏 -->
+  <view class="top-navigation">
+    <view class="nav-header">
+      <view class="nav-left">
+        <text class="page-title text-2xl">病历管理</text>
+        <text class="page-subtitle text-sm">{{totalRecords}}条记录</text>
+      </view>
+      <view class="nav-right">
+        <view class="nav-action-btn" bindtap="onShowStats">
+          <text class="nav-icon">📊</text>
+        </view>
+        <view class="nav-action-btn" bindtap="onShowSettings">
+          <text class="nav-icon">⚙️</text>
+        </view>
+      </view>
+    </view>
+    
+    <!-- 智能搜索栏 -->
+    <view class="smart-search-bar">
+      <view class="search-container">
+        <view class="search-icon">🔍</view>
+        <input 
+          class="search-input-modern"
+          placeholder="智能搜索病历、症状、医院..."
+          value="{{searchKeyword}}"
+          bindinput="onSearchInput"
+          bindfocus="onSearchFocus"
+          bindblur="onSearchBlur"
+        />
+        <view class="search-actions">
+          <view class="clear-btn-modern" wx:if="{{searchKeyword}}" bindtap="onClearSearch">
+            <text>×</text>
+          </view>
+          <view class="voice-search-btn" bindtap="onVoiceSearch">
+            <text>🎤</text>
+          </view>
+          <view class="ai-search-btn" bindtap="onAISearch">
+            <text>🤖</text>
+          </view>
+        </view>
+      </view>
+      
+      <!-- 搜索建议 -->
+      <view class="search-suggestions" wx:if="{{showSearchSuggestions && searchSuggestions.length > 0}}">
+        <view 
+          class="suggestion-item"
+          wx:for="{{searchSuggestions}}"
+          wx:key="id"
+          data-keyword="{{item.keyword}}"
+          bindtap="onSelectSuggestion"
+        >
+          <text class="suggestion-icon">{{item.icon}}</text>
+          <text class="suggestion-text">{{item.keyword}}</text>
+          <text class="suggestion-count">{{item.count}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 快速筛选标签 -->
+  <scroll-view class="quick-filters" scroll-x="true">
+    <view class="filter-tags">
+      <view 
+        class="filter-tag {{activeFilter === 'all' ? 'active' : ''}}"
+        data-filter="all"
+        bindtap="onQuickFilter"
+      >
+        <text class="tag-icon">📋</text>
+        <text class="tag-text">全部</text>
+        <view class="tag-badge" wx:if="{{filterCounts.all > 0}}">{{filterCounts.all}}</view>
+      </view>
+      
+      <view 
+        class="filter-tag {{activeFilter === 'recent' ? 'active' : ''}}"
+        data-filter="recent"
+        bindtap="onQuickFilter"
+      >
+        <text class="tag-icon">🕒</text>
+        <text class="tag-text">最近</text>
+        <view class="tag-badge" wx:if="{{filterCounts.recent > 0}}">{{filterCounts.recent}}</view>
+      </view>
+      
+      <view 
+        class="filter-tag {{activeFilter === 'important' ? 'active' : ''}}"
+        data-filter="important"
+        bindtap="onQuickFilter"
+      >
+        <text class="tag-icon">⭐</text>
+        <text class="tag-text">重要</text>
+        <view class="tag-badge" wx:if="{{filterCounts.important > 0}}">{{filterCounts.important}}</view>
+      </view>
+      
+      <view 
+        class="filter-tag {{activeFilter === 'emergency' ? 'active' : ''}}"
+        data-filter="emergency"
+        bindtap="onQuickFilter"
+      >
+        <text class="tag-icon">🚨</text>
+        <text class="tag-text">急诊</text>
+        <view class="tag-badge" wx:if="{{filterCounts.emergency > 0}}">{{filterCounts.emergency}}</view>
+      </view>
+      
+      <view 
+        class="filter-tag {{activeFilter === 'prescription' ? 'active' : ''}}"
+        data-filter="prescription"
+        bindtap="onQuickFilter"
+      >
+        <text class="tag-icon">💊</text>
+        <text class="tag-text">处方</text>
+        <view class="tag-badge" wx:if="{{filterCounts.prescription > 0}}">{{filterCounts.prescription}}</view>
+      </view>
+      
+      <view class="filter-tag filter-more" bindtap="onShowAdvancedFilter">
+        <text class="tag-icon">🔧</text>
+        <text class="tag-text">更多筛选</text>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 智能分析卡片 -->
+  <view class="ai-insights-card" wx:if="{{showAIInsights && aiInsights}}">
+    <view class="insights-header">
+      <text class="insights-title">🧠 AI智能分析</text>
+      <view class="insights-actions">
+        <text class="insights-more" bindtap="onViewMoreInsights">详细</text>
+        <text class="insights-close" bindtap="onCloseInsights">×</text>
+      </view>
+    </view>
+    <view class="insights-content">
+      <text class="insights-summary">{{aiInsights.summary}}</text>
+      <view class="insights-tags">
+        <text 
+          class="insight-tag"
+          wx:for="{{aiInsights.tags}}"
+          wx:key="*this"
+        >{{item}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 病历时间线视图 -->
+  <view class="view-toggle" wx:if="{{filteredRecords.length > 0}}">
+    <view class="toggle-buttons">
+      <view 
+        class="toggle-btn {{viewMode === 'card' ? 'active' : ''}}"
+        data-mode="card"
+        bindtap="onToggleView"
+      >
+        <text class="toggle-icon">📋</text>
+        <text class="toggle-text">卡片</text>
+      </view>
+      <view 
+        class="toggle-btn {{viewMode === 'timeline' ? 'active' : ''}}"
+        data-mode="timeline"
+        bindtap="onToggleView"
+      >
+        <text class="toggle-icon">📅</text>
+        <text class="toggle-text">时间线</text>
+      </view>
+      <view 
+        class="toggle-btn {{viewMode === 'calendar' ? 'active' : ''}}"
+        data-mode="calendar"
+        bindtap="onToggleView"
+      >
+        <text class="toggle-icon">📆</text>
+        <text class="toggle-text">日历</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 主内容区域 -->
+  <scroll-view 
+    class="content-scroll"
+    scroll-y
+    enable-flex
+    refresher-enabled
+    refresher-triggered="{{loading && page === 0}}"
+    bindrefresherrefresh="refreshData"
+    bindscrolltolower="loadMoreRecords"
+    enhanced="true"
+    bounces="true"
+  >
+    <!-- 骨架屏加载 -->
+    <view class="skeleton-container" wx:if="{{loading && filteredRecords.length === 0}}">
+      <view class="skeleton-card" wx:for="{{[1,2,3]}}" wx:key="*this">
+        <view class="skeleton-header">
+          <view class="skeleton-title skeleton"></view>
+          <view class="skeleton-date skeleton"></view>
+        </view>
+        <view class="skeleton-content">
+          <view class="skeleton-line skeleton"></view>
+          <view class="skeleton-line skeleton"></view>
+          <view class="skeleton-line short skeleton"></view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 智能空状态 -->
+    <view class="empty-state-smart" wx:elif="{{!loading && filteredRecords.length === 0}}">
+      <view class="empty-animation">
+        <text class="empty-icon-animated">📋</text>
+      </view>
+      <text class="empty-title-modern">{{emptyStateConfig.title}}</text>
+      <text class="empty-desc-modern">{{emptyStateConfig.description}}</text>
+      
+      <!-- 智能建议 -->
+      <view class="empty-suggestions">
+        <view 
+          class="suggestion-card"
+          wx:for="{{emptyStateConfig.suggestions}}"
+          wx:key="id"
+          data-action="{{item.action}}"
+          bindtap="onEmptySuggestion"
+        >
+          <text class="suggestion-icon">{{item.icon}}</text>
+          <text class="suggestion-title">{{item.title}}</text>
+        </view>
+      </view>
+      
+      <button class="cta-button btn-modern btn-modern-primary" bindtap="onAddRecord">
+        <text class="cta-icon">+</text>
+        <text class="cta-text">添加第一条病历</text>
+      </button>
+    </view>
+
+    <!-- 卡片视图 -->
+    <view class="record-cards-modern" wx:elif="{{viewMode === 'card'}}">
+      <view 
+        wx:for="{{filteredRecords}}" 
+        wx:key="_id"
+        class="record-card-modern card-modern touchable-card"
+        data-id="{{item._id}}"
+        bindtap="onViewRecord"
+        bindlongpress="onLongPressRecord"
+      >
+        <!-- 卡片状态指示器 -->
+        <view class="card-status-indicator status-{{item.priority || 'normal'}}"></view>
+        
+        <!-- 卡片头部 -->
+        <view class="card-header-modern">
+          <view class="header-main">
+            <text class="record-title-modern text-lg">{{item.title}}</text>
+            <view class="record-tags">
+              <text class="record-tag tag tag-{{item.type || 'default'}}">{{item.typeLabel || '门诊'}}</text>
+              <text class="record-tag tag tag-priority-{{item.priority || 'normal'}}" wx:if="{{item.priority && item.priority !== 'normal'}}">
+                {{item.priorityLabel}}
+              </text>
+            </view>
+          </view>
+          <view class="header-actions">
+            <view class="quick-action-btn" catchtap="onQuickEdit" data-id="{{item._id}}">
+              <text class="action-icon">✏️</text>
+            </view>
+            <view class="quick-action-btn" catchtap="onQuickShare" data-id="{{item._id}}">
+              <text class="action-icon">📤</text>
+            </view>
+            <view class="more-actions-btn" catchtap="onMoreActions" data-id="{{item._id}}">
+              <text class="more-icon">⋯</text>
+            </view>
+          </view>
+        </view>
+
+        <!-- 时间和成员信息 -->
+        <view class="record-meta-modern">
+          <view class="meta-item">
+            <text class="meta-icon">📅</text>
+            <text class="meta-text text-sm">{{item.date}} {{item.time}}</text>
+          </view>
+          <view class="meta-item">
+            <text class="meta-icon">👤</text>
+            <text class="meta-text text-sm">{{item.member}}</text>
+          </view>
+          <view class="meta-item" wx:if="{{item.doctor}}">
+            <text class="meta-icon">👨‍⚕️</text>
+            <text class="meta-text text-sm">{{item.doctor}}</text>
+          </view>
+        </view>
+
+        <!-- 医院和诊断信息 -->
+        <view class="hospital-info-modern">
+          <view class="hospital-main">
+            <text class="hospital-name-modern">🏥 {{item.hospital}}</text>
+            <text class="department-name" wx:if="{{item.department}}">{{item.department}}</text>
+          </view>
+          <view class="diagnosis-info" wx:if="{{item.diagnosis}}">
+            <text class="diagnosis-label">诊断：</text>
+            <text class="diagnosis-text">{{item.diagnosis}}</text>
+          </view>
+        </view>
+
+        <!-- 症状和治疗摘要 -->
+        <view class="medical-summary" wx:if="{{item.symptoms || item.treatment}}">
+          <view class="summary-item" wx:if="{{item.symptoms}}">
+            <text class="summary-label">症状</text>
+            <text class="summary-content text-sm">{{item.symptoms}}</text>
+          </view>
+          <view class="summary-item" wx:if="{{item.treatment}}">
+            <text class="summary-label">治疗</text>
+            <text class="summary-content text-sm">{{item.treatment}}</text>
+          </view>
+        </view>
+
+        <!-- AI分析标签 -->
+        <view class="ai-analysis-tags" wx:if="{{item.aiAnalysis && item.aiAnalysis.tags}}">
+          <text class="ai-label">🤖 AI分析：</text>
+          <view class="ai-tags-list">
+            <text 
+              class="ai-tag"
+              wx:for="{{item.aiAnalysis.tags}}"
+              wx:key="*this"
+            >{{item}}</text>
+          </view>
+        </view>
+
+        <!-- 附件信息 -->
+        <view class="attachments-info" wx:if="{{item.attachments && item.attachments.length > 0}}">
+          <view class="attachment-item" wx:if="{{item.images && item.images.length > 0}}">
+            <text class="attachment-icon">📷</text>
+            <text class="attachment-count">{{item.images.length}}张图片</text>
+          </view>
+          <view class="attachment-item" wx:if="{{item.documents && item.documents.length > 0}}">
+            <text class="attachment-icon">📄</text>
+            <text class="attachment-count">{{item.documents.length}}个文档</text>
+          </view>
+          <view class="attachment-item" wx:if="{{item.prescriptions && item.prescriptions.length > 0}}">
+            <text class="attachment-icon">💊</text>
+            <text class="attachment-count">{{item.prescriptions.length}}个处方</text>
+          </view>
+        </view>
+
+        <!-- 卡片底部 -->
+        <view class="card-footer-modern">
+          <view class="footer-left">
+            <text class="cost-info" wx:if="{{item.cost}}">
+              <text class="cost-icon">💰</text>
+              <text class="cost-amount">¥{{item.cost}}</text>
+            </text>
+            <view class="follow-up-info" wx:if="{{item.followUpDate}}">
+              <text class="follow-up-icon">📅</text>
+              <text class="follow-up-text text-xs">复诊：{{item.followUpDate}}</text>
+            </view>
+          </view>
+          <view class="footer-right">
+            <view class="record-score" wx:if="{{item.aiScore}}">
+              <text class="score-label">健康评分</text>
+              <view class="score-bar">
+                <view class="score-fill" style="width: {{item.aiScore}}%"></view>
+              </view>
+              <text class="score-value">{{item.aiScore}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 时间线视图 -->
+    <view class="timeline-view" wx:elif="{{viewMode === 'timeline'}}">
+      <view class="timeline-container">
+        <view 
+          class="timeline-group"
+          wx:for="{{timelineGroups}}"
+          wx:key="date"
+        >
+          <view class="timeline-date-header">
+            <text class="timeline-date">{{item.date}}</text>
+            <text class="timeline-count">{{item.records.length}}条记录</text>
+          </view>
+          
+          <view class="timeline-items">
+            <view 
+              class="timeline-item"
+              wx:for="{{item.records}}"
+              wx:for-item="record"
+              wx:key="_id"
+              data-id="{{record._id}}"
+              bindtap="onViewRecord"
+            >
+              <view class="timeline-dot timeline-dot-{{record.type || 'default'}}"></view>
+              <view class="timeline-content card-modern">
+                <view class="timeline-header">
+                  <text class="timeline-title">{{record.title}}</text>
+                  <text class="timeline-time">{{record.time}}</text>
+                </view>
+                <text class="timeline-hospital">{{record.hospital}}</text>
+                <text class="timeline-diagnosis" wx:if="{{record.diagnosis}}">{{record.diagnosis}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 日历视图 -->
+    <view class="calendar-view" wx:elif="{{viewMode === 'calendar'}}">
+      <view class="calendar-container">
+        <!-- 日历头部 -->
+        <view class="calendar-header">
+          <view class="calendar-nav">
+            <text class="nav-btn" bindtap="onPrevMonth">‹</text>
+            <text class="calendar-title">{{calendarTitle}}</text>
+            <text class="nav-btn" bindtap="onNextMonth">›</text>
+          </view>
+        </view>
+        
+        <!-- 日历网格 -->
+        <view class="calendar-grid">
+          <view class="calendar-weekdays">
+            <text class="weekday" wx:for="{{weekdays}}" wx:key="*this">{{item}}</text>
+          </view>
+          <view class="calendar-days">
+            <view 
+              class="calendar-day {{day.isCurrentMonth ? '' : 'other-month'}} {{day.isToday ? 'today' : ''}} {{day.hasRecords ? 'has-records' : ''}}"
+              wx:for="{{calendarDays}}"
+              wx:for-item="day"
+              wx:key="date"
+              data-date="{{day.date}}"
+              bindtap="onSelectDate"
+            >
+              <text class="day-number">{{day.day}}</text>
+              <view class="day-indicators" wx:if="{{day.records && day.records.length > 0}}">
+                <view 
+                  class="record-indicator indicator-{{record.type || 'default'}}"
+                  wx:for="{{day.records}}"
+                  wx:for-item="record"
+                  wx:key="_id"
+                ></view>
+              </view>
+            </view>
+          </view>
+        </view>
+        
+        <!-- 选中日期的记录 -->
+        <view class="selected-date-records" wx:if="{{selectedDateRecords.length > 0}}">
+          <text class="selected-date-title">{{selectedDate}} 的记录</text>
+          <view class="mini-record-list">
+            <view 
+              class="mini-record-item"
+              wx:for="{{selectedDateRecords}}"
+              wx:key="_id"
+              data-id="{{item._id}}"
+              bindtap="onViewRecord"
+            >
+              <text class="mini-record-title">{{item.title}}</text>
+              <text class="mini-record-hospital">{{item.hospital}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 加载更多 -->
+    <view class="load-more-modern" wx:if="{{hasMore && filteredRecords.length > 0}}">
+      <view class="load-more-content">
+        <view class="loading-spinner" wx:if="{{loading}}"></view>
+        <text class="load-more-text">{{loading ? '加载中...' : '上拉加载更多'}}</text>
+      </view>
+    </view>
+
+    <!-- 没有更多 -->
+    <view class="no-more-modern" wx:if="{{!hasMore && filteredRecords.length > 0}}">
+      <view class="no-more-content">
+        <text class="no-more-text">已显示全部 {{filteredRecords.length}} 条记录</text>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 智能浮动操作菜单 -->
+  <view class="smart-fab-container">
+    <view class="fab-menu {{showFabMenu ? 'expanded' : ''}}" wx:if="{{showFabMenu}}">
+      <view class="fab-item" bindtap="onQuickAddRecord">
+        <text class="fab-icon">📋</text>
+        <text class="fab-label">快速记录</text>
+      </view>
+      <view class="fab-item" bindtap="onScanPrescription">
+        <text class="fab-icon">📷</text>
+        <text class="fab-label">扫描处方</text>
+      </view>
+      <view class="fab-item" bindtap="onVoiceRecord">
+        <text class="fab-icon">🎤</text>
+        <text class="fab-label">语音记录</text>
+      </view>
+      <view class="fab-item" bindtap="onImportRecord">
+        <text class="fab-icon">📥</text>
+        <text class="fab-label">导入记录</text>
+      </view>
+    </view>
+    
+    <view class="main-fab {{showFabMenu ? 'rotated' : ''}}" bindtap="onToggleFab">
+      <text class="fab-main-icon">{{showFabMenu ? '×' : '+'}}</text>
+    </view>
+  </view>
+
+  <!-- 高级筛选弹窗 -->
+  <view class="advanced-filter-modal" wx:if="{{showAdvancedFilter}}">
+    <view class="modal-mask" bindtap="onCloseAdvancedFilter"></view>
+    <view class="modal-content-advanced">
+      <view class="modal-header-modern">
+        <text class="modal-title-modern">高级筛选</text>
+        <view class="modal-actions">
+          <text class="modal-reset" bindtap="onResetFilter">重置</text>
+          <text class="modal-close" bindtap="onCloseAdvancedFilter">×</text>
+        </view>
+      </view>
+      
+      <scroll-view class="filter-content-modern" scroll-y>
+        <!-- 日期范围 -->
+        <view class="filter-section">
+          <text class="section-title">📅 日期范围</text>
+          <view class="date-range-picker">
+            <picker
+              mode="date"
+              value="{{advancedFilter.startDate}}"
+              data-field="startDate"
+              bindchange="onAdvancedFilterChange"
+            >
+              <view class="date-picker-input">
+                <text class="{{!advancedFilter.startDate ? 'placeholder' : ''}}">
+                  {{advancedFilter.startDate || '开始日期'}}
+                </text>
+              </view>
+            </picker>
+            <text class="date-separator">至</text>
+            <picker
+              mode="date"
+              value="{{advancedFilter.endDate}}"
+              data-field="endDate"
+              bindchange="onAdvancedFilterChange"
+            >
+              <view class="date-picker-input">
+                <text class="{{!advancedFilter.endDate ? 'placeholder' : ''}}">
+                  {{advancedFilter.endDate || '结束日期'}}
+                </text>
+              </view>
+            </picker>
+          </view>
+        </view>
+
+        <!-- 家庭成员 -->
+        <view class="filter-section">
+          <text class="section-title">👥 家庭成员</text>
+          <view class="member-filter-grid">
+            <view 
+              class="member-filter-item {{advancedFilter.members.includes(member.id) ? 'selected' : ''}}"
+              wx:for="{{familyMembers}}"
+              wx:for-item="member"
+              wx:key="id"
+              data-id="{{member.id}}"
+              bindtap="onToggleMemberFilter"
+            >
+              <image class="member-avatar-small" src="{{member.avatar}}" mode="aspectFill" />
+              <text class="member-name-small">{{member.name}}</text>
+            </view>
+          </view>
+        </view>
+
+        <!-- 医院 -->
+        <view class="filter-section">
+          <text class="section-title">🏥 医院</text>
+          <view class="hospital-filter-list">
+            <view 
+              class="hospital-filter-item {{advancedFilter.hospitals.includes(hospital) ? 'selected' : ''}}"
+              wx:for="{{hospitalList}}"
+              wx:for-item="hospital"
+              wx:key="*this"
+              data-hospital="{{hospital}}"
+              bindtap="onToggleHospitalFilter"
+            >
+              <text class="hospital-filter-name">{{hospital}}</text>
+            </view>
+          </view>
+        </view>
+
+        <!-- 记录类型 -->
+        <view class="filter-section">
+          <text class="section-title">📋 记录类型</text>
+          <view class="type-filter-grid">
+            <view 
+              class="type-filter-item {{advancedFilter.types.includes(type.value) ? 'selected' : ''}}"
+              wx:for="{{recordTypes}}"
+              wx:for-item="type"
+              wx:key="value"
+              data-type="{{type.value}}"
+              bindtap="onToggleTypeFilter"
+            >
+              <text class="type-icon">{{type.icon}}</text>
+              <text class="type-name">{{type.label}}</text>
+            </view>
+          </view>
+        </view>
+
+        <!-- 费用范围 -->
+        <view class="filter-section">
+          <text class="section-title">💰 费用范围</text>
+          <view class="cost-range-slider">
+            <slider
+              min="0"
+              max="10000"
+              step="100"
+              value="{{advancedFilter.maxCost}}"
+              data-field="maxCost"
+              bindchange="onAdvancedFilterChange"
+              show-value
+            />
+            <text class="cost-range-label">最高费用：¥{{advancedFilter.maxCost}}</text>
+          </view>
+        </view>
+
+        <!-- AI评分 -->
+        <view class="filter-section">
+          <text class="section-title">🤖 AI健康评分</text>
+          <view class="score-range-picker">
+            <picker
+              range="{{scoreRanges}}"
+              range-key="label"
+              value="{{advancedFilter.scoreRangeIndex}}"
+              data-field="scoreRangeIndex"
+              bindchange="onAdvancedFilterChange"
+            >
+              <view class="score-picker-input">
+                <text>{{scoreRanges[advancedFilter.scoreRangeIndex].label}}</text>
+              </view>
+            </picker>
+          </view>
+        </view>
+      </scroll-view>
+      
+      <view class="modal-footer-modern">
+        <button class="filter-btn filter-cancel" bindtap="onCloseAdvancedFilter">取消</button>
+        <button class="filter-btn filter-apply btn-modern-primary" bindtap="onApplyAdvancedFilter">应用筛选</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 记录详情预览弹窗 -->
+  <view class="record-preview-modal" wx:if="{{showPreviewModal && previewRecord}}">
+    <view class="modal-mask" bindtap="onClosePreview"></view>
+    <view class="preview-content">
+      <view class="preview-header">
+        <text class="preview-title">{{previewRecord.title}}</text>
+        <text class="preview-close" bindtap="onClosePreview">×</text>
+      </view>
+      <scroll-view class="preview-body" scroll-y>
+        <view class="preview-section">
+          <text class="preview-label">基本信息</text>
+          <text class="preview-value">{{previewRecord.date}} {{previewRecord.time}}</text>
+          <text class="preview-value">{{previewRecord.hospital}} - {{previewRecord.department}}</text>
+          <text class="preview-value">患者：{{previewRecord.member}}</text>
+        </view>
+        <view class="preview-section" wx:if="{{previewRecord.diagnosis}}">
+          <text class="preview-label">诊断结果</text>
+          <text class="preview-value">{{previewRecord.diagnosis}}</text>
+        </view>
+        <view class="preview-section" wx:if="{{previewRecord.symptoms}}">
+          <text class="preview-label">症状描述</text>
+          <text class="preview-value">{{previewRecord.symptoms}}</text>
+        </view>
+        <view class="preview-section" wx:if="{{previewRecord.treatment}}">
+          <text class="preview-label">治疗方案</text>
+          <text class="preview-value">{{previewRecord.treatment}}</text>
+        </view>
+      </scroll-view>
+      <view class="preview-footer">
+        <button class="preview-btn preview-edit" bindtap="onEditFromPreview">编辑</button>
+        <button class="preview-btn preview-view btn-modern-primary" bindtap="onViewFromPreview">查看详情</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 全局加载遮罩 -->
+  <view class="global-loading-overlay" wx:if="{{globalLoading}}">
+    <view class="global-loading-content">
+      <view class="loading-spinner-large"></view>
+      <text class="global-loading-text">{{loadingText || '处理中...'}}</text>
+    </view>
+  </view>
+</view> 

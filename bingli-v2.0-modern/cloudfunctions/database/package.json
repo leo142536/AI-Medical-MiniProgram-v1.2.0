@@ -1,0 +1,21 @@
+{
+  "name": "database",
+  "version": "1.0.0",
+  "description": "AI病例管理系统数据库云函数",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  },
+  "scripts": {
+    "deploy": "tcb fn deploy database"
+  },
+  "keywords": [
+    "wechat",
+    "miniprogram", 
+    "cloud",
+    "database",
+    "medical"
+  ],
+  "author": "AI病例管理系统",
+  "license": "MIT"
+} 

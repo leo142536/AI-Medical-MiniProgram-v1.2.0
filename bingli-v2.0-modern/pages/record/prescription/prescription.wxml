@@ -1,0 +1,159 @@
+<!--pages/record/prescription/prescription.wxml-->
+<view class="container">
+  <!-- 顶部导航 -->
+  <view class="header">
+    <view class="title">编辑处方</view>
+    <view class="subtitle">{{record.patientName}} - {{record.visitDate}}</view>
+  </view>
+
+  <!-- 处方基本信息 -->
+  <view class="section">
+    <view class="section-title">
+      <text class="icon">📋</text>
+      <text>处方信息</text>
+    </view>
+    <view class="form-group">
+      <view class="label">处方编号</view>
+      <input class="input" value="{{prescription.number}}" placeholder="自动生成" disabled />
+    </view>
+    <view class="form-group">
+      <view class="label">开具医生</view>
+      <input class="input" value="{{prescription.doctor}}" placeholder="请输入医生姓名" bindinput="onDoctorInput" />
+    </view>
+    <view class="form-group">
+      <view class="label">开具日期</view>
+      <picker mode="date" value="{{prescription.date}}" bindchange="onDateChange">
+        <view class="picker">{{prescription.date || '请选择日期'}}</view>
+      </picker>
+    </view>
+  </view>
+
+  <!-- 药品列表 -->
+  <view class="section">
+    <view class="section-title">
+      <text class="icon">💊</text>
+      <text>药品清单</text>
+      <view class="add-btn" bindtap="addMedicine">
+        <text class="icon">+</text>
+      </view>
+    </view>
+    
+    <view class="medicine-list">
+      <view wx:for="{{prescription.medicines}}" wx:key="index" class="medicine-item">
+        <view class="medicine-header">
+          <view class="medicine-name">{{item.name || '药品名称'}}</view>
+          <view class="delete-btn" bindtap="deleteMedicine" data-index="{{index}}">
+            <text class="icon">×</text>
+          </view>
+        </view>
+        
+        <view class="medicine-form">
+          <view class="form-row">
+            <view class="form-group">
+              <view class="label">药品名称</view>
+              <input class="input" value="{{item.name}}" placeholder="请输入药品名称" 
+                     bindinput="onMedicineInput" data-index="{{index}}" data-field="name" />
+            </view>
+            <view class="form-group">
+              <view class="label">规格</view>
+              <input class="input" value="{{item.specification}}" placeholder="如: 0.25g×12片" 
+                     bindinput="onMedicineInput" data-index="{{index}}" data-field="specification" />
+            </view>
+          </view>
+          
+          <view class="form-row">
+            <view class="form-group">
+              <view class="label">用法</view>
+              <picker range="{{usageMethods}}" value="{{item.usageIndex}}" bindchange="onUsageChange" data-index="{{index}}">
+                <view class="picker">{{usageMethods[item.usageIndex] || '请选择用法'}}</view>
+              </picker>
+            </view>
+            <view class="form-group">
+              <view class="label">用量</view>
+              <input class="input" value="{{item.dosage}}" placeholder="如: 每次1片" 
+                     bindinput="onMedicineInput" data-index="{{index}}" data-field="dosage" />
+            </view>
+          </view>
+          
+          <view class="form-row">
+            <view class="form-group">
+              <view class="label">频次</view>
+              <picker range="{{frequencies}}" value="{{item.frequencyIndex}}" bindchange="onFrequencyChange" data-index="{{index}}">
+                <view class="picker">{{frequencies[item.frequencyIndex] || '请选择频次'}}</view>
+              </picker>
+            </view>
+            <view class="form-group">
+              <view class="label">天数</view>
+              <input class="input" type="number" value="{{item.days}}" placeholder="如: 7" 
+                     bindinput="onMedicineInput" data-index="{{index}}" data-field="days" />
+            </view>
+          </view>
+          
+          <view class="form-group full-width">
+            <view class="label">备注</view>
+            <textarea class="textarea" value="{{item.notes}}" placeholder="用药注意事项、禁忌等" 
+                      bindinput="onMedicineInput" data-index="{{index}}" data-field="notes" />
+          </view>
+        </view>
+      </view>
+      
+      <!-- 空状态 -->
+      <view wx:if="{{prescription.medicines.length === 0}}" class="empty-state">
+        <text class="icon">💊</text>
+        <text class="message">暂无药品信息</text>
+        <text class="submessage">点击右上角"+"添加药品</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 处方说明 -->
+  <view class="section">
+    <view class="section-title">
+      <text class="icon">📝</text>
+      <text>处方说明</text>
+    </view>
+    <view class="form-group">
+      <textarea class="textarea large" value="{{prescription.instructions}}" 
+                placeholder="请输入处方说明、用药指导、注意事项等..." 
+                bindinput="onInstructionsInput" />
+    </view>
+  </view>
+
+  <!-- 快速设置 -->
+  <view class="section">
+    <view class="section-title">
+      <text class="icon">⚡</text>
+      <text>快速设置</text>
+    </view>
+    <view class="quick-actions">
+      <view class="quick-btn" bindtap="applyTemplate" data-type="common">
+        <text class="icon">📋</text>
+        <text>常用处方</text>
+      </view>
+      <view class="quick-btn" bindtap="applyTemplate" data-type="chronic">
+        <text class="icon">🔄</text>
+        <text>慢性病</text>
+      </view>
+      <view class="quick-btn" bindtap="copyFromLast">
+        <text class="icon">📄</text>
+        <text>复制上次</text>
+      </view>
+      <view class="quick-btn" bindtap="clearAll">
+        <text class="icon">🗑️</text>
+        <text>清空</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部操作 -->
+  <view class="footer">
+    <button class="btn secondary" bindtap="saveDraft">保存草稿</button>
+    <button class="btn primary" bindtap="savePrescription">保存处方</button>
+  </view>
+</view>
+
+<!-- 加载状态 -->
+<view wx:if="{{loading}}" class="loading-overlay">
+  <view class="loading-spinner"></view>
+  <text>保存中...</text>
+</view> 

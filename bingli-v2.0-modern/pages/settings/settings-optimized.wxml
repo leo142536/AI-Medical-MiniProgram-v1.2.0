@@ -1,0 +1,669 @@
+<!-- pages/settings/settings-optimized.wxml - 现代化设置页面 -->
+<view class="settings-container-modern">
+  <!-- 用户头部信息 -->
+  <view class="user-profile-section">
+    <view class="profile-background">
+      <view class="profile-gradient"></view>
+    </view>
+    
+    <view class="profile-content">
+      <view class="profile-avatar-wrapper">
+        <image 
+          class="profile-avatar" 
+          src="{{userInfo.avatar || '/images/default-avatar.png'}}" 
+          mode="aspectFill"
+          bindtap="onChangeAvatar"
+        />
+        <view class="avatar-edit-indicator">
+          <text class="edit-icon">📸</text>
+        </view>
+        <view class="online-indicator" wx:if="{{userInfo.isOnline}}"></view>
+      </view>
+      
+      <view class="profile-info">
+        <text class="profile-name">{{userInfo.name || '未设置姓名'}}</text>
+        <text class="profile-id">ID: {{userInfo.id}}</text>
+        <view class="profile-badges">
+          <text class="badge-item" wx:if="{{userInfo.isVip}}">VIP</text>
+          <text class="badge-item" wx:if="{{userInfo.isAdmin}}">管理员</text>
+          <text class="badge-item">{{userInfo.memberDays}}天会员</text>
+        </view>
+      </view>
+      
+      <view class="profile-stats">
+        <view class="stat-item">
+          <text class="stat-number">{{userStats.familyMembers}}</text>
+          <text class="stat-label">家庭成员</text>
+        </view>
+        <view class="stat-item">
+          <text class="stat-number">{{userStats.healthRecords}}</text>
+          <text class="stat-label">健康记录</text>
+        </view>
+        <view class="stat-item">
+          <text class="stat-number">{{userStats.completedReminders}}</text>
+          <text class="stat-label">完成提醒</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 快速操作卡片 -->
+  <view class="quick-actions-grid">
+    <view class="quick-action-card" bindtap="onBackupData">
+      <view class="action-icon-wrapper backup">
+        <text class="action-icon">☁️</text>
+      </view>
+      <view class="action-content">
+        <text class="action-title">数据备份</text>
+        <text class="action-desc">云端同步保护</text>
+      </view>
+      <view class="action-status">
+        <text class="status-text">{{backupStatus}}</text>
+      </view>
+    </view>
+    
+    <view class="quick-action-card" bindtap="onExportData">
+      <view class="action-icon-wrapper export">
+        <text class="action-icon">📤</text>
+      </view>
+      <view class="action-content">
+        <text class="action-title">数据导出</text>
+        <text class="action-desc">生成健康报告</text>
+      </view>
+      <view class="action-status">
+        <text class="status-text">可导出</text>
+      </view>
+    </view>
+    
+    <view class="quick-action-card" bindtap="onInviteFamily">
+      <view class="action-icon-wrapper invite">
+        <text class="action-icon">👥</text>
+      </view>
+      <view class="action-content">
+        <text class="action-title">邀请家人</text>
+        <text class="action-desc">共享健康管理</text>
+      </view>
+      <view class="action-status">
+        <text class="status-text">立即邀请</text>
+      </view>
+    </view>
+    
+    <view class="quick-action-card" bindtap="onUpgradeVip">
+      <view class="action-icon-wrapper vip">
+        <text class="action-icon">👑</text>
+      </view>
+      <view class="action-content">
+        <text class="action-title">升级VIP</text>
+        <text class="action-desc">解锁高级功能</text>
+      </view>
+      <view class="action-status">
+        <text class="status-text">{{userInfo.isVip ? '已开通' : '立即升级'}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 设置分组 -->
+  <view class="settings-groups">
+    <!-- 个人信息设置 -->
+    <view class="settings-group">
+      <view class="group-header">
+        <text class="group-title">👤 个人信息</text>
+        <text class="group-subtitle">管理您的账户和个人资料</text>
+      </view>
+      
+      <view class="settings-items">
+        <view class="setting-item" bindtap="onEditProfile">
+          <view class="setting-icon">
+            <text class="icon">✏️</text>
+          </view>
+          <view class="setting-content">
+            <text class="setting-title">编辑资料</text>
+            <text class="setting-desc">姓名、性别、生日等基本信息</text>
+          </view>
+          <view class="setting-action">
+            <text class="action-arrow">→</text>
+          </view>
+        </view>
+        
+        <view class="setting-item" bindtap="onChangePassword">
+          <view class="setting-icon">
+            <text class="icon">🔐</text>
+          </view>
+          <view class="setting-content">
+            <text class="setting-title">修改密码</text>
+            <text class="setting-desc">定期更换密码保护账户安全</text>
+          </view>
+          <view class="setting-action">
+            <text class="action-arrow">→</text>
+          </view>
+        </view>
+        
+        <view class="setting-item" bindtap="onBindPhone">
+          <view class="setting-icon">
+            <text class="icon">📱</text>
+          </view>
+          <view class="setting-content">
+            <text class="setting-title">手机号码</text>
+            <text class="setting-desc">{{userInfo.phone ? userInfo.phone : '未绑定'}}</text>
+          </view>
+          <view class="setting-action">
+            <text class="action-text">{{userInfo.phone ? '更换' : '绑定'}}</text>
+          </view>
+        </view>
+        
+        <view class="setting-item" bindtap="onBindEmail">
+          <view class="setting-icon">
+            <text class="icon">📧</text>
+          </view>
+          <view class="setting-content">
+            <text class="setting-title">邮箱地址</text>
+            <text class="setting-desc">{{userInfo.email ? userInfo.email : '未绑定'}}</text>
+          </view>
+          <view class="setting-action">
+            <text class="action-text">{{userInfo.email ? '更换' : '绑定'}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 通知设置 -->
+    <view class="settings-group">
+      <view class="group-header">
+        <text class="group-title">🔔 通知提醒</text>
+        <text class="group-subtitle">管理各类提醒和通知设置</text>
+      </view>
+      
+      <view class="settings-items">
+        <view class="setting-item">
+          <view class="setting-icon">
+            <text class="icon">💊</text>
+          </view>
+          <view class="setting-content">
+            <text class="setting-title">用药提醒</text>
+            <text class="setting-desc">按时服药通知</text>
+          </view>
+          <view class="setting-action">
+            <switch 
+              class="setting-switch" 
+              checked="{{notificationSettings.medicine}}"
+              data-type="medicine"
+              bindchange="onNotificationChange"
+            />
+          </view>
+        </view>
+        
+        <view class="setting-item">
+          <view class="setting-icon">
+            <text class="icon">🏥</text>
+          </view>
+          <view class="setting-content">
+            <text class="setting-title">就诊提醒</text>
+            <text class="setting-desc">预约和复诊通知</text>
+          </view>
+          <view class="setting-action">
+            <switch 
+              class="setting-switch" 
+              checked="{{notificationSettings.appointment}}"
+              data-type="appointment"
+              bindchange="onNotificationChange"
+            />
+          </view>
+        </view>
+        
+        <view class="setting-item">
+          <view class="setting-icon">
+            <text class="icon">💪</text>
+          </view>
+          <view class="setting-content">
+            <text class="setting-title">运动提醒</text>
+            <text class="setting-desc">健身和锻炼通知</text>
+          </view>
+          <view class="setting-action">
+            <switch 
+              class="setting-switch" 
+              checked="{{notificationSettings.exercise}}"
+              data-type="exercise"
+              bindchange="onNotificationChange"
+            />
+          </view>
+        </view>
+        
+        <view class="setting-item">
+          <view class="setting-icon">
+            <text class="icon">🍎</text>
+          </view>
+          <view class="setting-content">
+            <text class="setting-title">健康建议</text>
+            <text class="setting-desc">AI智能健康分析通知</text>
+          </view>
+          <view class="setting-action">
+            <switch 
+              class="setting-switch" 
+              checked="{{notificationSettings.healthTips}}"
+              data-type="healthTips"
+              bindchange="onNotificationChange"
+            />
+          </view>
+        </view>
+        
+        <view class="setting-item" bindtap="onNotificationTime">
+          <view class="setting-icon">
+            <text class="icon">⏰</text>
+          </view>
+          <view class="setting-content">
+            <text class="setting-title">免打扰时间</text>
+            <text class="setting-desc">{{notificationSettings.quietHours || '22:00 - 08:00'}}</text>
+          </view>
+          <view class="setting-action">
+            <text class="action-arrow">→</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 隐私安全 -->
+    <view class="settings-group">
+      <view class="group-header">
+        <text class="group-title">🔒 隐私安全</text>
+        <text class="group-subtitle">保护您的个人信息和数据安全</text>
+      </view>
+      
+      <view class="settings-items">
+        <view class="setting-item">
+          <view class="setting-icon">
+            <text class="icon">🔐</text>
+          </view>
+          <view class="setting-content">
+            <text class="setting-title">应用锁</text>
+            <text class="setting-desc">启用后需要验证身份才能进入应用</text>
+          </view>
+          <view class="setting-action">
+            <switch 
+              class="setting-switch" 
+              checked="{{securitySettings.appLock}}"
+              data-type="appLock"
+              bindchange="onSecurityChange"
+            />
+          </view>
+        </view>
+        
+        <view class="setting-item" bindtap="onBiometricAuth">
+          <view class="setting-icon">
+            <text class="icon">👆</text>
+          </view>
+          <view class="setting-content">
+            <text class="setting-title">生物识别</text>
+            <text class="setting-desc">使用指纹或面容解锁</text>
+          </view>
+          <view class="setting-action">
+            <text class="action-text">{{securitySettings.biometric ? '已启用' : '设置'}}</text>
+          </view>
+        </view>
+        
+        <view class="setting-item">
+          <view class="setting-icon">
+            <text class="icon">👁️</text>
+          </view>
+          <view class="setting-content">
+            <text class="setting-title">隐私模式</text>
+            <text class="setting-desc">在多任务界面隐藏敏感信息</text>
+          </view>
+          <view class="setting-action">
+            <switch 
+              class="setting-switch" 
+              checked="{{securitySettings.privacyMode}}"
+              data-type="privacyMode"
+              bindchange="onSecurityChange"
+            />
+          </view>
+        </view>
+        
+        <view class="setting-item" bindtap="onDataPermission">
+          <view class="setting-icon">
+            <text class="icon">📊</text>
+          </view>
+          <view class="setting-content">
+            <text class="setting-title">数据权限</text>
+            <text class="setting-desc">管理家庭成员数据访问权限</text>
+          </view>
+          <view class="setting-action">
+            <text class="action-arrow">→</text>
+          </view>
+        </view>
+        
+        <view class="setting-item" bindtap="onLoginHistory">
+          <view class="setting-icon">
+            <text class="icon">📋</text>
+          </view>
+          <view class="setting-content">
+            <text class="setting-title">登录记录</text>
+            <text class="setting-desc">查看最近的登录历史</text>
+          </view>
+          <view class="setting-action">
+            <text class="action-arrow">→</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 应用设置 */
+    <view class="settings-group">
+      <view class="group-header">
+        <text class="group-title">⚙️ 应用设置</text>
+        <text class="group-subtitle">个性化您的使用体验</text>
+      </view>
+      
+      <view class="settings-items">
+        <view class="setting-item" bindtap="onThemeSettings">
+          <view class="setting-icon">
+            <text class="icon">🎨</text>
+          </view>
+          <view class="setting-content">
+            <text class="setting-title">主题外观</text>
+            <text class="setting-desc">{{getThemeText(appSettings.theme)}}</text>
+          </view>
+          <view class="setting-action">
+            <text class="action-arrow">→</text>
+          </view>
+        </view>
+        
+        <view class="setting-item" bindtap="onLanguageSettings">
+          <view class="setting-icon">
+            <text class="icon">🌐</text>
+          </view>
+          <view class="setting-content">
+            <text class="setting-title">语言设置</text>
+            <text class="setting-desc">{{appSettings.language || '简体中文'}}</text>
+          </view>
+          <view class="setting-action">
+            <text class="action-arrow">→</text>
+          </view>
+        </view>
+        
+        <view class="setting-item">
+          <view class="setting-icon">
+            <text class="icon">📱</text>
+          </view>
+          <view class="setting-content">
+            <text class="setting-title">振动反馈</text>
+            <text class="setting-desc">操作时的触觉反馈</text>
+          </view>
+          <view class="setting-action">
+            <switch 
+              class="setting-switch" 
+              checked="{{appSettings.vibration}}"
+              data-type="vibration"
+              bindchange="onAppSettingChange"
+            />
+          </view>
+        </view>
+        
+        <view class="setting-item">
+          <view class="setting-icon">
+            <text class="icon">🔊</text>
+          </view>
+          <view class="setting-content">
+            <text class="setting-title">声音提示</text>
+            <text class="setting-desc">操作音效和提示音</text>
+          </view>
+          <view class="setting-action">
+            <switch 
+              class="setting-switch" 
+              checked="{{appSettings.sound}}"
+              data-type="sound"
+              bindchange="onAppSettingChange"
+            />
+          </view>
+        </view>
+        
+        <view class="setting-item" bindtap="onCacheSettings">
+          <view class="setting-icon">
+            <text class="icon">🗄️</text>
+          </view>
+          <view class="setting-content">
+            <text class="setting-title">存储空间</text>
+            <text class="setting-desc">已用 {{cacheInfo.used}} / 清理缓存</text>
+          </view>
+          <view class="setting-action">
+            <text class="action-text">清理</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- AI功能设置 */
+    <view class="settings-group">
+      <view class="group-header">
+        <text class="group-title">🤖 AI智能助手</text>
+        <text class="group-subtitle">配置人工智能功能偏好</text>
+      </view>
+      
+      <view class="settings-items">
+        <view class="setting-item">
+          <view class="setting-icon">
+            <text class="icon">🧠</text>
+          </view>
+          <view class="setting-content">
+            <text class="setting-title">智能分析</text>
+            <text class="setting-desc">AI健康数据分析和建议</text>
+          </view>
+          <view class="setting-action">
+            <switch 
+              class="setting-switch" 
+              checked="{{aiSettings.smartAnalysis}}"
+              data-type="smartAnalysis"
+              bindchange="onAISettingChange"
+            />
+          </view>
+        </view>
+        
+        <view class="setting-item">
+          <view class="setting-icon">
+            <text class="icon">💡</text>
+          </view>
+          <view class="setting-content">
+            <text class="setting-title">智能提醒</text>
+            <text class="setting-desc">基于习惯的个性化提醒</text>
+          </view>
+          <view class="setting-action">
+            <switch 
+              class="setting-switch" 
+              checked="{{aiSettings.smartReminder}}"
+              data-type="smartReminder"
+              bindchange="onAISettingChange"
+            />
+          </view>
+        </view>
+        
+        <view class="setting-item">
+          <view class="setting-icon">
+            <text class="icon">🎯</text>
+          </view>
+          <view class="setting-content">
+            <text class="setting-title">个性化推荐</text>
+            <text class="setting-desc">AI定制健康计划和建议</text>
+          </view>
+          <view class="setting-action">
+            <switch 
+              class="setting-switch" 
+              checked="{{aiSettings.personalization}}"
+              data-type="personalization"
+              bindchange="onAISettingChange"
+            />
+          </view>
+        </view>
+        
+        <view class="setting-item" bindtap="onVoiceSettings">
+          <view class="setting-icon">
+            <text class="icon">🎤</text>
+          </view>
+          <view class="setting-content">
+            <text class="setting-title">语音助手</text>
+            <text class="setting-desc">语音输入和播报设置</text>
+          </view>
+          <view class="setting-action">
+            <text class="action-arrow">→</text>
+          </view>
+        </view>
+        
+        <view class="setting-item" bindtap="onAIPersonality">
+          <view class="setting-icon">
+            <text class="icon">🎭</text>
+          </view>
+          <view class="setting-content">
+            <text class="setting-title">AI性格设置</text>
+            <text class="setting-desc">{{aiSettings.personality || '友善贴心'}}</text>
+          </view>
+          <view class="setting-action">
+            <text class="action-arrow">→</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 帮助支持 */
+    <view class="settings-group">
+      <view class="group-header">
+        <text class="group-title">❓ 帮助支持</text>
+        <text class="group-subtitle">获取帮助和反馈问题</text>
+      </view>
+      
+      <view class="settings-items">
+        <view class="setting-item" bindtap="onUserGuide">
+          <view class="setting-icon">
+            <text class="icon">📖</text>
+          </view>
+          <view class="setting-content">
+            <text class="setting-title">使用指南</text>
+            <text class="setting-desc">了解应用的各项功能</text>
+          </view>
+          <view class="setting-action">
+            <text class="action-arrow">→</text>
+          </view>
+        </view>
+        
+        <view class="setting-item" bindtap="onFAQ">
+          <view class="setting-icon">
+            <text class="icon">❓</text>
+          </view>
+          <view class="setting-content">
+            <text class="setting-title">常见问题</text>
+            <text class="setting-desc">快速找到问题解答</text>
+          </view>
+          <view class="setting-action">
+            <text class="action-arrow">→</text>
+          </view>
+        </view>
+        
+        <view class="setting-item" bindtap="onFeedback">
+          <view class="setting-icon">
+            <text class="icon">💬</text>
+          </view>
+          <view class="setting-content">
+            <text class="setting-title">意见反馈</text>
+            <text class="setting-desc">告诉我们您的想法和建议</text>
+          </view>
+          <view class="setting-action">
+            <text class="action-arrow">→</text>
+          </view>
+        </view>
+        
+        <view class="setting-item" bindtap="onContactSupport">
+          <view class="setting-icon">
+            <text class="icon">🎧</text>
+          </view>
+          <view class="setting-content">
+            <text class="setting-title">联系客服</text>
+            <text class="setting-desc">在线客服 9:00-21:00</text>
+          </view>
+          <view class="setting-action">
+            <view class="support-status online">
+              <text class="status-dot">●</text>
+              <text class="status-text">在线</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 关于应用 */
+    <view class="settings-group">
+      <view class="group-header">
+        <text class="group-title">ℹ️ 关于应用</text>
+        <text class="group-subtitle">版本信息和法律条款</text>
+      </view>
+      
+      <view class="settings-items">
+        <view class="setting-item" bindtap="onVersionInfo">
+          <view class="setting-icon">
+            <text class="icon">📱</text>
+          </view>
+          <view class="setting-content">
+            <text class="setting-title">版本信息</text>
+            <text class="setting-desc">v{{appInfo.version}} ({{appInfo.buildNumber}})</text>
+          </view>
+          <view class="setting-action">
+            <view class="update-badge" wx:if="{{hasUpdate}}">
+              <text class="badge-text">有更新</text>
+            </view>
+          </view>
+        </view>
+        
+        <view class="setting-item" bindtap="onPrivacyPolicy">
+          <view class="setting-icon">
+            <text class="icon">📋</text>
+          </view>
+          <view class="setting-content">
+            <text class="setting-title">隐私政策</text>
+            <text class="setting-desc">了解我们如何保护您的隐私</text>
+          </view>
+          <view class="setting-action">
+            <text class="action-arrow">→</text>
+          </view>
+        </view>
+        
+        <view class="setting-item" bindtap="onTermsOfService">
+          <view class="setting-icon">
+            <text class="icon">📄</text>
+          </view>
+          <view class="setting-content">
+            <text class="setting-title">服务条款</text>
+            <text class="setting-desc">使用条款和用户协议</text>
+          </view>
+          <view class="setting-action">
+            <text class="action-arrow">→</text>
+          </view>
+        </view>
+        
+        <view class="setting-item" bindtap="onRateApp">
+          <view class="setting-icon">
+            <text class="icon">⭐</text>
+          </view>
+          <view class="setting-content">
+            <text class="setting-title">给应用评分</text>
+            <text class="setting-desc">您的支持是我们前进的动力</text>
+          </view>
+          <view class="setting-action">
+            <text class="action-arrow">→</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 退出登录按钮 -->
+  <view class="logout-section">
+    <view class="logout-button" bindtap="onLogout">
+      <text class="logout-text">退出登录</text>
+    </view>
+    <text class="logout-tip">退出后本地数据将保留，重新登录即可恢复</text>
+  </view>
+
+  <!-- 全局加载遮罩 -->
+  <view class="global-loading-overlay" wx:if="{{globalLoading}}">
+    <view class="loading-content">
+      <view class="loading-spinner"></view>
+      <text class="loading-text">{{loadingText || '处理中...'}}</text>
+    </view>
+  </view>
+</view> 

@@ -1,0 +1,117 @@
+<!-- 现代化卡片组件 -->
+<view class="card-container {{type}} {{size}} {{extClass}}" style="{{customStyle}}" bindtap="onCardTap">
+  
+  <!-- 卡片主体 -->
+  <view class="card-body" style="{{bodyStyle}}">
+    
+    <!-- 顶部区域 -->
+    <view class="card-header" wx:if="{{showHeader}}">
+      
+      <!-- 左侧图标/头像 -->
+      <view class="card-avatar" wx:if="{{avatar || icon}}">
+        <image wx:if="{{avatar}}" class="avatar-img" src="{{avatar}}" mode="aspectFill" />
+        <view wx:elif="{{icon}}" class="icon-container">
+          <text class="icon-text">{{icon}}</text>
+        </view>
+      </view>
+      
+      <!-- 标题信息 -->
+      <view class="card-title-area">
+        <view class="card-title" wx:if="{{title}}">{{title}}</view>
+        <view class="card-subtitle" wx:if="{{subtitle}}">{{subtitle}}</view>
+      </view>
+      
+      <!-- 右侧操作区 -->
+      <view class="card-actions" wx:if="{{actions.length > 0}}">
+        <view 
+          class="action-item {{action.type || 'default'}}" 
+          wx:for="{{actions}}" 
+          wx:key="id"
+          wx:for-item="action"
+          data-action="{{action}}"
+          bindtap="onActionTap"
+        >
+          <text class="action-icon">{{action.icon}}</text>
+        </view>
+      </view>
+    </view>
+    
+    <!-- 内容区域 -->
+    <view class="card-content" wx:if="{{content || $slot}}">
+      
+      <!-- 图片区域 -->
+      <view class="card-image" wx:if="{{image}}">
+        <image class="content-img" src="{{image}}" mode="{{imageMode || 'aspectFill'}}" />
+        <view class="image-overlay" wx:if="{{imageOverlay}}">
+          <text class="overlay-text">{{imageOverlay}}</text>
+        </view>
+      </view>
+      
+      <!-- 文本内容 -->
+      <view class="card-text" wx:if="{{content}}">
+        <text class="text-content">{{content}}</text>
+      </view>
+      
+      <!-- 自定义插槽 -->
+      <slot></slot>
+      
+      <!-- 标签区域 -->
+      <view class="card-tags" wx:if="{{tags.length > 0}}">
+        <view 
+          class="tag-item {{tag.type || 'default'}}" 
+          wx:for="{{tags}}" 
+          wx:key="text"
+          wx:for-item="tag"
+        >
+          <text class="tag-text">{{tag.text}}</text>
+        </view>
+      </view>
+    </view>
+    
+    <!-- 底部区域 -->
+    <view class="card-footer" wx:if="{{showFooter}}">
+      
+      <!-- 元数据信息 -->
+      <view class="card-meta" wx:if="{{meta.length > 0}}">
+        <view 
+          class="meta-item" 
+          wx:for="{{meta}}" 
+          wx:key="label"
+          wx:for-item="metaItem"
+        >
+          <text class="meta-icon" wx:if="{{metaItem.icon}}">{{metaItem.icon}}</text>
+          <text class="meta-text">{{metaItem.value}}</text>
+        </view>
+      </view>
+      
+      <!-- 底部操作按钮 -->
+      <view class="card-buttons" wx:if="{{buttons.length > 0}}">
+        <view 
+          class="card-button {{button.type || 'default'}}" 
+          wx:for="{{buttons}}" 
+          wx:key="text"
+          wx:for-item="button"
+          data-button="{{button}}"
+          bindtap="onButtonTap"
+        >
+          <text class="button-text">{{button.text}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 加载状态覆盖层 -->
+  <view class="card-loading-overlay" wx:if="{{loading}}">
+    <loading-indicator type="spinner" size="small" />
+  </view>
+  
+  <!-- 角标/徽章 -->
+  <view class="card-badge {{badge.type || 'primary'}}" wx:if="{{badge}}">
+    <text class="badge-text">{{badge.text}}</text>
+  </view>
+  
+  <!-- 悬浮操作按钮 -->
+  <view class="card-fab" wx:if="{{fab}}" bindtap="onFabTap">
+    <text class="fab-icon">{{fab.icon}}</text>
+  </view>
+</view> 

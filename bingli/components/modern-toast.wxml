@@ -1,0 +1,40 @@
+<!-- 现代化Toast提示组件 -->
+<view class="toast-container {{extClass}}" wx:if="{{show}}" style="{{containerStyle}}">
+  <view class="toast-content {{type}} {{position}}" style="{{contentStyle}}">
+    
+    <!-- 图标区域 -->
+    <view class="toast-icon" wx:if="{{showIcon}}">
+      <text class="icon-text">{{iconText}}</text>
+    </view>
+    
+    <!-- 消息内容 -->
+    <view class="toast-message">
+      <text class="message-text">{{message}}</text>
+      <text class="message-desc" wx:if="{{description}}">{{description}}</text>
+    </view>
+    
+    <!-- 关闭按钮 -->
+    <view class="toast-close" wx:if="{{closable}}" bindtap="onClose">
+      <text class="close-text">×</text>
+    </view>
+    
+    <!-- 进度条 -->
+    <view class="toast-progress" wx:if="{{showProgress}}">
+      <view class="progress-bar" style="{{progressStyle}}"></view>
+    </view>
+    
+    <!-- 操作按钮 -->
+    <view class="toast-actions" wx:if="{{actions.length > 0}}">
+      <view 
+        class="action-button {{action.type || 'default'}}" 
+        wx:for="{{actions}}" 
+        wx:key="text"
+        wx:for-item="action"
+        data-action="{{action}}"
+        bindtap="onActionTap"
+      >
+        <text class="action-text">{{action.text}}</text>
+      </view>
+    </view>
+  </view>
+</view> 

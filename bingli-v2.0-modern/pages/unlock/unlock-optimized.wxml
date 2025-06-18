@@ -1,0 +1,299 @@
+<view class="unlock-container">
+  
+  <!-- 背景装饰 -->
+  <view class="bg-decoration">
+    <view class="gradient-bg"></view>
+    <view class="particle-system">
+      <view class="particle particle-1"></view>
+      <view class="particle particle-2"></view>
+      <view class="particle particle-3"></view>
+      <view class="particle particle-4"></view>
+      <view class="particle particle-5"></view>
+    </view>
+  </view>
+
+  <!-- 应用头部信息 -->
+  <view class="app-header">
+    <view class="app-logo-container">
+      <view class="logo-backdrop"></view>
+      <text class="app-logo">🏥</text>
+      <view class="logo-ring"></view>
+    </view>
+    <view class="app-info">
+      <text class="app-name">AI病例管理</text>
+      <text class="app-subtitle">安全解锁</text>
+    </view>
+    <view class="time-info">
+      <text class="current-time">{{currentTime}}</text>
+      <text class="current-date">{{currentDate}}</text>
+    </view>
+  </view>
+
+  <!-- 用户信息区域 -->
+  <view class="user-section" wx:if="{{userInfo}}">
+    <view class="user-avatar-container">
+      <image 
+        class="user-avatar" 
+        src="{{userInfo.avatar || '/images/default-avatar.png'}}" 
+        mode="aspectFill"
+      />
+      <view class="avatar-ring"></view>
+      <view class="status-indicator {{userInfo.status || 'offline'}}"></view>
+    </view>
+    <view class="user-details">
+      <text class="username">{{userInfo.nickname || '用户'}}</text>
+      <text class="user-role">{{userInfo.role || '家庭成员'}}</text>
+    </view>
+  </view>
+
+  <!-- 密码输入区域 -->
+  <view class="password-section">
+    <!-- 安全提示 -->
+    <view class="security-prompt">
+      <text class="prompt-icon">🔐</text>
+      <text class="prompt-text">请输入6位数字密码</text>
+    </view>
+
+    <!-- 密码显示点 -->
+    <view class="password-display">
+      <view 
+        wx:for="{{[1,2,3,4,5,6]}}" 
+        wx:key="index" 
+        class="password-dot {{password.length >= index ? 'filled' : ''}} {{index === password.length + 1 ? 'typing' : ''}}"
+      >
+        <view class="dot-inner"></view>
+        <view class="dot-ripple"></view>
+      </view>
+    </view>
+
+    <!-- 错误提示 -->
+    <view wx:if="{{errorMessage}}" class="error-section animated">
+      <view class="error-container">
+        <text class="error-icon">⚠️</text>
+        <text class="error-text">{{errorMessage}}</text>
+      </view>
+      <view class="error-wave"></view>
+    </view>
+
+    <!-- 尝试次数提示 -->
+    <view wx:if="{{remainingAttempts < 5}}" class="attempts-section">
+      <view class="attempts-warning">
+        <text class="warning-icon">🚨</text>
+        <text class="warning-text">还可尝试 {{remainingAttempts}} 次</text>
+      </view>
+      <view class="warning-desc">密码错误次数过多将临时锁定应用</view>
+    </view>
+  </view>
+
+  <!-- 数字键盘 -->
+  <view class="keypad-container">
+    <view class="keypad-grid">
+      <!-- 数字键 1-9 -->
+      <view 
+        wx:for="{{[1,2,3,4,5,6,7,8,9]}}" 
+        wx:key="index"
+        class="keypad-key number-key" 
+        bindtap="inputNumber" 
+        data-num="{{item}}"
+        data-vibrate="light"
+      >
+        <view class="key-content">
+          <text class="key-number">{{item}}</text>
+        </view>
+        <view class="key-ripple"></view>
+      </view>
+
+      <!-- 底部行：空位、0、删除 -->
+      <view class="keypad-key empty-key"></view>
+      
+      <view 
+        class="keypad-key number-key zero-key" 
+        bindtap="inputNumber" 
+        data-num="0"
+        data-vibrate="light"
+      >
+        <view class="key-content">
+          <text class="key-number">0</text>
+        </view>
+        <view class="key-ripple"></view>
+      </view>
+      
+      <view 
+        class="keypad-key action-key delete-key" 
+        bindtap="deleteNumber"
+        data-vibrate="medium"
+      >
+        <view class="key-content">
+          <text class="key-icon">⌫</text>
+        </view>
+        <view class="key-ripple"></view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 生物识别解锁 -->
+  <view wx:if="{{biometricEnabled}}" class="biometric-section">
+    <view class="biometric-divider">
+      <view class="divider-line"></view>
+      <text class="divider-text">或</text>
+      <view class="divider-line"></view>
+    </view>
+    
+    <view class="biometric-button" bindtap="useBiometric">
+      <view class="biometric-icon-container">
+        <text class="biometric-icon">{{biometricIcon}}</text>
+        <view class="biometric-pulse"></view>
+      </view>
+      <view class="biometric-text-container">
+        <text class="biometric-title">{{biometricText}}</text>
+        <text class="biometric-subtitle">快速安全解锁</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 快捷操作区域 -->
+  <view class="quick-actions">
+    <!-- 忘记密码 -->
+    <view class="quick-action" bindtap="forgotPassword">
+      <view class="action-icon">🔑</view>
+      <text class="action-text">忘记密码</text>
+    </view>
+
+    <!-- 紧急访问 -->
+    <view class="quick-action emergency" bindtap="emergencyAccess">
+      <view class="action-icon">🚨</view>
+      <text class="action-text">紧急访问</text>
+    </view>
+
+    <!-- 切换用户 -->
+    <view class="quick-action" bindtap="switchUser">
+      <view class="action-icon">👤</view>
+      <text class="action-text">切换用户</text>
+    </view>
+  </view>
+
+  <!-- 应用锁定状态 -->
+  <view wx:if="{{isLocked}}" class="lock-overlay">
+    <view class="lock-container">
+      <view class="lock-animation">
+        <view class="lock-icon-bg">
+          <text class="lock-icon">🔒</text>
+          <view class="lock-wave wave-1"></view>
+          <view class="lock-wave wave-2"></view>
+          <view class="lock-wave wave-3"></view>
+        </view>
+      </view>
+      
+      <view class="lock-content">
+        <text class="lock-title">应用已临时锁定</text>
+        <text class="lock-description">
+          由于多次输入错误密码，为保护您的隐私安全，应用已被临时锁定
+        </text>
+        
+        <view class="lock-timer">
+          <text class="timer-label">解锁倒计时</text>
+          <text class="timer-value">{{formatTime(lockTimeRemaining)}}</text>
+        </view>
+        
+        <view class="lock-progress">
+          <view class="progress-track">
+            <view class="progress-fill" style="width: {{lockProgress}}%"></view>
+          </view>
+          <text class="progress-text">{{Math.round(lockProgress)}}%</text>
+        </view>
+      </view>
+
+      <view class="lock-emergency">
+        <text class="emergency-title">紧急情况？</text>
+        <view class="emergency-actions">
+          <button class="emergency-btn call" bindtap="callEmergency">
+            <text class="btn-icon">📞</text>
+            <text class="btn-text">拨打急救</text>
+          </button>
+          <button class="emergency-btn contact" bindtap="contactFamily">
+            <text class="btn-icon">👨‍👩‍👧‍👦</text>
+            <text class="btn-text">联系家人</text>
+          </button>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 紧急模式面板 -->
+  <view wx:if="{{emergencyMode}}" class="emergency-panel">
+    <view class="emergency-header">
+      <text class="emergency-icon">🚨</text>
+      <text class="emergency-title">紧急模式</text>
+      <button class="close-emergency" bindtap="closeEmergency">✕</button>
+    </view>
+    
+    <view class="emergency-content">
+      <text class="emergency-desc">在紧急情况下，您可以：</text>
+      
+      <view class="emergency-options">
+        <view class="emergency-option critical" bindtap="callEmergency">
+          <view class="option-icon">🚑</view>
+          <view class="option-content">
+            <text class="option-title">拨打急救电话</text>
+            <text class="option-desc">120 - 医疗急救</text>
+          </view>
+          <view class="option-arrow">›</view>
+        </view>
+        
+        <view class="emergency-option" bindtap="callPolice">
+          <view class="option-icon">🚔</view>
+          <view class="option-content">
+            <text class="option-title">报警求助</text>
+            <text class="option-desc">110 - 紧急报警</text>
+          </view>
+          <view class="option-arrow">›</view>
+        </view>
+        
+        <view class="emergency-option" bindtap="contactFamily">
+          <view class="option-icon">👨‍👩‍👧‍👦</view>
+          <view class="option-content">
+            <text class="option-title">联系紧急联系人</text>
+            <text class="option-desc">通知您的家人</text>
+          </view>
+          <view class="option-arrow">›</view>
+        </view>
+        
+        <view class="emergency-option" bindtap="limitedAccess">
+          <view class="option-icon">📋</view>
+          <view class="option-content">
+            <text class="option-title">有限访问模式</text>
+            <text class="option-desc">访问基础医疗信息</text>
+          </view>
+          <view class="option-arrow">›</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 全局加载状态 -->
+  <view wx:if="{{loading}}" class="loading-overlay">
+    <view class="loading-container">
+      <view class="loading-animation">
+        <view class="spinner-container">
+          <view class="spinner-ring ring-1"></view>
+          <view class="spinner-ring ring-2"></view>
+          <view class="spinner-ring ring-3"></view>
+        </view>
+        <view class="loading-dots">
+          <view class="loading-dot dot-1"></view>
+          <view class="loading-dot dot-2"></view>
+          <view class="loading-dot dot-3"></view>
+        </view>
+      </view>
+      <text class="loading-text">{{loadingText}}</text>
+    </view>
+  </view>
+
+  <!-- 安全状态指示器 -->
+  <view class="security-indicator">
+    <view class="security-level {{securityLevel}}">
+      <text class="level-icon">{{securityIcon}}</text>
+      <text class="level-text">{{securityText}}</text>
+    </view>
+  </view>
+</view> 

@@ -1,0 +1,1820 @@
+{
+  "timestamp": "2025-06-17T11:43:53.878Z",
+  "projectInfo": {
+    "packageJson": {
+      "name": "miniprogram-ts-sass-quickstart",
+      "version": "1.2.0",
+      "description": "",
+      "scripts": {},
+      "keywords": [],
+      "author": "",
+      "license": "",
+      "dependencies": {},
+      "devDependencies": {
+        "miniprogram-api-typings": "^2.8.3-1"
+      }
+    },
+    "projectConfig": {
+      "description": "项目配置文件",
+      "miniprogramRoot": "miniprogram/",
+      "compileType": "miniprogram",
+      "setting": {
+        "useCompilerPlugins": [
+          "typescript",
+          "sass"
+        ],
+        "babelSetting": {
+          "ignore": [],
+          "disablePlugins": [],
+          "outputPath": ""
+        },
+        "coverView": false,
+        "postcss": false,
+        "minified": false,
+        "enhance": true,
+        "showShadowRootInWxmlPanel": false,
+        "packNpmRelationList": [],
+        "ignoreUploadUnusedFiles": true,
+        "compileHotReLoad": true,
+        "skylineRenderEnable": false,
+        "es6": true
+      },
+      "simulatorType": "wechat",
+      "simulatorPluginLibVersion": {},
+      "condition": {},
+      "srcMiniprogramRoot": "miniprogram/",
+      "editorSetting": {
+        "tabIndent": "insertSpaces",
+        "tabSize": 2
+      },
+      "libVersion": "3.7.3",
+      "packOptions": {
+        "ignore": [],
+        "include": []
+      },
+      "appid": "wx64fe8f7a95eb18db"
+    },
+    "eslintConfig": null,
+    "tsConfig": {
+      "compilerOptions": {
+        "strictNullChecks": true,
+        "noImplicitAny": true,
+        "module": "CommonJS",
+        "target": "ES2020",
+        "allowJs": true,
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "experimentalDecorators": true,
+        "noImplicitThis": true,
+        "noImplicitReturns": true,
+        "alwaysStrict": true,
+        "noFallthroughCasesInSwitch": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "strict": true,
+        "strictPropertyInitialization": true,
+        "lib": [
+          "ES2020"
+        ],
+        "typeRoots": [
+          "./typings"
+        ]
+      },
+      "include": [
+        "./**/*.ts"
+      ],
+      "exclude": [
+        "node_modules"
+      ]
+    },
+    "fileStructure": [
+      {
+        "type": "file",
+        "name": "01_FR1_用户家庭管理.md",
+        "path": "01_FR1_用户家庭管理.md",
+        "extension": ".md"
+      },
+      {
+        "type": "file",
+        "name": "02_FR2_病历管理.md",
+        "path": "02_FR2_病历管理.md",
+        "extension": ".md"
+      },
+      {
+        "type": "file",
+        "name": "03_FR3_健康提醒.md",
+        "path": "03_FR3_健康提醒.md",
+        "extension": ".md"
+      },
+      {
+        "type": "file",
+        "name": "04_FR4_安全设置.md",
+        "path": "04_FR4_安全设置.md",
+        "extension": ".md"
+      },
+      {
+        "type": "file",
+        "name": "06_API集合.postman_collection.json",
+        "path": "06_API集合.postman_collection.json",
+        "extension": ".json"
+      },
+      {
+        "type": "file",
+        "name": "1.总览与规范.md",
+        "path": "1.总览与规范.md",
+        "extension": ".md"
+      },
+      {
+        "type": "file",
+        "name": "3.状态机.md",
+        "path": "3.状态机.md",
+        "extension": ".md"
+      },
+      {
+        "type": "file",
+        "name": "5.验收要求.md",
+        "path": "5.验收要求.md",
+        "extension": ".md"
+      },
+      {
+        "type": "file",
+        "name": "README.md",
+        "path": "README.md",
+        "extension": ".md"
+      },
+      {
+        "type": "file",
+        "name": "analyze-project.js",
+        "path": "analyze-project.js",
+        "extension": ".js"
+      },
+      {
+        "type": "directory",
+        "name": "bingli",
+        "path": "bingli",
+        "children": [
+          {
+            "type": "file",
+            "name": "01_FR1_用户家庭管理.md",
+            "path": "bingli/01_FR1_用户家庭管理.md",
+            "extension": ".md"
+          },
+          {
+            "type": "file",
+            "name": "02_FR2_病历管理.md",
+            "path": "bingli/02_FR2_病历管理.md",
+            "extension": ".md"
+          },
+          {
+            "type": "file",
+            "name": "03_FR3_健康提醒.md",
+            "path": "bingli/03_FR3_健康提醒.md",
+            "extension": ".md"
+          },
+          {
+            "type": "file",
+            "name": "04_FR4_安全设置.md",
+            "path": "bingli/04_FR4_安全设置.md",
+            "extension": ".md"
+          },
+          {
+            "type": "file",
+            "name": "06_API集合.postman_collection.json",
+            "path": "bingli/06_API集合.postman_collection.json",
+            "extension": ".json"
+          },
+          {
+            "type": "file",
+            "name": "1.总览与规范.md",
+            "path": "bingli/1.总览与规范.md",
+            "extension": ".md"
+          },
+          {
+            "type": "file",
+            "name": "3.状态机.md",
+            "path": "bingli/3.状态机.md",
+            "extension": ".md"
+          },
+          {
+            "type": "file",
+            "name": "5.验收要求.md",
+            "path": "bingli/5.验收要求.md",
+            "extension": ".md"
+          },
+          {
+            "type": "file",
+            "name": "AI_CONFIG_README.md",
+            "path": "bingli/AI_CONFIG_README.md",
+            "extension": ".md"
+          },
+          {
+            "type": "file",
+            "name": "CHANGELOG.md",
+            "path": "bingli/CHANGELOG.md",
+            "extension": ".md"
+          },
+          {
+            "type": "file",
+            "name": "COMPLETION_REPORT.md",
+            "path": "bingli/COMPLETION_REPORT.md",
+            "extension": ".md"
+          },
+          {
+            "type": "file",
+            "name": "README.md",
+            "path": "bingli/README.md",
+            "extension": ".md"
+          },
+          {
+            "type": "file",
+            "name": "RELEASE_NOTES_v1.2.0.md",
+            "path": "bingli/RELEASE_NOTES_v1.2.0.md",
+            "extension": ".md"
+          },
+          {
+            "type": "file",
+            "name": "app.js",
+            "path": "bingli/app.js",
+            "extension": ".js"
+          },
+          {
+            "type": "file",
+            "name": "app.json",
+            "path": "bingli/app.json",
+            "extension": ".json"
+          },
+          {
+            "type": "file",
+            "name": "app.wxss",
+            "path": "bingli/app.wxss",
+            "extension": ".wxss"
+          },
+          {
+            "type": "file",
+            "name": "cloud-setup-guide.md",
+            "path": "bingli/cloud-setup-guide.md",
+            "extension": ".md"
+          },
+          {
+            "type": "directory",
+            "name": "cloudbase",
+            "path": "bingli/cloudbase",
+            "children": [
+              {
+                "type": "directory",
+                "name": "all",
+                "path": "bingli/cloudbase/all",
+                "children": [
+                  {
+                    "type": "directory",
+                    "name": "containers",
+                    "path": "bingli/cloudbase/all/containers",
+                    "children": []
+                  },
+                  {
+                    "type": "directory",
+                    "name": "functions",
+                    "path": "bingli/cloudbase/all/functions",
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "type": "directory",
+                "name": "cloud1-6gfdwbzn1bf84d71",
+                "path": "bingli/cloudbase/cloud1-6gfdwbzn1bf84d71",
+                "children": [
+                  {
+                    "type": "directory",
+                    "name": "containers",
+                    "path": "bingli/cloudbase/cloud1-6gfdwbzn1bf84d71/containers",
+                    "children": []
+                  },
+                  {
+                    "type": "directory",
+                    "name": "functions",
+                    "path": "bingli/cloudbase/cloud1-6gfdwbzn1bf84d71/functions",
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "directory",
+            "name": "cloudfunctions",
+            "path": "bingli/cloudfunctions",
+            "children": [
+              {
+                "type": "directory",
+                "name": "database",
+                "path": "bingli/cloudfunctions/database",
+                "children": [
+                  {
+                    "type": "file",
+                    "name": "index.js",
+                    "path": "bingli/cloudfunctions/database/index.js",
+                    "extension": ".js"
+                  },
+                  {
+                    "type": "file",
+                    "name": "package.json",
+                    "path": "bingli/cloudfunctions/database/package.json",
+                    "extension": ".json"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "directory",
+            "name": "components",
+            "path": "bingli/components",
+            "children": []
+          },
+          {
+            "type": "file",
+            "name": "deploy-guide.md",
+            "path": "bingli/deploy-guide.md",
+            "extension": ".md"
+          },
+          {
+            "type": "directory",
+            "name": "images",
+            "path": "bingli/images",
+            "children": [
+              {
+                "type": "file",
+                "name": "default-avatar.png",
+                "path": "bingli/images/default-avatar.png",
+                "extension": ".png"
+              },
+              {
+                "type": "directory",
+                "name": "tab",
+                "path": "bingli/images/tab",
+                "children": [
+                  {
+                    "type": "file",
+                    "name": "bell-active.png",
+                    "path": "bingli/images/tab/bell-active.png",
+                    "extension": ".png"
+                  },
+                  {
+                    "type": "file",
+                    "name": "bell.png",
+                    "path": "bingli/images/tab/bell.png",
+                    "extension": ".png"
+                  },
+                  {
+                    "type": "file",
+                    "name": "family-active.png",
+                    "path": "bingli/images/tab/family-active.png",
+                    "extension": ".png"
+                  },
+                  {
+                    "type": "file",
+                    "name": "family.png",
+                    "path": "bingli/images/tab/family.png",
+                    "extension": ".png"
+                  },
+                  {
+                    "type": "file",
+                    "name": "profile-active.png",
+                    "path": "bingli/images/tab/profile-active.png",
+                    "extension": ".png"
+                  },
+                  {
+                    "type": "file",
+                    "name": "profile.png",
+                    "path": "bingli/images/tab/profile.png",
+                    "extension": ".png"
+                  },
+                  {
+                    "type": "file",
+                    "name": "record-active.png",
+                    "path": "bingli/images/tab/record-active.png",
+                    "extension": ".png"
+                  },
+                  {
+                    "type": "file",
+                    "name": "record.png",
+                    "path": "bingli/images/tab/record.png",
+                    "extension": ".png"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "directory",
+            "name": "pages",
+            "path": "bingli/pages",
+            "children": [
+              {
+                "type": "directory",
+                "name": "family",
+                "path": "bingli/pages/family",
+                "children": [
+                  {
+                    "type": "directory",
+                    "name": "add",
+                    "path": "bingli/pages/family/add",
+                    "children": []
+                  },
+                  {
+                    "type": "file",
+                    "name": "family.js",
+                    "path": "bingli/pages/family/family.js",
+                    "extension": ".js"
+                  },
+                  {
+                    "type": "file",
+                    "name": "family.json",
+                    "path": "bingli/pages/family/family.json",
+                    "extension": ".json"
+                  },
+                  {
+                    "type": "file",
+                    "name": "family.wxml",
+                    "path": "bingli/pages/family/family.wxml",
+                    "extension": ".wxml"
+                  },
+                  {
+                    "type": "file",
+                    "name": "family.wxss",
+                    "path": "bingli/pages/family/family.wxss",
+                    "extension": ".wxss"
+                  }
+                ]
+              },
+              {
+                "type": "directory",
+                "name": "home",
+                "path": "bingli/pages/home",
+                "children": [
+                  {
+                    "type": "file",
+                    "name": "home.js",
+                    "path": "bingli/pages/home/home.js",
+                    "extension": ".js"
+                  },
+                  {
+                    "type": "file",
+                    "name": "home.json",
+                    "path": "bingli/pages/home/home.json",
+                    "extension": ".json"
+                  },
+                  {
+                    "type": "file",
+                    "name": "home.wxml",
+                    "path": "bingli/pages/home/home.wxml",
+                    "extension": ".wxml"
+                  },
+                  {
+                    "type": "file",
+                    "name": "home.wxss",
+                    "path": "bingli/pages/home/home.wxss",
+                    "extension": ".wxss"
+                  }
+                ]
+              },
+              {
+                "type": "directory",
+                "name": "login",
+                "path": "bingli/pages/login",
+                "children": [
+                  {
+                    "type": "file",
+                    "name": "login.js",
+                    "path": "bingli/pages/login/login.js",
+                    "extension": ".js"
+                  },
+                  {
+                    "type": "file",
+                    "name": "login.json",
+                    "path": "bingli/pages/login/login.json",
+                    "extension": ".json"
+                  },
+                  {
+                    "type": "file",
+                    "name": "login.wxml",
+                    "path": "bingli/pages/login/login.wxml",
+                    "extension": ".wxml"
+                  },
+                  {
+                    "type": "file",
+                    "name": "login.wxss",
+                    "path": "bingli/pages/login/login.wxss",
+                    "extension": ".wxss"
+                  }
+                ]
+              },
+              {
+                "type": "directory",
+                "name": "profile",
+                "path": "bingli/pages/profile",
+                "children": [
+                  {
+                    "type": "file",
+                    "name": "profile.js",
+                    "path": "bingli/pages/profile/profile.js",
+                    "extension": ".js"
+                  },
+                  {
+                    "type": "file",
+                    "name": "profile.json",
+                    "path": "bingli/pages/profile/profile.json",
+                    "extension": ".json"
+                  },
+                  {
+                    "type": "file",
+                    "name": "profile.wxml",
+                    "path": "bingli/pages/profile/profile.wxml",
+                    "extension": ".wxml"
+                  },
+                  {
+                    "type": "file",
+                    "name": "profile.wxss",
+                    "path": "bingli/pages/profile/profile.wxss",
+                    "extension": ".wxss"
+                  }
+                ]
+              },
+              {
+                "type": "directory",
+                "name": "record",
+                "path": "bingli/pages/record",
+                "children": [
+                  {
+                    "type": "directory",
+                    "name": "detail",
+                    "path": "bingli/pages/record/detail",
+                    "children": []
+                  },
+                  {
+                    "type": "directory",
+                    "name": "edit",
+                    "path": "bingli/pages/record/edit",
+                    "children": []
+                  },
+                  {
+                    "type": "directory",
+                    "name": "prescription",
+                    "path": "bingli/pages/record/prescription",
+                    "children": []
+                  },
+                  {
+                    "type": "file",
+                    "name": "record.js",
+                    "path": "bingli/pages/record/record.js",
+                    "extension": ".js"
+                  },
+                  {
+                    "type": "file",
+                    "name": "record.json",
+                    "path": "bingli/pages/record/record.json",
+                    "extension": ".json"
+                  },
+                  {
+                    "type": "file",
+                    "name": "record.wxml",
+                    "path": "bingli/pages/record/record.wxml",
+                    "extension": ".wxml"
+                  },
+                  {
+                    "type": "file",
+                    "name": "record.wxss",
+                    "path": "bingli/pages/record/record.wxss",
+                    "extension": ".wxss"
+                  }
+                ]
+              },
+              {
+                "type": "directory",
+                "name": "reminder",
+                "path": "bingli/pages/reminder",
+                "children": [
+                  {
+                    "type": "directory",
+                    "name": "add",
+                    "path": "bingli/pages/reminder/add",
+                    "children": []
+                  },
+                  {
+                    "type": "file",
+                    "name": "reminder.js",
+                    "path": "bingli/pages/reminder/reminder.js",
+                    "extension": ".js"
+                  },
+                  {
+                    "type": "file",
+                    "name": "reminder.json",
+                    "path": "bingli/pages/reminder/reminder.json",
+                    "extension": ".json"
+                  },
+                  {
+                    "type": "file",
+                    "name": "reminder.wxml",
+                    "path": "bingli/pages/reminder/reminder.wxml",
+                    "extension": ".wxml"
+                  },
+                  {
+                    "type": "file",
+                    "name": "reminder.wxss",
+                    "path": "bingli/pages/reminder/reminder.wxss",
+                    "extension": ".wxss"
+                  }
+                ]
+              },
+              {
+                "type": "directory",
+                "name": "settings",
+                "path": "bingli/pages/settings",
+                "children": [
+                  {
+                    "type": "file",
+                    "name": "settings.js",
+                    "path": "bingli/pages/settings/settings.js",
+                    "extension": ".js"
+                  },
+                  {
+                    "type": "file",
+                    "name": "settings.json",
+                    "path": "bingli/pages/settings/settings.json",
+                    "extension": ".json"
+                  },
+                  {
+                    "type": "file",
+                    "name": "settings.wxml",
+                    "path": "bingli/pages/settings/settings.wxml",
+                    "extension": ".wxml"
+                  },
+                  {
+                    "type": "file",
+                    "name": "settings.wxss",
+                    "path": "bingli/pages/settings/settings.wxss",
+                    "extension": ".wxss"
+                  }
+                ]
+              },
+              {
+                "type": "directory",
+                "name": "unlock",
+                "path": "bingli/pages/unlock",
+                "children": [
+                  {
+                    "type": "file",
+                    "name": "unlock.js",
+                    "path": "bingli/pages/unlock/unlock.js",
+                    "extension": ".js"
+                  },
+                  {
+                    "type": "file",
+                    "name": "unlock.json",
+                    "path": "bingli/pages/unlock/unlock.json",
+                    "extension": ".json"
+                  },
+                  {
+                    "type": "file",
+                    "name": "unlock.wxml",
+                    "path": "bingli/pages/unlock/unlock.wxml",
+                    "extension": ".wxml"
+                  },
+                  {
+                    "type": "file",
+                    "name": "unlock.wxss",
+                    "path": "bingli/pages/unlock/unlock.wxss",
+                    "extension": ".wxss"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "file",
+            "name": "project.config.json",
+            "path": "bingli/project.config.json",
+            "extension": ".json"
+          },
+          {
+            "type": "file",
+            "name": "project.private.config.json",
+            "path": "bingli/project.private.config.json",
+            "extension": ".json"
+          },
+          {
+            "type": "directory",
+            "name": "scripts",
+            "path": "bingli/scripts",
+            "children": [
+              {
+                "type": "file",
+                "name": "init-database.js",
+                "path": "bingli/scripts/init-database.js",
+                "extension": ".js"
+              }
+            ]
+          },
+          {
+            "type": "directory",
+            "name": "services",
+            "path": "bingli/services",
+            "children": [
+              {
+                "type": "file",
+                "name": "cloudDatabase.js",
+                "path": "bingli/services/cloudDatabase.js",
+                "extension": ".js"
+              },
+              {
+                "type": "file",
+                "name": "database.js",
+                "path": "bingli/services/database.js",
+                "extension": ".js"
+              }
+            ]
+          },
+          {
+            "type": "file",
+            "name": "sitemap.json",
+            "path": "bingli/sitemap.json",
+            "extension": ".json"
+          },
+          {
+            "type": "directory",
+            "name": "utils",
+            "path": "bingli/utils",
+            "children": [
+              {
+                "type": "file",
+                "name": "aiConfig.js",
+                "path": "bingli/utils/aiConfig.js",
+                "extension": ".js"
+              },
+              {
+                "type": "file",
+                "name": "util.js",
+                "path": "bingli/utils/util.js",
+                "extension": ".js"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "directory",
+        "name": "cloudfunctions",
+        "path": "cloudfunctions",
+        "children": [
+          {
+            "type": "directory",
+            "name": "quickstartFunctions",
+            "path": "cloudfunctions/quickstartFunctions",
+            "children": [
+              {
+                "type": "file",
+                "name": "config.json",
+                "path": "cloudfunctions/quickstartFunctions/config.json",
+                "extension": ".json"
+              },
+              {
+                "type": "file",
+                "name": "index.js",
+                "path": "cloudfunctions/quickstartFunctions/index.js",
+                "extension": ".js"
+              },
+              {
+                "type": "file",
+                "name": "package.json",
+                "path": "cloudfunctions/quickstartFunctions/package.json",
+                "extension": ".json"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "file",
+        "name": "debug.log",
+        "path": "debug.log",
+        "extension": ".log"
+      },
+      {
+        "type": "directory",
+        "name": "docs",
+        "path": "docs",
+        "children": [
+          {
+            "type": "file",
+            "name": "README.md",
+            "path": "docs/README.md",
+            "extension": ".md"
+          },
+          {
+            "type": "file",
+            "name": "_sidebar.md",
+            "path": "docs/_sidebar.md",
+            "extension": ".md"
+          },
+          {
+            "type": "directory",
+            "name": "api",
+            "path": "docs/api",
+            "children": [
+              {
+                "type": "file",
+                "name": "postman-collection.json",
+                "path": "docs/api/postman-collection.json",
+                "extension": ".json"
+              }
+            ]
+          },
+          {
+            "type": "directory",
+            "name": "assets",
+            "path": "docs/assets",
+            "children": [
+              {
+                "type": "directory",
+                "name": "diagrams",
+                "path": "docs/assets/diagrams",
+                "children": []
+              },
+              {
+                "type": "directory",
+                "name": "images",
+                "path": "docs/assets/images",
+                "children": []
+              }
+            ]
+          },
+          {
+            "type": "directory",
+            "name": "backup",
+            "path": "docs/backup",
+            "children": [
+              {
+                "type": "directory",
+                "name": "2025-06-08T08-15-02-270Z",
+                "path": "docs/backup/2025-06-08T08-15-02-270Z",
+                "children": []
+              }
+            ]
+          },
+          {
+            "type": "directory",
+            "name": "design",
+            "path": "docs/design",
+            "children": []
+          },
+          {
+            "type": "directory",
+            "name": "development",
+            "path": "docs/development",
+            "children": [
+              {
+                "type": "file",
+                "name": "app.js",
+                "path": "docs/development/app.js",
+                "extension": ".js"
+              },
+              {
+                "type": "file",
+                "name": "app.json",
+                "path": "docs/development/app.json",
+                "extension": ".json"
+              },
+              {
+                "type": "file",
+                "name": "app.wxss",
+                "path": "docs/development/app.wxss",
+                "extension": ".wxss"
+              },
+              {
+                "type": "file",
+                "name": "sitemap.json",
+                "path": "docs/development/sitemap.json",
+                "extension": ".json"
+              }
+            ]
+          },
+          {
+            "type": "file",
+            "name": "index.html",
+            "path": "docs/index.html",
+            "extension": ".html"
+          },
+          {
+            "type": "directory",
+            "name": "requirements",
+            "path": "docs/requirements",
+            "children": [
+              {
+                "type": "file",
+                "name": "01_总览与规范.md",
+                "path": "docs/requirements/01_总览与规范.md",
+                "extension": ".md"
+              },
+              {
+                "type": "file",
+                "name": "02_FR1_用户家庭管理.md",
+                "path": "docs/requirements/02_FR1_用户家庭管理.md",
+                "extension": ".md"
+              },
+              {
+                "type": "file",
+                "name": "03_FR2_病历管理.md",
+                "path": "docs/requirements/03_FR2_病历管理.md",
+                "extension": ".md"
+              },
+              {
+                "type": "file",
+                "name": "04_FR3_健康提醒.md",
+                "path": "docs/requirements/04_FR3_健康提醒.md",
+                "extension": ".md"
+              },
+              {
+                "type": "file",
+                "name": "05_FR4_安全设置.md",
+                "path": "docs/requirements/05_FR4_安全设置.md",
+                "extension": ".md"
+              },
+              {
+                "type": "file",
+                "name": "06_状态机设计.md",
+                "path": "docs/requirements/06_状态机设计.md",
+                "extension": ".md"
+              },
+              {
+                "type": "file",
+                "name": "07_验收要求.md",
+                "path": "docs/requirements/07_验收要求.md",
+                "extension": ".md"
+              },
+              {
+                "type": "file",
+                "name": "INDEX.md",
+                "path": "docs/requirements/INDEX.md",
+                "extension": ".md"
+              }
+            ]
+          },
+          {
+            "type": "file",
+            "name": "sync-report.json",
+            "path": "docs/sync-report.json",
+            "extension": ".json"
+          }
+        ]
+      },
+      {
+        "type": "file",
+        "name": "eslint-debug.log",
+        "path": "eslint-debug.log",
+        "extension": ".log"
+      },
+      {
+        "type": "file",
+        "name": "eslint.config.js",
+        "path": "eslint.config.js",
+        "extension": ".js"
+      },
+      {
+        "type": "directory",
+        "name": "miniprogram",
+        "path": "miniprogram",
+        "children": [
+          {
+            "type": "file",
+            "name": "app.js",
+            "path": "miniprogram/app.js",
+            "extension": ".js"
+          },
+          {
+            "type": "file",
+            "name": "app.json",
+            "path": "miniprogram/app.json",
+            "extension": ".json"
+          },
+          {
+            "type": "file",
+            "name": "app.scss",
+            "path": "miniprogram/app.scss",
+            "extension": ".scss"
+          },
+          {
+            "type": "file",
+            "name": "app.ts",
+            "path": "miniprogram/app.ts",
+            "extension": ".ts"
+          },
+          {
+            "type": "file",
+            "name": "app.wxss",
+            "path": "miniprogram/app.wxss",
+            "extension": ".wxss"
+          },
+          {
+            "type": "directory",
+            "name": "components",
+            "path": "miniprogram/components",
+            "children": [
+              {
+                "type": "directory",
+                "name": "agent-ui",
+                "path": "miniprogram/components/agent-ui",
+                "children": [
+                  {
+                    "type": "directory",
+                    "name": "chatFile",
+                    "path": "miniprogram/components/agent-ui/chatFile",
+                    "children": []
+                  },
+                  {
+                    "type": "directory",
+                    "name": "collapse",
+                    "path": "miniprogram/components/agent-ui/collapse",
+                    "children": []
+                  },
+                  {
+                    "type": "directory",
+                    "name": "customCard",
+                    "path": "miniprogram/components/agent-ui/customCard",
+                    "children": []
+                  },
+                  {
+                    "type": "directory",
+                    "name": "feedback",
+                    "path": "miniprogram/components/agent-ui/feedback",
+                    "children": []
+                  },
+                  {
+                    "type": "directory",
+                    "name": "imgs",
+                    "path": "miniprogram/components/agent-ui/imgs",
+                    "children": []
+                  },
+                  {
+                    "type": "file",
+                    "name": "index.js",
+                    "path": "miniprogram/components/agent-ui/index.js",
+                    "extension": ".js"
+                  },
+                  {
+                    "type": "file",
+                    "name": "index.json",
+                    "path": "miniprogram/components/agent-ui/index.json",
+                    "extension": ".json"
+                  },
+                  {
+                    "type": "file",
+                    "name": "index.wxml",
+                    "path": "miniprogram/components/agent-ui/index.wxml",
+                    "extension": ".wxml"
+                  },
+                  {
+                    "type": "file",
+                    "name": "index.wxss",
+                    "path": "miniprogram/components/agent-ui/index.wxss",
+                    "extension": ".wxss"
+                  },
+                  {
+                    "type": "file",
+                    "name": "md5.js",
+                    "path": "miniprogram/components/agent-ui/md5.js",
+                    "extension": ".js"
+                  },
+                  {
+                    "type": "file",
+                    "name": "tools.js",
+                    "path": "miniprogram/components/agent-ui/tools.js",
+                    "extension": ".js"
+                  },
+                  {
+                    "type": "directory",
+                    "name": "wd-markdown",
+                    "path": "miniprogram/components/agent-ui/wd-markdown",
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "type": "directory",
+                "name": "cloudTipModal",
+                "path": "miniprogram/components/cloudTipModal",
+                "children": [
+                  {
+                    "type": "file",
+                    "name": "index.js",
+                    "path": "miniprogram/components/cloudTipModal/index.js",
+                    "extension": ".js"
+                  },
+                  {
+                    "type": "file",
+                    "name": "index.json",
+                    "path": "miniprogram/components/cloudTipModal/index.json",
+                    "extension": ".json"
+                  },
+                  {
+                    "type": "file",
+                    "name": "index.wxml",
+                    "path": "miniprogram/components/cloudTipModal/index.wxml",
+                    "extension": ".wxml"
+                  },
+                  {
+                    "type": "file",
+                    "name": "index.wxss",
+                    "path": "miniprogram/components/cloudTipModal/index.wxss",
+                    "extension": ".wxss"
+                  }
+                ]
+              },
+              {
+                "type": "directory",
+                "name": "navigation-bar",
+                "path": "miniprogram/components/navigation-bar",
+                "children": [
+                  {
+                    "type": "file",
+                    "name": "navigation-bar.json",
+                    "path": "miniprogram/components/navigation-bar/navigation-bar.json",
+                    "extension": ".json"
+                  },
+                  {
+                    "type": "file",
+                    "name": "navigation-bar.scss",
+                    "path": "miniprogram/components/navigation-bar/navigation-bar.scss",
+                    "extension": ".scss"
+                  },
+                  {
+                    "type": "file",
+                    "name": "navigation-bar.ts",
+                    "path": "miniprogram/components/navigation-bar/navigation-bar.ts",
+                    "extension": ".ts"
+                  },
+                  {
+                    "type": "file",
+                    "name": "navigation-bar.wxml",
+                    "path": "miniprogram/components/navigation-bar/navigation-bar.wxml",
+                    "extension": ".wxml"
+                  }
+                ]
+              },
+              {
+                "type": "directory",
+                "name": "toolCard",
+                "path": "miniprogram/components/toolCard",
+                "children": [
+                  {
+                    "type": "directory",
+                    "name": "business-list",
+                    "path": "miniprogram/components/toolCard/business-list",
+                    "children": []
+                  },
+                  {
+                    "type": "directory",
+                    "name": "food-list",
+                    "path": "miniprogram/components/toolCard/food-list",
+                    "children": []
+                  },
+                  {
+                    "type": "directory",
+                    "name": "map",
+                    "path": "miniprogram/components/toolCard/map",
+                    "children": []
+                  },
+                  {
+                    "type": "directory",
+                    "name": "weather",
+                    "path": "miniprogram/components/toolCard/weather",
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "file",
+            "name": "envList.js",
+            "path": "miniprogram/envList.js",
+            "extension": ".js"
+          },
+          {
+            "type": "directory",
+            "name": "images",
+            "path": "miniprogram/images",
+            "children": [
+              {
+                "type": "file",
+                "name": "ai_example1.png",
+                "path": "miniprogram/images/ai_example1.png",
+                "extension": ".png"
+              },
+              {
+                "type": "file",
+                "name": "ai_example2.png",
+                "path": "miniprogram/images/ai_example2.png",
+                "extension": ".png"
+              },
+              {
+                "type": "file",
+                "name": "arrow.svg",
+                "path": "miniprogram/images/arrow.svg",
+                "extension": ".svg"
+              },
+              {
+                "type": "file",
+                "name": "avatar.png",
+                "path": "miniprogram/images/avatar.png",
+                "extension": ".png"
+              },
+              {
+                "type": "file",
+                "name": "cloud_dev.png",
+                "path": "miniprogram/images/cloud_dev.png",
+                "extension": ".png"
+              },
+              {
+                "type": "file",
+                "name": "copy.svg",
+                "path": "miniprogram/images/copy.svg",
+                "extension": ".svg"
+              },
+              {
+                "type": "file",
+                "name": "create_cbr.png",
+                "path": "miniprogram/images/create_cbr.png",
+                "extension": ".png"
+              },
+              {
+                "type": "file",
+                "name": "create_cbrf.png",
+                "path": "miniprogram/images/create_cbrf.png",
+                "extension": ".png"
+              },
+              {
+                "type": "file",
+                "name": "create_env.png",
+                "path": "miniprogram/images/create_env.png",
+                "extension": ".png"
+              },
+              {
+                "type": "file",
+                "name": "database.png",
+                "path": "miniprogram/images/database.png",
+                "extension": ".png"
+              },
+              {
+                "type": "file",
+                "name": "database_add.png",
+                "path": "miniprogram/images/database_add.png",
+                "extension": ".png"
+              },
+              {
+                "type": "file",
+                "name": "default-goods-image.png",
+                "path": "miniprogram/images/default-goods-image.png",
+                "extension": ".png"
+              },
+              {
+                "type": "file",
+                "name": "env-select.png",
+                "path": "miniprogram/images/env-select.png",
+                "extension": ".png"
+              },
+              {
+                "type": "file",
+                "name": "function_deploy.png",
+                "path": "miniprogram/images/function_deploy.png",
+                "extension": ".png"
+              },
+              {
+                "type": "directory",
+                "name": "icons",
+                "path": "miniprogram/images/icons",
+                "children": [
+                  {
+                    "type": "file",
+                    "name": "avatar.png",
+                    "path": "miniprogram/images/icons/avatar.png",
+                    "extension": ".png"
+                  },
+                  {
+                    "type": "file",
+                    "name": "business-active.png",
+                    "path": "miniprogram/images/icons/business-active.png",
+                    "extension": ".png"
+                  },
+                  {
+                    "type": "file",
+                    "name": "business.png",
+                    "path": "miniprogram/images/icons/business.png",
+                    "extension": ".png"
+                  },
+                  {
+                    "type": "file",
+                    "name": "close.png",
+                    "path": "miniprogram/images/icons/close.png",
+                    "extension": ".png"
+                  },
+                  {
+                    "type": "file",
+                    "name": "copy.png",
+                    "path": "miniprogram/images/icons/copy.png",
+                    "extension": ".png"
+                  },
+                  {
+                    "type": "file",
+                    "name": "customer-service.svg",
+                    "path": "miniprogram/images/icons/customer-service.svg",
+                    "extension": ".svg"
+                  },
+                  {
+                    "type": "file",
+                    "name": "examples-active.png",
+                    "path": "miniprogram/images/icons/examples-active.png",
+                    "extension": ".png"
+                  },
+                  {
+                    "type": "file",
+                    "name": "examples.png",
+                    "path": "miniprogram/images/icons/examples.png",
+                    "extension": ".png"
+                  },
+                  {
+                    "type": "file",
+                    "name": "goods-active.png",
+                    "path": "miniprogram/images/icons/goods-active.png",
+                    "extension": ".png"
+                  },
+                  {
+                    "type": "file",
+                    "name": "goods.png",
+                    "path": "miniprogram/images/icons/goods.png",
+                    "extension": ".png"
+                  },
+                  {
+                    "type": "file",
+                    "name": "home-active.png",
+                    "path": "miniprogram/images/icons/home-active.png",
+                    "extension": ".png"
+                  },
+                  {
+                    "type": "file",
+                    "name": "home.png",
+                    "path": "miniprogram/images/icons/home.png",
+                    "extension": ".png"
+                  },
+                  {
+                    "type": "file",
+                    "name": "question.svg",
+                    "path": "miniprogram/images/icons/question.svg",
+                    "extension": ".svg"
+                  },
+                  {
+                    "type": "file",
+                    "name": "setting.svg",
+                    "path": "miniprogram/images/icons/setting.svg",
+                    "extension": ".svg"
+                  },
+                  {
+                    "type": "file",
+                    "name": "share.svg",
+                    "path": "miniprogram/images/icons/share.svg",
+                    "extension": ".svg"
+                  },
+                  {
+                    "type": "file",
+                    "name": "usercenter-active.png",
+                    "path": "miniprogram/images/icons/usercenter-active.png",
+                    "extension": ".png"
+                  },
+                  {
+                    "type": "file",
+                    "name": "usercenter.png",
+                    "path": "miniprogram/images/icons/usercenter.png",
+                    "extension": ".png"
+                  }
+                ]
+              },
+              {
+                "type": "file",
+                "name": "scf-enter.png",
+                "path": "miniprogram/images/scf-enter.png",
+                "extension": ".png"
+              }
+            ]
+          },
+          {
+            "type": "directory",
+            "name": "imgs",
+            "path": "miniprogram/imgs",
+            "children": [
+              {
+                "type": "file",
+                "name": "arrow.png",
+                "path": "miniprogram/imgs/arrow.png",
+                "extension": ".png"
+              },
+              {
+                "type": "file",
+                "name": "back.svg",
+                "path": "miniprogram/imgs/back.svg",
+                "extension": ".svg"
+              }
+            ]
+          },
+          {
+            "type": "file",
+            "name": "package.json",
+            "path": "miniprogram/package.json",
+            "extension": ".json"
+          },
+          {
+            "type": "directory",
+            "name": "pages",
+            "path": "miniprogram/pages",
+            "children": [
+              {
+                "type": "directory",
+                "name": "chatBot",
+                "path": "miniprogram/pages/chatBot",
+                "children": [
+                  {
+                    "type": "file",
+                    "name": "chatBot.js",
+                    "path": "miniprogram/pages/chatBot/chatBot.js",
+                    "extension": ".js"
+                  },
+                  {
+                    "type": "file",
+                    "name": "chatBot.json",
+                    "path": "miniprogram/pages/chatBot/chatBot.json",
+                    "extension": ".json"
+                  },
+                  {
+                    "type": "file",
+                    "name": "chatBot.wxml",
+                    "path": "miniprogram/pages/chatBot/chatBot.wxml",
+                    "extension": ".wxml"
+                  },
+                  {
+                    "type": "file",
+                    "name": "chatBot.wxss",
+                    "path": "miniprogram/pages/chatBot/chatBot.wxss",
+                    "extension": ".wxss"
+                  }
+                ]
+              },
+              {
+                "type": "directory",
+                "name": "example",
+                "path": "miniprogram/pages/example",
+                "children": [
+                  {
+                    "type": "file",
+                    "name": "index.js",
+                    "path": "miniprogram/pages/example/index.js",
+                    "extension": ".js"
+                  },
+                  {
+                    "type": "file",
+                    "name": "index.json",
+                    "path": "miniprogram/pages/example/index.json",
+                    "extension": ".json"
+                  },
+                  {
+                    "type": "file",
+                    "name": "index.wxml",
+                    "path": "miniprogram/pages/example/index.wxml",
+                    "extension": ".wxml"
+                  },
+                  {
+                    "type": "file",
+                    "name": "index.wxss",
+                    "path": "miniprogram/pages/example/index.wxss",
+                    "extension": ".wxss"
+                  }
+                ]
+              },
+              {
+                "type": "directory",
+                "name": "foodBuy",
+                "path": "miniprogram/pages/foodBuy",
+                "children": [
+                  {
+                    "type": "file",
+                    "name": "foodBuy.js",
+                    "path": "miniprogram/pages/foodBuy/foodBuy.js",
+                    "extension": ".js"
+                  },
+                  {
+                    "type": "file",
+                    "name": "foodBuy.json",
+                    "path": "miniprogram/pages/foodBuy/foodBuy.json",
+                    "extension": ".json"
+                  },
+                  {
+                    "type": "file",
+                    "name": "foodBuy.wxml",
+                    "path": "miniprogram/pages/foodBuy/foodBuy.wxml",
+                    "extension": ".wxml"
+                  },
+                  {
+                    "type": "file",
+                    "name": "foodBuy.wxss",
+                    "path": "miniprogram/pages/foodBuy/foodBuy.wxss",
+                    "extension": ".wxss"
+                  }
+                ]
+              },
+              {
+                "type": "directory",
+                "name": "index",
+                "path": "miniprogram/pages/index",
+                "children": [
+                  {
+                    "type": "file",
+                    "name": "index.js",
+                    "path": "miniprogram/pages/index/index.js",
+                    "extension": ".js"
+                  },
+                  {
+                    "type": "file",
+                    "name": "index.json",
+                    "path": "miniprogram/pages/index/index.json",
+                    "extension": ".json"
+                  },
+                  {
+                    "type": "file",
+                    "name": "index.scss",
+                    "path": "miniprogram/pages/index/index.scss",
+                    "extension": ".scss"
+                  },
+                  {
+                    "type": "file",
+                    "name": "index.ts",
+                    "path": "miniprogram/pages/index/index.ts",
+                    "extension": ".ts"
+                  },
+                  {
+                    "type": "file",
+                    "name": "index.wxml",
+                    "path": "miniprogram/pages/index/index.wxml",
+                    "extension": ".wxml"
+                  },
+                  {
+                    "type": "file",
+                    "name": "index.wxss",
+                    "path": "miniprogram/pages/index/index.wxss",
+                    "extension": ".wxss"
+                  }
+                ]
+              },
+              {
+                "type": "directory",
+                "name": "logs",
+                "path": "miniprogram/pages/logs",
+                "children": [
+                  {
+                    "type": "file",
+                    "name": "logs.json",
+                    "path": "miniprogram/pages/logs/logs.json",
+                    "extension": ".json"
+                  },
+                  {
+                    "type": "file",
+                    "name": "logs.scss",
+                    "path": "miniprogram/pages/logs/logs.scss",
+                    "extension": ".scss"
+                  },
+                  {
+                    "type": "file",
+                    "name": "logs.ts",
+                    "path": "miniprogram/pages/logs/logs.ts",
+                    "extension": ".ts"
+                  },
+                  {
+                    "type": "file",
+                    "name": "logs.wxml",
+                    "path": "miniprogram/pages/logs/logs.wxml",
+                    "extension": ".wxml"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "file",
+            "name": "sitemap.json",
+            "path": "miniprogram/sitemap.json",
+            "extension": ".json"
+          },
+          {
+            "type": "directory",
+            "name": "utils",
+            "path": "miniprogram/utils",
+            "children": [
+              {
+                "type": "file",
+                "name": "util.ts",
+                "path": "miniprogram/utils/util.ts",
+                "extension": ".ts"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "file",
+        "name": "package-lock.json",
+        "path": "package-lock.json",
+        "extension": ".json"
+      },
+      {
+        "type": "file",
+        "name": "package.json",
+        "path": "package.json",
+        "extension": ".json"
+      },
+      {
+        "type": "file",
+        "name": "project.config.json",
+        "path": "project.config.json",
+        "extension": ".json"
+      },
+      {
+        "type": "file",
+        "name": "project.private.config.json",
+        "path": "project.private.config.json",
+        "extension": ".json"
+      },
+      {
+        "type": "directory",
+        "name": "scripts",
+        "path": "scripts",
+        "children": [
+          {
+            "type": "file",
+            "name": "sync-docs.js",
+            "path": "scripts/sync-docs.js",
+            "extension": ".js"
+          }
+        ]
+      },
+      {
+        "type": "file",
+        "name": "tsconfig.json",
+        "path": "tsconfig.json",
+        "extension": ".json"
+      },
+      {
+        "type": "directory",
+        "name": "typings",
+        "path": "typings",
+        "children": [
+          {
+            "type": "file",
+            "name": "index.d.ts",
+            "path": "typings/index.d.ts",
+            "extension": ".ts"
+          },
+          {
+            "type": "directory",
+            "name": "types",
+            "path": "typings/types",
+            "children": [
+              {
+                "type": "file",
+                "name": "index.d.ts",
+                "path": "typings/types/index.d.ts",
+                "extension": ".ts"
+              },
+              {
+                "type": "directory",
+                "name": "wx",
+                "path": "typings/types/wx",
+                "children": [
+                  {
+                    "type": "file",
+                    "name": "index.d.ts",
+                    "path": "typings/types/wx/index.d.ts",
+                    "extension": ".ts"
+                  },
+                  {
+                    "type": "file",
+                    "name": "lib.wx.api.d.ts",
+                    "path": "typings/types/wx/lib.wx.api.d.ts",
+                    "extension": ".ts"
+                  },
+                  {
+                    "type": "file",
+                    "name": "lib.wx.app.d.ts",
+                    "path": "typings/types/wx/lib.wx.app.d.ts",
+                    "extension": ".ts"
+                  },
+                  {
+                    "type": "file",
+                    "name": "lib.wx.behavior.d.ts",
+                    "path": "typings/types/wx/lib.wx.behavior.d.ts",
+                    "extension": ".ts"
+                  },
+                  {
+                    "type": "file",
+                    "name": "lib.wx.cloud.d.ts",
+                    "path": "typings/types/wx/lib.wx.cloud.d.ts",
+                    "extension": ".ts"
+                  },
+                  {
+                    "type": "file",
+                    "name": "lib.wx.component.d.ts",
+                    "path": "typings/types/wx/lib.wx.component.d.ts",
+                    "extension": ".ts"
+                  },
+                  {
+                    "type": "file",
+                    "name": "lib.wx.event.d.ts",
+                    "path": "typings/types/wx/lib.wx.event.d.ts",
+                    "extension": ".ts"
+                  },
+                  {
+                    "type": "file",
+                    "name": "lib.wx.page.d.ts",
+                    "path": "typings/types/wx/lib.wx.page.d.ts",
+                    "extension": ".ts"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "file",
+        "name": "uploadCloudFunction.sh",
+        "path": "uploadCloudFunction.sh",
+        "extension": ".sh"
+      },
+      {
+        "type": "file",
+        "name": "userinput.py",
+        "path": "userinput.py",
+        "extension": ".py"
+      }
+    ],
+    "dependencies": [],
+    "devDependencies": [
+      "miniprogram-api-typings"
+    ]
+  },
+  "suggestions": {
+    "performance": [
+      "启用小程序分包加载，减少首次加载时间",
+      "使用图片懒加载和压缩优化",
+      "实现数据缓存策略，减少网络请求",
+      "优化云函数冷启动时间"
+    ],
+    "architecture": [
+      "考虑引入状态管理库（如 MobX 或 Pinia for MP）",
+      "实现组件化开发，提高代码复用性",
+      "建立统一的 API 请求封装",
+      "实现错误边界和异常处理机制"
+    ],
+    "tooling": [
+      "配置 Webpack 或 Vite 进行模块打包优化",
+      "添加单元测试和 E2E 测试",
+      "配置 Prettier 进行代码格式化",
+      "使用 Husky 添加 Git hooks"
+    ],
+    "security": [
+      "实现 API 请求签名验证",
+      "添加敏感数据加密存储",
+      "配置 HTTPS 和 SSL 证书",
+      "实现用户权限控制"
+    ],
+    "maintenance": [
+      "建立 CI/CD 自动化部署流程",
+      "配置代码质量监控",
+      "实现日志收集和错误监控",
+      "建立版本管理和发布流程"
+    ]
+  },
+  "summary": {
+    "totalFiles": 199,
+    "techStack": [
+      "typescript",
+      "sass",
+      "cloud-development",
+      "serverless",
+      "database",
+      "storage"
+    ],
+    "optimizationPriority": [
+      "performance",
+      "tooling",
+      "security",
+      "maintenance"
+    ]
+  }
+}

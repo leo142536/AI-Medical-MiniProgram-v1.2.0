@@ -1,35 +1,60 @@
-module.exports = [
+import js from '@eslint/js';
+import typescript from '@typescript-eslint/eslint-plugin';
+import typescriptParser from '@typescript-eslint/parser';
+
+export default [
+  js.configs.recommended,
   {
-    ignores: ['node_modules/**', 'cloudfunctions/quickstartFunctions/node_modules/**'],
+    files: ['**/*.ts', '**/*.js'],
     languageOptions: {
-      ecmaVersion: 2021,
-      sourceType: 'module',
+      parser: typescriptParser,
+      parserOptions: {
+        ecmaVersion: 2022,
+        sourceType: 'module',
+      },
       globals: {
         wx: 'readonly',
         App: 'readonly',
         Page: 'readonly',
-        getApp: 'readonly',
         Component: 'readonly',
-        requirePlugin: 'readonly',
-        window: 'readonly',
-        document: 'readonly',
+        getApp: 'readonly',
+        getCurrentPages: 'readonly',
         console: 'readonly',
-        module: 'writable',
+        module: 'readonly',
         require: 'readonly',
-        process: 'readonly',
-        setTimeout: 'readonly',
-        clearTimeout: 'readonly',
-        setInterval: 'readonly',
-        clearInterval: 'readonly'
-      }
+      },
     },
-    plugins: {},
+    plugins: {
+      '@typescript-eslint': typescript,
+    },
     rules: {
-      'no-unused-vars': 'warn',
+      // TypeScript规则
+      '@typescript-eslint/no-unused-vars': 'warn',
+      '@typescript-eslint/explicit-function-return-type': 'off',
+      '@typescript-eslint/no-explicit-any': 'warn',
+      
+      // 微信小程序特定规则
       'no-undef': 'error',
-      'semi': ['error', 'always'],
+      'no-unused-vars': 'off', // 使用TS版本
+      'prefer-const': 'error',
+      'no-var': 'error',
+      
+      // 代码风格
+      'indent': ['error', 2],
       'quotes': ['error', 'single'],
-      'no-console': 'off'
-    }
-  }
+      'semi': ['error', 'always'],
+      'comma-dangle': ['error', 'always-multiline'],
+      
+      // 最佳实践
+      'eqeqeq': 'error',
+      'no-console': 'warn',
+      'no-debugger': 'error',
+    },
+  },
+  {
+    files: ['**/*.wxml'],
+    rules: {
+      // WXML特定规则可以通过插件扩展
+    },
+  },
 ]; 

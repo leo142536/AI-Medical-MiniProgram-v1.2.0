@@ -1,0 +1,219 @@
+<!-- pages/home/home-optimized.wxml - 优化后的首页 -->
+<view class="container">
+  <!-- 用户信息区域 - 优化后 -->
+  <view class="user-section-modern">
+    <view class="user-card">
+      <view class="user-avatar">
+        <image 
+          class="avatar-modern avatar-large" 
+          src="{{userInfo.avatarUrl || '/images/default-avatar.png'}}" 
+          mode="aspectFill"
+        />
+        <view class="status-indicator status-online"></view>
+      </view>
+      <view class="user-info">
+        <text class="greeting text-xl">{{timeGreeting}}</text>
+        <text class="user-name text-2xl">{{userInfo.nickName || '用户'}}</text>
+        <view class="weather-info">
+          <text class="weather text-sm">{{weather || '获取天气中...'}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 快捷操作区域 - 优化后 -->
+  <view class="quick-actions-modern">
+    <view class="actions-grid grid-3">
+      <view 
+        class="action-item-modern touchable" 
+        wx:for="{{quickActions}}" 
+        wx:key="id"
+        data-id="{{item.id}}"
+        data-path="{{item.path}}"
+        bindtap="onQuickActionTap"
+      >
+        <view class="action-icon-modern">
+          <text class="action-icon-text">{{item.icon}}</text>
+        </view>
+        <text class="action-title text-sm">{{item.title}}</text>
+        <view class="action-badge" wx:if="{{item.badge}}">
+          <text class="badge">{{item.badge}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 统计概览卡片 - 新增 -->
+  <view class="stats-section">
+    <view class="stats-grid grid-2">
+      <view class="stat-card card-modern touchable-card">
+        <view class="stat-icon">📊</view>
+        <view class="stat-info">
+          <text class="stat-number text-xl">{{totalRecords || 0}}</text>
+          <text class="stat-label text-xs">病历记录</text>
+        </view>
+      </view>
+      <view class="stat-card card-modern touchable-card">
+        <view class="stat-icon">👥</view>
+        <view class="stat-info">
+          <text class="stat-number text-xl">{{familyMembers.length || 0}}</text>
+          <text class="stat-label text-xs">家庭成员</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 家庭成员区域 - 优化后 -->
+  <view class="section-modern family-section">
+    <view class="section-header-modern">
+      <text class="section-title text-lg">家庭成员</text>
+      <view class="header-actions">
+        <view class="action-btn-modern add-btn" bindtap="onAddFamilyMember">
+          <text class="btn-icon">+</text>
+        </view>
+        <view class="action-btn-modern delete-btn" bindtap="onToggleDeleteMode">
+          <text class="btn-icon">{{isDeleteMode ? '✓' : '−'}}</text>
+        </view>
+        <text class="section-more text-sm touchable" bindtap="onViewMoreFamily">查看全部</text>
+      </view>
+    </view>
+    
+    <scroll-view class="member-scroll-modern" scroll-x="true">
+      <view class="member-list-modern">
+        <view 
+          class="member-card-modern {{isDeleteMode ? 'delete-mode' : ''}}" 
+          wx:for="{{familyMembers}}" 
+          wx:key="id"
+          data-id="{{item.id}}"
+          bindtap="onFamilyMemberTap"
+        >
+          <view class="member-avatar-container">
+            <image 
+              class="avatar-modern avatar-medium" 
+              src="{{item.avatar || '/images/default-avatar.png'}}" 
+              mode="aspectFill"
+            />
+            <view class="member-relation-badge">
+              <text class="tag tag-primary">{{item.relation}}</text>
+            </view>
+            <!-- 删除按钮 -->
+            <view 
+              wx:if="{{isDeleteMode && item.relation !== '本人'}}" 
+              class="delete-member-btn-modern"
+              data-id="{{item.id}}"
+              data-name="{{item.name}}"
+              bindtap="onDeleteMember"
+            >
+              <text class="delete-icon">×</text>
+            </view>
+          </view>
+          <text class="member-name text-base">{{item.name}}</text>
+          <view class="member-status">
+            <view class="status-indicator {{item.healthStatus === 'good' ? 'status-online' : 'status-warning'}}"></view>
+            <text class="status-text text-xs">{{item.healthStatus === 'good' ? '健康' : '需关注'}}</text>
+          </view>
+        </view>
+        
+        <!-- 添加成员卡片 -->
+        <view class="member-card-modern add-member-card" wx:if="{{familyMembers.length === 0}}" bindtap="onAddFamilyMember">
+          <view class="add-member-content">
+            <view class="add-icon-large">+</view>
+            <text class="add-text text-sm">添加成员</text>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 最近活动时间线 - 优化后 -->
+  <view class="section-modern activity-section" wx:if="{{recentActivities.length > 0}}">
+    <view class="section-header-modern">
+      <text class="section-title text-lg">最近活动</text>
+      <text class="section-more text-sm touchable" bindtap="onViewMoreActivities">查看更多</text>
+    </view>
+    <view class="activity-timeline">
+      <view 
+        class="timeline-item" 
+        wx:for="{{recentActivities}}" 
+        wx:key="id"
+        data-id="{{item.id}}"
+        bindtap="onActivityTap"
+      >
+        <view class="timeline-dot {{item.type}}"></view>
+        <view class="timeline-content card-modern">
+          <view class="activity-header">
+            <text class="activity-title text-base">{{item.title}}</text>
+            <text class="activity-time text-xs">{{item.time}}</text>
+          </view>
+          <text class="activity-desc text-sm">{{item.description}}</text>
+          <view class="activity-meta">
+            <text class="meta-item text-xs">{{item.member}}</text>
+            <view class="meta-tags">
+              <text class="tag tag-{{item.type}}">{{item.typeLabel}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 健康提醒 - 优化后 -->
+  <view class="section-modern reminders-section" wx:if="{{upcomingReminders.length > 0}}">
+    <view class="section-header-modern">
+      <text class="section-title text-lg">健康提醒</text>
+      <text class="section-more text-sm touchable" bindtap="onViewMoreReminders">查看更多</text>
+    </view>
+    <view class="reminder-cards">
+      <view 
+        class="reminder-card-modern card-modern" 
+        wx:for="{{upcomingReminders}}" 
+        wx:key="id"
+        data-id="{{item.id}}"
+        bindtap="onReminderTap"
+      >
+        <view class="reminder-header">
+          <view class="reminder-icon {{item.type}}">
+            <text>{{item.type === 'medical' ? '🏥' : '💊'}}</text>
+          </view>
+          <view class="reminder-priority">
+            <view class="priority-indicator priority-{{item.priority}}"></view>
+          </view>
+        </view>
+        <view class="reminder-content">
+          <text class="reminder-title text-base">{{item.title}}</text>
+          <text class="reminder-desc text-sm">{{item.description}}</text>
+          <view class="reminder-meta">
+            <text class="meta-member text-xs">{{item.member}}</text>
+            <text class="meta-time text-xs">{{item.time}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 - 优化后 -->
+  <view class="empty-state-modern" wx:if="{{!hasData}}">
+    <view class="empty-animation">
+      <text class="empty-icon">🏥</text>
+    </view>
+    <text class="empty-title">欢迎使用AI病例管理</text>
+    <text class="empty-desc">开始管理您的家庭健康信息，享受智能化的健康管理体验</text>
+    <view class="empty-actions">
+      <button class="btn-modern btn-modern-primary" bindtap="onStartUse">开始使用</button>
+      <button class="btn-modern btn-modern-secondary" bindtap="onViewDemo">查看演示</button>
+    </view>
+  </view>
+
+  <!-- 浮动操作按钮 -->
+  <view class="fab" bindtap="onFabTap">
+    <text class="fab-icon">+</text>
+  </view>
+
+  <!-- 加载状态 -->
+  <view class="loading-overlay" wx:if="{{isLoading}}">
+    <view class="loading-container">
+      <view class="loading-spinner"></view>
+      <text class="loading-text text-sm">加载中...</text>
+    </view>
+  </view>
+</view> 

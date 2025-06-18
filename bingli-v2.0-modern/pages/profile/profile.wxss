@@ -1,0 +1,242 @@
+/* pages/profile/profile.wxss */
+.profile-container {
+  background-color: #f7f7f7;
+  min-height: 100vh;
+  padding: 20rpx;
+}
+
+/* 用户信息卡片 */
+.user-card {
+  background: linear-gradient(135deg, #07C160, #06B050);
+  border-radius: 16rpx;
+  padding: 40rpx 30rpx;
+  display: flex;
+  align-items: center;
+  margin-bottom: 24rpx;
+  position: relative;
+  box-shadow: 0 8rpx 24rpx rgba(7, 193, 96, 0.3);
+}
+
+.user-avatar {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 60rpx;
+  overflow: hidden;
+  border: 4rpx solid rgba(255, 255, 255, 0.3);
+  margin-right: 24rpx;
+}
+
+.avatar-image {
+  width: 100%;
+  height: 100%;
+}
+
+.user-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+
+.user-name {
+  font-size: 36rpx;
+  font-weight: 600;
+  color: #fff;
+}
+
+.user-role {
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 4rpx 12rpx;
+  border-radius: 12rpx;
+  align-self: flex-start;
+}
+
+.family-name {
+  font-size: 28rpx;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.edit-btn {
+  background-color: rgba(255, 255, 255, 0.2);
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 32rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2rpx solid rgba(255, 255, 255, 0.3);
+}
+
+.edit-icon {
+  font-size: 28rpx;
+}
+
+/* 统计区域 */
+.stats-section {
+  margin-bottom: 24rpx;
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 16rpx;
+  display: block;
+}
+
+.stats-grid {
+  background-color: #fff;
+  border-radius: 12rpx;
+  padding: 32rpx 20rpx;
+  display: flex;
+  justify-content: space-around;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.08);
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8rpx;
+}
+
+.stat-number {
+  font-size: 48rpx;
+  font-weight: 700;
+  color: #07C160;
+}
+
+.stat-label {
+  font-size: 24rpx;
+  color: #666;
+}
+
+/* 设置区域 */
+.settings-section {
+  margin-bottom: 24rpx;
+}
+
+.settings-list {
+  background-color: #fff;
+  border-radius: 12rpx;
+  overflow: hidden;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.08);
+}
+
+.setting-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+  transition: background-color 0.2s ease;
+}
+
+.setting-item:last-child {
+  border-bottom: none;
+}
+
+.setting-item:active {
+  background-color: #f8f8f8;
+}
+
+.setting-left {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.setting-icon {
+  font-size: 32rpx;
+  margin-right: 20rpx;
+  width: 48rpx;
+  text-align: center;
+}
+
+.setting-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4rpx;
+}
+
+.setting-title {
+  font-size: 30rpx;
+  color: #333;
+  font-weight: 500;
+}
+
+.setting-desc {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.setting-arrow {
+  font-size: 28rpx;
+  color: #ccc;
+  font-weight: bold;
+}
+
+/* 操作按钮区域 */
+.action-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+  margin-bottom: 40rpx;
+}
+
+.contact-btn,
+.logout-btn {
+  background-color: #fff;
+  border: none;
+  border-radius: 12rpx;
+  padding: 24rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12rpx;
+  font-size: 30rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.08);
+}
+
+.contact-btn {
+  color: #07C160;
+  border: 2rpx solid #07C160;
+}
+
+.contact-btn:active {
+  background-color: #f0fff4;
+}
+
+.logout-btn {
+  color: #ff4757;
+  border: 2rpx solid #ff4757;
+}
+
+.logout-btn:active {
+  background-color: #fff5f5;
+}
+
+.btn-icon {
+  font-size: 32rpx;
+}
+
+/* 版本信息 */
+.version-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8rpx;
+  padding: 20rpx;
+}
+
+.version-text {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.copyright {
+  font-size: 20rpx;
+  color: #ccc;
+} 

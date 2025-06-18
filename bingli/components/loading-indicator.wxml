@@ -1,0 +1,48 @@
+<!-- 
+  现代化加载指示器组件
+  参考: TDesign Mini Program、WeUI、Ant Design Mini
+  支持多种加载样式和状态
+-->
+<view class="loading-container {{extClass}}" style="{{displayStyle}}">
+  
+  <!-- 圆点加载动画 -->
+  <view wx:if="{{type === 'dots'}}" class="loading-dots">
+    <view class="dot dot-1"></view>
+    <view class="dot dot-2"></view>
+    <view class="dot dot-3"></view>
+  </view>
+
+  <!-- 旋转圆环加载 -->
+  <view wx:elif="{{type === 'spinner'}}" class="loading-spinner">
+    <view class="spinner-ring"></view>
+  </view>
+
+  <!-- 脉冲加载 -->
+  <view wx:elif="{{type === 'pulse'}}" class="loading-pulse">
+    <view class="pulse-circle"></view>
+  </view>
+
+  <!-- 骨架屏加载 -->
+  <view wx:elif="{{type === 'skeleton'}}" class="loading-skeleton">
+    <view class="skeleton-line skeleton-line-1"></view>
+    <view class="skeleton-line skeleton-line-2"></view>
+    <view class="skeleton-line skeleton-line-3"></view>
+  </view>
+
+  <!-- 波浪加载 -->
+  <view wx:elif="{{type === 'wave'}}" class="loading-wave">
+    <view class="wave-bar wave-bar-1"></view>
+    <view class="wave-bar wave-bar-2"></view>
+    <view class="wave-bar wave-bar-3"></view>
+    <view class="wave-bar wave-bar-4"></view>
+    <view class="wave-bar wave-bar-5"></view>
+  </view>
+
+  <!-- 默认转圈加载 -->
+  <view wx:else class="loading-default">
+    <view class="default-spinner"></view>
+  </view>
+
+  <!-- 加载文字 -->
+  <view wx:if="{{text}}" class="loading-text {{textClass}}">{{text}}</view>
+</view> 
